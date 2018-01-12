@@ -7,6 +7,9 @@
 
 package org.usfirst.frc.team4188.robot;
 
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
@@ -39,4 +42,36 @@ public class OI {
 	// Start the command when the button is released and let it run the command
 	// until it is finished as determined by it's isFinished method.
 	// button.whenReleased(new ExampleCommand());
+	public XboxController pilotXboxController = new XboxController(0);
+	
+	public JoystickButton pilot1;
+	public JoystickButton pilot2;
+	public JoystickButton pilot3;
+	public JoystickButton pilot4;
+	public JoystickButton pilot5;
+	public JoystickButton pilot6;
+	public JoystickButton pilot7;
+	public JoystickButton pilot8;
+	public JoystickButton pilot9;
+	public JoystickButton pilot10;
+	public JoystickButton pilot11;
+	public JoystickButton pilot12;
+	
+	public OI(){
+	
+
+	pilot1 = new JoystickButton(pilotXboxController, 1);
+    pilot2 = new JoystickButton(pilotXboxController, 2);
+    pilot3 = new JoystickButton(pilotXboxController, 3);
+    pilot4 = new JoystickButton(pilotXboxController, 4);
+    pilot5 = new JoystickButton(pilotXboxController, 5);
+    pilot6 = new JoystickButton(pilotXboxController, 6);
+    pilot7 = new JoystickButton(pilotXboxController, 7);
+    pilot8 = new JoystickButton(pilotXboxController, 8);
+    pilot9 = new JoystickButton(pilotXboxController, 9);
+    pilot10 = new JoystickButton(pilotXboxController, 10);
+    pilot11 = new JoystickButton(pilotXboxController, 11);
+    pilot12 = new JoystickButton(pilotXboxController, 12);
+    }
+
 }
