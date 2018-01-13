@@ -26,16 +26,18 @@ public class AutoDriveDistanceBased extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	
+    	Robot.m_pidDriveTrain.enable();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return Robot.m_pidDriveTrain.onTarget();
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.m_pidDriveTrain.disable();
+    	Robot.m_pidDriveTrain.free();
     }
 
     // Called when another command which requires one or more of the same

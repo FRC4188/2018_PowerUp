@@ -21,7 +21,7 @@ public class AutoDriveTimeBased extends Command {
     public AutoDriveTimeBased(double moveValue, double rotateValue, double timerValue) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.m_driveTrain);
+    	requires(Robot.m_pidDriveTrain);
     	
     	moveDirection = moveValue;
     	rotation = rotateValue;
@@ -33,7 +33,7 @@ public class AutoDriveTimeBased extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.m_driveTrain.resetEncoders();
+    	Robot.m_pidDriveTrain.resetEncoders();
     	timer = new Timer();
     	isTimerStartedYet = false;
     	doneYet = false;
@@ -49,11 +49,11 @@ public class AutoDriveTimeBased extends Command {
     	
     	else{
     		if(timer.get() < this.timerValue) {
-    		Robot.m_driveTrain.autoDrive(moveDirection, rotation); //negative means it goes right
+    		Robot.m_pidDriveTrain.autoDrive(moveDirection, rotation); //negative means it goes right
     		
     		}
     		else{
-    			Robot.m_driveTrain.autoDrive(0, 0);
+    			Robot.m_pidDriveTrain.autoDrive(0, 0);
     			doneYet = true;
     		}
     	}

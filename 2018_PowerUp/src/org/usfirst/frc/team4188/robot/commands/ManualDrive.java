@@ -16,7 +16,7 @@ XboxController pilotXboxController = Robot.m_oi.pilotXboxController;
     public ManualDrive() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.m_driveTrain);
+    	requires(Robot.m_pidDriveTrain);
     }
 
     // Called just before this Command runs the first time
@@ -41,7 +41,7 @@ XboxController pilotXboxController = Robot.m_oi.pilotXboxController;
     	
     	
     	
-    	Robot.m_driveTrain.arcadeDrive(pilotXboxController.getY(Hand.kLeft), -pilotXboxController.getX(Hand.kRight)*rotateConstant, 1.0);
+    	Robot.m_pidDriveTrain.arcadeDrive(pilotXboxController.getY(Hand.kLeft), -pilotXboxController.getX(Hand.kRight)*rotateConstant, 1.0);
     	
     }
 

@@ -60,13 +60,14 @@ public class RobotMap {
 		
 		leftSet = new SpeedControllerGroup(frontLeft, midLeft, rearLeft);
 		rightSet = new SpeedControllerGroup(frontRight, midRight, rearRight);
+		
 		driveTrain = new CSPRobotDrive(leftSet, rightSet);
+		driveTrain.setSafetyEnabled(false);
+		driveTrain.setExpiration(0.1);
+		driveTrain.setSensitivity(0.5);
+		driveTrain.setMaxOutput(1.0);
 		
 		gyro = new AnalogGyro(1);
-		
-		
-		
-		
 		
 		
 	}

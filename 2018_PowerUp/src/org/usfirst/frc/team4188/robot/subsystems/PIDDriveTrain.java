@@ -2,6 +2,7 @@ package org.usfirst.frc.team4188.robot.subsystems;
 
 import org.usfirst.frc.team4188.robot.CSPRobotDrive;
 import org.usfirst.frc.team4188.robot.RobotMap;
+import org.usfirst.frc.team4188.robot.commands.ManualDrive;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -9,6 +10,7 @@ import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -38,23 +40,22 @@ public class PIDDriveTrain extends PIDSubsystem {
     	setAbsoluteTolerance(1.0);
     }
     
-
-    
-    public void setRampRate(double rampRate) {
-    	frontLeft.configClosedloopRamp(rampRate, 0);
-    	midLeft.configClosedloopRamp(rampRate, 0);
-    	rearLeft.configClosedloopRamp(rampRate, 0);
-    	frontRight.configClosedloopRamp(rampRate, 0);
-    	midRight.configClosedloopRamp(rampRate, 0);
-    	rearRight.configClosedloopRamp(rampRate, 0);
+    public void setOpenloopRampRate(double rampRate) {
+    	frontLeft.configOpenloopRamp(rampRate, 0);
+    	midLeft.configOpenloopRamp(rampRate, 0);
+    	rearLeft.configOpenloopRamp(rampRate, 0);
+    	frontRight.configOpenloopRamp(rampRate, 0);
+    	midRight.configOpenloopRamp(rampRate, 0);
+    	rearRight.configOpenloopRamp(rampRate, 0);
     }
     
-    public void runPIDLoop() {
-    	getPIDController().enable();
-    	if(getPIDController().onTarget()) {
-    		getPIDController().disable();
-    		getPIDController().free();
-    	}
+    public void enableCurrentLimit() {
+    	frontLeft.enableCurrentLimit(true);
+    	midLeft.enableCurrentLimit(true);
+    	rearLeft.enableCurrentLimit(true);
+    	frontRight.enableCurrentLimit(true);
+    	midRight.enableCurrentLimit(true);
+    	rearRight.enableCurrentLimit(true);
     }
     
     
@@ -62,6 +63,7 @@ public class PIDDriveTrain extends PIDSubsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
+    	setDefaultCommand(new ManualDrive());
     }
     
     public void resetEncoders(){
@@ -78,7 +80,7 @@ public class PIDDriveTrain extends PIDSubsystem {
     protected void usePIDOutput(double output) {
         // Use output to drive your system, like a motor
         // e.g. yourMotor.set(output);
-    	rearRight.pidWrite(output);
+    	rearRight.set(output);
     	frontLeft.follow(rearRight);
     	frontRight.follow(rearRight);
     	rearLeft.follow(rearRight);
@@ -95,6 +97,20 @@ public class PIDDriveTrain extends PIDSubsystem {
 		driveTrain.arcadeDrive(moveValue, rotateValue);
 	}
     
+    public void setClosedloopRamp(double timeToRamp) {
+    	frontLeft.configClosedloopRamp(timeToRamp, 0);
+    	midLeft.configClosedloopRamp(timeToRamp, 0);
+    	rearLeft.configClosedloopRamp(timeToRamp, 0);
+    	frontRight.configClosedloopRamp(timeToRamp, 0);
+    	midRight.configClosedloopRamp(timeToRamp, 0);
+    	rearRight.configClosedloopRamp(timeToRamp, 0);
+    }
+    
+    public double getRightEncoderRotation() {
+    	double rotations = Math.abs(rearRight.getSelectedSensorPosition(0)) * (1/4096);
+    	SmartDashboard.putNumber("Right Encoder Rotation", rotations);
+    	return rotations;
+    }
     
     
     public void gyroReset(){

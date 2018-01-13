@@ -7,7 +7,6 @@
 
 package org.usfirst.frc.team4188.robot;
 
-import org.usfirst.frc.team4188.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4188.robot.subsystems.PIDDriveTrain;
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -26,7 +25,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends TimedRobot {
 	
 	public static OI m_oi;
-	public static DriveTrain m_driveTrain;
+//	public static DriveTrain m_driveTrain;
 	public static PIDDriveTrain m_pidDriveTrain;
 
 	Command m_autonomousCommand;
@@ -38,11 +37,14 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
-		RobotMap.gyro.calibrate();
-		m_oi = new OI();
-		m_driveTrain = new DriveTrain();
-//		m_pidDriveTrain = new PIDDriveTrain(0.0175, 0,0);
 		RobotMap.init();
+		m_pidDriveTrain = new PIDDriveTrain(0,0,0);
+		m_oi = new OI();
+		RobotMap.gyro.calibrate();
+		
+//		m_driveTrain = new DriveTrain();
+		
+		
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
 	}
@@ -105,7 +107,9 @@ public class Robot extends TimedRobot {
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
 
-		Robot.m_pidDriveTrain.setRampRate(0.1);
+		Robot.m_pidDriveTrain.setClosedloopRamp(0.1);
+		//Robot.m_pidDriveTrain.enableCurrentLimit();
+		
 	}
 
 	/**
@@ -114,6 +118,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		Robot.m_pidDriveTrain.getRightEncoderRotation();
 	}
 
 	/**

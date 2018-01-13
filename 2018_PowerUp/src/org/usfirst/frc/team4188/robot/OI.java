@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team4188.robot;
 
+import org.usfirst.frc.team4188.robot.commands.AutoDriveDistanceBased;
+
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
@@ -42,7 +44,7 @@ public class OI {
 	// Start the command when the button is released and let it run the command
 	// until it is finished as determined by it's isFinished method.
 	// button.whenReleased(new ExampleCommand());
-	public XboxController pilotXboxController = new XboxController(0);
+	public XboxController pilotXboxController;
 	
 	public JoystickButton pilot1;
 	public JoystickButton pilot2;
@@ -59,7 +61,7 @@ public class OI {
 	
 	public OI(){
 	
-
+	pilotXboxController = new XboxController(0);
 	pilot1 = new JoystickButton(pilotXboxController, 1);
     pilot2 = new JoystickButton(pilotXboxController, 2);
     pilot3 = new JoystickButton(pilotXboxController, 3);
@@ -72,6 +74,15 @@ public class OI {
     pilot10 = new JoystickButton(pilotXboxController, 10);
     pilot11 = new JoystickButton(pilotXboxController, 11);
     pilot12 = new JoystickButton(pilotXboxController, 12);
-    }
+    
+	pilot1.whenPressed(new AutoDriveDistanceBased(20.0));
+	
+	
+	
+	
+	
+	
+	
+	}
 
 }
