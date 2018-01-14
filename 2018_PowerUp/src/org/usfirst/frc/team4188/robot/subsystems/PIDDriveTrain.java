@@ -16,7 +16,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class PIDDriveTrain extends PIDSubsystem {
+	final double SENSOR_UNITS = 1.0/4096.0;
+	
 
+	
+	public enum PIDInput{
+		gyro,
+		encoder,
+		none
+	}
+	
+	private static PIDInput sensorType;
+	
 	WPI_TalonSRX frontLeft = RobotMap.frontLeft;
 	WPI_TalonSRX midLeft = RobotMap.midLeft;
 	WPI_TalonSRX rearLeft = RobotMap.rearLeft;
@@ -37,8 +48,24 @@ public class PIDDriveTrain extends PIDSubsystem {
         //                  to
         // enable() - Enables the PID controller.
     	super("DriveTrain Encoders", kP, kI, kD);
-    	setAbsoluteTolerance(1.0);
     }
+    
+    public void setPIDInput(PIDInput type) {
+    	sensorType = type;
+    	switch (sensorType) {
+    	case gyro:
+    		SmartDashboard.putString("Current PID Input", "Gyro");
+    		break;
+    	case encoder:
+    		SmartDashboard.putString("Current PID Input", "Rear Right Encoder");
+    		break;
+    	case none:
+    		SmartDashboard.putString("Current PID Input", "None");
+    		break;
+    	}
+    	
+    }
+    
     
     public void setOpenloopRampRate(double rampRate) {
     	frontLeft.configOpenloopRamp(rampRate, 0);
@@ -74,18 +101,48 @@ public class PIDDriveTrain extends PIDSubsystem {
         // Return your input value for the PID loop
         // e.g. a sensor, like a potentiometer:
         // yourPot.getAverageVoltage() / kYourMaxVoltage;
-        return rearRight.getSelectedSensorPosition(0);
+    	switch (sensorType) {
+    	case gyro:
+    		return gyro.getAngle();
+    	
+    	case encoder:
+    		return Math.abs(rearRight.getSelectedSensorPosition(0) * SENSOR_UNITS);
+    	case none:
+    		return -1.0;
+    	default:
+    		return -1.0;
+    	}
+    	
+    	
+       
     }
 
     protected void usePIDOutput(double output) {
         // Use output to drive your system, like a motor
         // e.g. yourMotor.set(output);
-    	rearRight.set(output);
-    	frontLeft.follow(rearRight);
-    	frontRight.follow(rearRight);
-    	rearLeft.follow(rearRight);
-    	midLeft.follow(rearRight);
-    	midRight.follow(rearRight);
+    	switch (sensorType) {
+    	case gyro:
+    		rearRight.set(output);
+    		rearLeft.set(output);
+    		frontLeft.follow(rearLeft);
+    		frontRight.follow(rearRight);
+    		midLeft.follow(rearLeft);
+    		midRight.follow(rearRight);
+    		
+    		break;
+    	case encoder:
+    		rearRight.set(output);
+        	rearLeft.set(-output);
+        	frontLeft.follow(rearLeft);
+        	frontRight.follow(rearRight);
+        	midLeft.follow(rearLeft);
+        	midRight.follow(rearRight);
+        	break;
+    	case none: 
+        	break;
+        		
+    	}
+    	
     }
     
     public void arcadeDrive(double x, double twist, double throttle){
@@ -107,9 +164,21 @@ public class PIDDriveTrain extends PIDSubsystem {
     }
     
     public double getRightEncoderRotation() {
-    	double rotations = Math.abs(rearRight.getSelectedSensorPosition(0)) * (1/4096);
+    	double rotations = rearRight.getSelectedSensorPosition(0) * SENSOR_UNITS;
     	SmartDashboard.putNumber("Right Encoder Rotation", rotations);
     	return rotations;
+    }
+    
+    public double getLeftEncoderRotation() {
+    	double rotations = rearLeft.getSelectedSensorPosition(0) * SENSOR_UNITS;
+    	SmartDashboard.putNumber("Left Encoder Rotation", rotations);
+    	return rotations;
+    }
+    
+    public double getGyroAngle() {
+    	double angle = gyro.getAngle();
+    	SmartDashboard.putNumber("Gyro Angle", angle);
+    	return angle;
     }
     
     

@@ -8,6 +8,7 @@
 package org.usfirst.frc.team4188.robot;
 
 import org.usfirst.frc.team4188.robot.subsystems.PIDDriveTrain;
+import org.usfirst.frc.team4188.robot.subsystems.PIDDriveTrain.PIDInput;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -38,8 +39,9 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		RobotMap.init();
-		m_pidDriveTrain = new PIDDriveTrain(0,0,0);
+		m_pidDriveTrain = new PIDDriveTrain(0.1,0,0);
 		m_oi = new OI();
+		m_pidDriveTrain.setPIDInput(PIDInput.none);
 		RobotMap.gyro.calibrate();
 		
 //		m_driveTrain = new DriveTrain();
@@ -87,6 +89,8 @@ public class Robot extends TimedRobot {
 		 */
 
 		// schedule the autonomous command (example)
+		Robot.m_pidDriveTrain.gyroReset();
+		Robot.m_pidDriveTrain.resetEncoders();
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
 		}
@@ -106,7 +110,8 @@ public class Robot extends TimedRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-
+		Robot.m_pidDriveTrain.resetEncoders();
+		Robot.m_pidDriveTrain.gyroReset();
 		Robot.m_pidDriveTrain.setClosedloopRamp(0.1);
 		//Robot.m_pidDriveTrain.enableCurrentLimit();
 		
@@ -118,7 +123,12 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		SmartDashboard.putData(Robot.m_pidDriveTrain.getPIDController());
+		SmartDashboard.putData("Drive Train", Robot.m_pidDriveTrain);
+		SmartDashboard.putData(RobotMap.gyro);
 		Robot.m_pidDriveTrain.getRightEncoderRotation();
+		Robot.m_pidDriveTrain.getLeftEncoderRotation();
+		
 	}
 
 	/**
@@ -126,5 +136,8 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void testPeriodic() {
+	
+		SmartDashboard.putData("Drive Train", Robot.m_pidDriveTrain);
+	
 	}
 }

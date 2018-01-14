@@ -8,6 +8,7 @@
 package org.usfirst.frc.team4188.robot;
 
 import org.usfirst.frc.team4188.robot.commands.AutoDriveDistanceBased;
+import org.usfirst.frc.team4188.robot.commands.TurnToAngle;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -75,7 +76,8 @@ public class OI {
     pilot11 = new JoystickButton(pilotXboxController, 11);
     pilot12 = new JoystickButton(pilotXboxController, 12);
     
-	pilot1.whenPressed(new AutoDriveDistanceBased(20.0));
+	pilot1.whenPressed(new AutoDriveDistanceBased(5.0,0.1));
+	pilot2.whenPressed(new TurnToAngle(90,1.0));
 	
 	
 	

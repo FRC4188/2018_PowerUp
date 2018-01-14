@@ -8,25 +8,24 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class AutoDriveDistanceBased extends Command {
+public class TurnToAngle extends Command {
 
-	double distance;
-	double tolerance;
-    public AutoDriveDistanceBased(double distance, double tolerance) {
+	public double turnAngle;
+	public double tolerance;
+    public TurnToAngle(double setPoint, double tolerance) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	this.distance = distance;
-    	this.tolerance = tolerance;
     	requires(Robot.m_pidDriveTrain);
+    	this.tolerance = tolerance;
+    	this.turnAngle = setPoint;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.m_pidDriveTrain.setPIDInput(PIDInput.encoder);
-    	Robot.m_pidDriveTrain.resetEncoders();
+    	Robot.m_pidDriveTrain.setPIDInput(PIDInput.gyro);
+    	Robot.m_pidDriveTrain.gyroReset();
     	Robot.m_pidDriveTrain.setAbsoluteTolerance(tolerance);
-    	Robot.m_pidDriveTrain.setSetpoint(distance);
-    	
+    	Robot.m_pidDriveTrain.setSetpoint(turnAngle);
     }
 
     // Called repeatedly when this Command is scheduled to run

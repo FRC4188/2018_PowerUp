@@ -42,6 +42,8 @@ public class RobotMap {
 	
 	public static AnalogGyro gyro;
 	
+	
+	
 	public static void init() {
 		frontLeft = new WPI_TalonSRX(14);
 		midLeft = new WPI_TalonSRX(16);
