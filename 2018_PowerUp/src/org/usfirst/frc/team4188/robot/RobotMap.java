@@ -10,6 +10,7 @@ package org.usfirst.frc.team4188.robot;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 
 /**
@@ -40,7 +41,10 @@ public class RobotMap {
 	
 	public static CSPRobotDrive driveTrain;
 	
+	public static DoubleSolenoid gearShift;
+	
 	public static AnalogGyro gyro;
+	
 	
 	
 	
@@ -70,6 +74,8 @@ public class RobotMap {
 		driveTrain.setMaxOutput(1.0);
 		
 		gyro = new AnalogGyro(1);
+		
+		gearShift = new DoubleSolenoid(0,1);
 		
 		
 	}

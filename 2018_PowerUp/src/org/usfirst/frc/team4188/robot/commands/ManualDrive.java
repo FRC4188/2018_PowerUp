@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4188.robot.commands;
 
 import org.usfirst.frc.team4188.robot.Robot;
+import org.usfirst.frc.team4188.robot.subsystems.PIDDriveTrain.PIDInput;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
@@ -21,6 +22,7 @@ XboxController pilotXboxController = Robot.m_oi.pilotXboxController;
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.m_pidDriveTrain.setPIDInput(PIDInput.none);
     }
 
     // Called repeatedly when this Command is scheduled to run

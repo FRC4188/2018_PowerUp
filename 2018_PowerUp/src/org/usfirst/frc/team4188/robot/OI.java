@@ -12,6 +12,7 @@ import org.usfirst.frc.team4188.robot.commands.TurnToAngle;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -77,8 +78,10 @@ public class OI {
     pilot12 = new JoystickButton(pilotXboxController, 12);
     
 	pilot1.whenPressed(new AutoDriveDistanceBased(5.0,0.1));
+	SmartDashboard.putData("Distance Based PID", new AutoDriveDistanceBased(5.0,0.1));
 	pilot2.whenPressed(new TurnToAngle(90,1.0));
-	
+	SmartDashboard.putData("Turn To Angle PID", new TurnToAngle(90,1.0));
+	 
 	
 	
 	

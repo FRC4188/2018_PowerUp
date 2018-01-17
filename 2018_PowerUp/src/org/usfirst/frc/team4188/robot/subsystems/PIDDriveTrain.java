@@ -7,6 +7,8 @@ import org.usfirst.frc.team4188.robot.commands.ManualDrive;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
@@ -18,7 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class PIDDriveTrain extends PIDSubsystem {
 	final double SENSOR_UNITS = 1.0/4096.0;
 	
-
+	
 	
 	public enum PIDInput{
 		gyro,
@@ -40,14 +42,16 @@ public class PIDDriveTrain extends PIDSubsystem {
 	
 	AnalogGyro gyro = RobotMap.gyro;
 	
+	DoubleSolenoid gearShift = RobotMap.gearShift;
+	
 	CSPRobotDrive driveTrain = RobotMap.driveTrain;
     // Initialize your subsystem here
-    public PIDDriveTrain(double kP, double kI, double kD) {
+    public PIDDriveTrain() {
         // Use these to get going:
         // setSetpoint() -  Sets where the PID controller should move the system
         //                  to
         // enable() - Enables the PID controller.
-    	super("DriveTrain Encoders", kP, kI, kD);
+    	super("DriveTrain Encoders", 0.0,0.0,0.0);
     }
     
     public void setPIDInput(PIDInput type) {
@@ -55,17 +59,27 @@ public class PIDDriveTrain extends PIDSubsystem {
     	switch (sensorType) {
     	case gyro:
     		SmartDashboard.putString("Current PID Input", "Gyro");
+    		setPID(0.085,0.0,0.0);
     		break;
     	case encoder:
     		SmartDashboard.putString("Current PID Input", "Rear Right Encoder");
+    		setPID(0.1,0.0,0.0);
     		break;
     	case none:
     		SmartDashboard.putString("Current PID Input", "None");
+    		setPID(0.0,0.0,0.0);
     		break;
+    		
     	}
     	
     }
     
+    public void setPID(double p, double i, double d) {
+    	getPIDController().setP(p);
+    	getPIDController().setI(i);
+    	getPIDController().setD(d);
+    }
+
     
     public void setOpenloopRampRate(double rampRate) {
     	frontLeft.configOpenloopRamp(rampRate, 0);
@@ -185,6 +199,19 @@ public class PIDDriveTrain extends PIDSubsystem {
     public void gyroReset(){
 		gyro.reset();
 	}
+    
+    public void shiftGearIn() {
+    	gearShift.set(Value.kForward);
+    }
+    
+    public void shiftGearOut() {
+    	gearShift.set(Value.kReverse);
+    }
+    
+    public void shiftGearOff() {
+    	gearShift.set(Value.kOff);
+    }
+    
 }
 
 
