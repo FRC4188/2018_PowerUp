@@ -1,5 +1,8 @@
 package org.usfirst.frc.team4188.robot.commandgroups;
 
+import org.usfirst.frc.team4188.robot.commands.AutoDriveDistanceBased;
+import org.usfirst.frc.team4188.robot.commands.TurnToAngle;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -24,5 +27,7 @@ public class AutonomousTesting extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
+    	addSequential(new AutoDriveDistanceBased(6.0, 0.1));
+    	addSequential(new TurnToAngle(90, 1.0));
     }
 }

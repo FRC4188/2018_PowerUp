@@ -18,7 +18,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class PIDDriveTrain extends PIDSubsystem {
-	final double SENSOR_UNITS = 1.0/4096.0;
+	public final double SENSOR_UNITS = 1.0/4096.0;
+	public final double SENSOR_UNITS_PER_ROTATION = (3600.0/SENSOR_UNITS);
+	public final double ROTATION_TO_INCHES_CONSTANT = 4.0 * Math.PI;
 	
 	
 	
@@ -48,7 +50,7 @@ public class PIDDriveTrain extends PIDSubsystem {
     // Initialize your subsystem here
     public PIDDriveTrain() {
         // Use these to get going:
-        // setSetpoint() -  Sets where the PID controller should move the system
+        // setSetpoint() -  Sets where the PID controller should move the system	
         //                  to
         // enable() - Enables the PID controller.
     	super("DriveTrain Encoders", 0.0,0.0,0.0);
@@ -59,11 +61,11 @@ public class PIDDriveTrain extends PIDSubsystem {
     	switch (sensorType) {
     	case gyro:
     		SmartDashboard.putString("Current PID Input", "Gyro");
-    		setPID(0.085,0.0,0.0);
+    		setPID(0.005,0.0005,0);
     		break;
     	case encoder:
     		SmartDashboard.putString("Current PID Input", "Rear Right Encoder");
-    		setPID(0.1,0.0,0.0);
+    		setPID(0.13,0.0,0.0);
     		break;
     	case none:
     		SmartDashboard.putString("Current PID Input", "None");

@@ -8,6 +8,9 @@
 package org.usfirst.frc.team4188.robot;
 
 import org.usfirst.frc.team4188.robot.commands.AutoDriveDistanceBased;
+import org.usfirst.frc.team4188.robot.commands.GearShiftIn;
+import org.usfirst.frc.team4188.robot.commands.GearShiftOff;
+import org.usfirst.frc.team4188.robot.commands.GearShiftOut;
 import org.usfirst.frc.team4188.robot.commands.TurnToAngle;
 
 import edu.wpi.first.wpilibj.XboxController;
@@ -82,7 +85,10 @@ public class OI {
 	pilot2.whenPressed(new TurnToAngle(90,1.0));
 	SmartDashboard.putData("Turn To Angle PID", new TurnToAngle(90,1.0));
 	 
-	
+	pilot9.whileHeld(new GearShiftIn());
+    pilot9.whenReleased(new GearShiftOff());
+    pilot10.whileHeld(new GearShiftOut());
+    pilot10.whenReleased(new GearShiftOff());
 	
 	
 	

@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team4188.robot;
 
+import org.usfirst.frc.team4188.robot.commandgroups.AutonomousTesting;
 import org.usfirst.frc.team4188.robot.subsystems.PIDDriveTrain;
 import org.usfirst.frc.team4188.robot.subsystems.PIDDriveTrain.PIDInput;
 
@@ -43,7 +44,7 @@ public class Robot extends TimedRobot {
 		m_oi = new OI();
 		m_pidDriveTrain.setPIDInput(PIDInput.none);
 		RobotMap.gyro.calibrate();
-		
+		m_chooser.addObject("Test Auto", new AutonomousTesting());
 //		m_driveTrain = new DriveTrain();
 		
 		
@@ -80,7 +81,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		m_autonomousCommand = m_chooser.getSelected();
-
+		
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
@@ -126,8 +127,10 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData(Robot.m_pidDriveTrain.getPIDController());
 		SmartDashboard.putData("Drive Train", Robot.m_pidDriveTrain);
 		SmartDashboard.putData(RobotMap.gyro);
+		SmartDashboard.putNumber("Velocity", RobotMap.rearRight.getSelectedSensorVelocity(0)*Robot.m_pidDriveTrain.SENSOR_UNITS_PER_ROTATION);
 		Robot.m_pidDriveTrain.getRightEncoderRotation();
 		Robot.m_pidDriveTrain.getLeftEncoderRotation();
+		SmartDashboard.putData(RobotMap.pdp);
 		
 	}
 

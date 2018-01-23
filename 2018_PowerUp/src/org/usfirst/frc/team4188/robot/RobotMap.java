@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 
 /**
@@ -46,7 +47,7 @@ public class RobotMap {
 	public static AnalogGyro gyro;
 	
 	
-	
+	public static PowerDistributionPanel pdp;
 	
 	public static void init() {
 		frontLeft = new WPI_TalonSRX(14);
@@ -75,8 +76,9 @@ public class RobotMap {
 		
 		gyro = new AnalogGyro(1);
 		
-		gearShift = new DoubleSolenoid(0,1);
 		
+		gearShift = new DoubleSolenoid(0,1);
+		pdp = new PowerDistributionPanel();
 		
 	}
 

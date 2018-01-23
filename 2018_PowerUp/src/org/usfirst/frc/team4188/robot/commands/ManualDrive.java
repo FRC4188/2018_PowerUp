@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4188.robot.commands;
 
 import org.usfirst.frc.team4188.robot.Robot;
+import org.usfirst.frc.team4188.robot.RobotMap;
 import org.usfirst.frc.team4188.robot.subsystems.PIDDriveTrain.PIDInput;
 
 import edu.wpi.first.wpilibj.XboxController;
@@ -22,7 +23,7 @@ XboxController pilotXboxController = Robot.m_oi.pilotXboxController;
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.m_pidDriveTrain.setPIDInput(PIDInput.none);
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -44,7 +45,16 @@ XboxController pilotXboxController = Robot.m_oi.pilotXboxController;
     	
     	
     	Robot.m_pidDriveTrain.arcadeDrive(pilotXboxController.getY(Hand.kLeft), -pilotXboxController.getX(Hand.kRight)*rotateConstant, 1.0);
-    	
+    	/*
+    	if((RobotMap.rearRight.getSelectedSensorVelocity(0)*Robot.m_pidDriveTrain.SENSOR_UNITS_PER_ROTATION) > 10.0 ){
+    		Robot.m_pidDriveTrain.shiftGearIn();
+    		Robot.m_pidDriveTrain.shiftGearOff();
+    	}
+    	else {
+    		Robot.m_pidDriveTrain.shiftGearOut();
+    		Robot.m_pidDriveTrain.shiftGearOff();
+    	}
+    	*/
     }
 
 	@Override
@@ -52,4 +62,14 @@ XboxController pilotXboxController = Robot.m_oi.pilotXboxController;
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+    // Called once after isFinished returns true
+    protected void end() {
+    }
+
+    
+    // Called when another command which requires one or more of the same
+    // subsystems is scheduled to run
+    protected void interrupted() {
+    }
 }
