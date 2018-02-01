@@ -9,6 +9,7 @@ package org.usfirst.frc.team4188.robot;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
@@ -35,7 +36,7 @@ public class RobotMap {
 	public static WPI_TalonSRX rearLeft; 
 	public static WPI_TalonSRX frontRight;
 	public static WPI_TalonSRX midRight;
-	public static WPI_TalonSRX rearRight; 
+	public static WPI_TalonSRX rearRight;  
 	
 	public static SpeedControllerGroup leftSet; 
 	public static SpeedControllerGroup rightSet; 
@@ -44,21 +45,16 @@ public class RobotMap {
 	
 	public static DoubleSolenoid gearShift;
 	
-	public static AnalogGyro gyro;
+	public static ADXRS450_Gyro gyro;
 	
 	
 	public static PowerDistributionPanel pdp;
 	
 	public static void init() {
-		frontLeft = new WPI_TalonSRX(14);
-		midLeft = new WPI_TalonSRX(16);
-		rearLeft = new WPI_TalonSRX(15);
-		frontRight = new WPI_TalonSRX(11);
-		midRight = new WPI_TalonSRX(13);
-		rearRight = new WPI_TalonSRX(12);
-		
-		midLeft.setInverted(true);
-		midRight.setInverted(true);
+		frontLeft = new WPI_TalonSRX(4);
+		rearLeft = new WPI_TalonSRX(6);
+		frontRight = new WPI_TalonSRX(7);
+		rearRight = new WPI_TalonSRX(8);
 		
 		rearLeft.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.CTRE_MagEncoder_Relative,0, 0);
 		rearLeft.setSensorPhase(false);
@@ -74,7 +70,7 @@ public class RobotMap {
 		driveTrain.setSensitivity(0.5);
 		driveTrain.setMaxOutput(1.0);
 		
-		gyro = new AnalogGyro(1);
+		gyro = new ADXRS450_Gyro();
 		
 		
 		gearShift = new DoubleSolenoid(0,1);

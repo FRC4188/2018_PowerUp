@@ -6,6 +6,7 @@ import org.usfirst.frc.team4188.robot.commands.ManualDrive;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -33,16 +34,14 @@ public class PIDDriveTrain extends PIDSubsystem {
 	private static PIDInput sensorType;
 	
 	WPI_TalonSRX frontLeft = RobotMap.frontLeft;
-	WPI_TalonSRX midLeft = RobotMap.midLeft;
 	WPI_TalonSRX rearLeft = RobotMap.rearLeft;
 	WPI_TalonSRX frontRight = RobotMap.frontRight;
-	WPI_TalonSRX midRight = RobotMap.midRight;
 	WPI_TalonSRX rearRight = RobotMap.rearRight;
 	
 	SpeedControllerGroup rightSide = RobotMap.rightSet;
 	SpeedControllerGroup leftSide = RobotMap.leftSet;
 	
-	AnalogGyro gyro = RobotMap.gyro;
+	ADXRS450_Gyro gyro = RobotMap.gyro;
 	
 	DoubleSolenoid gearShift = RobotMap.gearShift;
 	
@@ -61,11 +60,11 @@ public class PIDDriveTrain extends PIDSubsystem {
     	switch (sensorType) {
     	case gyro:
     		SmartDashboard.putString("Current PID Input", "Gyro");
-    		setPID(0.005,0.0005,0);
+    		//setPID(0.005,0.0005,0);
     		break;
     	case encoder:
     		SmartDashboard.putString("Current PID Input", "Rear Right Encoder");
-    		setPID(0.13,0.0,0.0);
+    		//setPID(0.13,0.0,0.0);
     		break;
     	case none:
     		SmartDashboard.putString("Current PID Input", "None");
@@ -85,19 +84,15 @@ public class PIDDriveTrain extends PIDSubsystem {
     
     public void setOpenloopRampRate(double rampRate) {
     	frontLeft.configOpenloopRamp(rampRate, 0);
-    	midLeft.configOpenloopRamp(rampRate, 0);
     	rearLeft.configOpenloopRamp(rampRate, 0);
     	frontRight.configOpenloopRamp(rampRate, 0);
-    	midRight.configOpenloopRamp(rampRate, 0);
     	rearRight.configOpenloopRamp(rampRate, 0);
     }
     
     public void enableCurrentLimit() {
     	frontLeft.enableCurrentLimit(true);
-    	midLeft.enableCurrentLimit(true);
     	rearLeft.enableCurrentLimit(true);
     	frontRight.enableCurrentLimit(true);
-    	midRight.enableCurrentLimit(true);
     	rearRight.enableCurrentLimit(true);
     }
     
@@ -142,17 +137,12 @@ public class PIDDriveTrain extends PIDSubsystem {
     		rearLeft.set(output);
     		frontLeft.follow(rearLeft);
     		frontRight.follow(rearRight);
-    		midLeft.follow(rearLeft);
-    		midRight.follow(rearRight);
-    		
     		break;
     	case encoder:
     		rearRight.set(output);
         	rearLeft.set(-output);
         	frontLeft.follow(rearLeft);
         	frontRight.follow(rearRight);
-        	midLeft.follow(rearLeft);
-        	midRight.follow(rearRight);
         	break;
     	case none: 
         	break;
@@ -172,10 +162,8 @@ public class PIDDriveTrain extends PIDSubsystem {
     
     public void setClosedloopRamp(double timeToRamp) {
     	frontLeft.configClosedloopRamp(timeToRamp, 0);
-    	midLeft.configClosedloopRamp(timeToRamp, 0);
     	rearLeft.configClosedloopRamp(timeToRamp, 0);
     	frontRight.configClosedloopRamp(timeToRamp, 0);
-    	midRight.configClosedloopRamp(timeToRamp, 0);
     	rearRight.configClosedloopRamp(timeToRamp, 0);
     }
     
@@ -213,6 +201,7 @@ public class PIDDriveTrain extends PIDSubsystem {
     public void shiftGearOff() {
     	gearShift.set(Value.kOff);
     }
+    
     
 }
 
