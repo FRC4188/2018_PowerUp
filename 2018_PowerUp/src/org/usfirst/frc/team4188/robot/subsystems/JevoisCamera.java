@@ -145,7 +145,7 @@ public class JevoisCamera extends Subsystem {
 				camera.setVideoMode(detectMode);
 			} catch(Exception e) {
 				// if camera connection fails, default to no stream
-				camera.free();
+				if(camera != null) camera.free();
 				sendSerial("setmapping " + NO_STREAM_MAP);
 				sendSerial("streamon");
 			}
