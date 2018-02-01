@@ -8,6 +8,7 @@
 package org.usfirst.frc.team4188.robot;
 
 import org.usfirst.frc.team4188.robot.commandgroups.AutonomousTesting;
+import org.usfirst.frc.team4188.robot.subsystems.JevoisCamera;
 import org.usfirst.frc.team4188.robot.subsystems.PIDDriveTrain;
 import org.usfirst.frc.team4188.robot.subsystems.PIDDriveTrain.PIDInput;
 
@@ -29,6 +30,7 @@ public class Robot extends TimedRobot {
 	public static OI m_oi;
 //	public static DriveTrain m_driveTrain;
 	public static PIDDriveTrain m_pidDriveTrain;
+	public static JevoisCamera m_jevoisCamera;
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -41,6 +43,7 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		RobotMap.init();
 		m_pidDriveTrain = new PIDDriveTrain();
+		m_jevoisCamera = new JevoisCamera();
 		m_oi = new OI();
 		m_pidDriveTrain.setPIDInput(PIDInput.none);
 		RobotMap.gyro.calibrate();
