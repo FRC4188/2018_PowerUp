@@ -54,7 +54,7 @@ public class Robot extends TimedRobot {
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
 		m_elevator = new Elevator();
-		//m_jevoisCamera = new JevoisCamera();
+		m_jevoisCamera = new JevoisCamera();
 		
 	}
 
@@ -127,6 +127,7 @@ public class Robot extends TimedRobot {
 	/**
 	 * This function is called periodically during operator control.
 	 */
+	int counter = 0;
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
@@ -137,7 +138,14 @@ public class Robot extends TimedRobot {
 		Robot.m_pidDriveTrain.getRightEncoderRotation();
 		Robot.m_pidDriveTrain.getLeftEncoderRotation();
 		SmartDashboard.putData(RobotMap.pdp);
-		
+		if(counter++%100 ==0) {
+			m_jevoisCamera.setHSV((int) SmartDashboard.getNumber("hMin", m_jevoisCamera.H_MIN),
+				(int) SmartDashboard.getNumber("hMax", m_jevoisCamera.H_MAX),
+				(int) SmartDashboard.getNumber("sMin", m_jevoisCamera.S_MIN),
+				(int) SmartDashboard.getNumber("sMax", m_jevoisCamera.S_MAX),
+				(int) SmartDashboard.getNumber("vMin", m_jevoisCamera.V_MIN),
+				(int) SmartDashboard.getNumber("vMax", m_jevoisCamera.V_MAX));
+		}
 	}
 
 	/**
