@@ -11,6 +11,8 @@ import org.usfirst.frc.team4188.robot.commands.AutoDriveDistanceBased;
 import org.usfirst.frc.team4188.robot.commands.GearShiftIn;
 import org.usfirst.frc.team4188.robot.commands.GearShiftOff;
 import org.usfirst.frc.team4188.robot.commands.GearShiftOut;
+import org.usfirst.frc.team4188.robot.commands.RunInnerElevator;
+import org.usfirst.frc.team4188.robot.commands.StopInnerElevator;
 import org.usfirst.frc.team4188.robot.commands.TurnToAngle;
 
 import edu.wpi.first.wpilibj.XboxController;
@@ -50,6 +52,7 @@ public class OI {
 	// until it is finished as determined by it's isFinished method.
 	// button.whenReleased(new ExampleCommand());
 	public XboxController pilotXboxController;
+	public XboxController coPilotXboxController;
 	
 	public JoystickButton pilot1;
 	public JoystickButton pilot2;
@@ -63,6 +66,19 @@ public class OI {
 	public JoystickButton pilot10;
 	public JoystickButton pilot11;
 	public JoystickButton pilot12;
+	
+	public JoystickButton coPilot1;
+	public JoystickButton coPilot2;
+	public JoystickButton coPilot3;
+	public JoystickButton coPilot4;
+	public JoystickButton coPilot5;
+	public JoystickButton coPilot6;
+	public JoystickButton coPilot7;
+	public JoystickButton coPilot8;
+	public JoystickButton coPilot9;
+	public JoystickButton coPilot10;
+	public JoystickButton coPilot11;
+	public JoystickButton coPilot12;
 	
 	public OI(){
 	
@@ -90,8 +106,22 @@ public class OI {
     pilot10.whileHeld(new GearShiftOut());
     pilot10.whenReleased(new GearShiftOff());
 	
+	coPilotXboxController = new XboxController(1);
+	coPilot1 = new JoystickButton(coPilotXboxController, 1);
+	coPilot2 = new JoystickButton(coPilotXboxController, 2);
+	coPilot3 = new JoystickButton(coPilotXboxController, 3);
+	coPilot4 = new JoystickButton(coPilotXboxController, 4);
+	coPilot5 = new JoystickButton(coPilotXboxController, 5);
+	coPilot6 = new JoystickButton(coPilotXboxController, 6);
+	coPilot7 = new JoystickButton(coPilotXboxController, 7);
+	coPilot8 = new JoystickButton(coPilotXboxController, 8);
+	coPilot9 = new JoystickButton(coPilotXboxController, 9);
+	coPilot10 = new JoystickButton(coPilotXboxController, 10);
+	coPilot11 = new JoystickButton(coPilotXboxController, 11);
+	coPilot12 = new JoystickButton(coPilotXboxController, 12);
 	
-	
+	coPilot1.whileHeld(new RunInnerElevator());
+	coPilot1.whenReleased(new StopInnerElevator());
 	
 	
 	}

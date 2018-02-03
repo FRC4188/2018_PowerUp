@@ -32,10 +32,8 @@ public class RobotMap {
 	// public static int rangefinderPort = 1;
 	// public static int rangefinderModule = 1;
 	public static WPI_TalonSRX frontLeft; 
-	public static WPI_TalonSRX midLeft;
 	public static WPI_TalonSRX rearLeft; 
 	public static WPI_TalonSRX frontRight;
-	public static WPI_TalonSRX midRight;
 	public static WPI_TalonSRX rearRight;  
 	
 	public static SpeedControllerGroup leftSet; 
@@ -47,6 +45,7 @@ public class RobotMap {
 	
 	public static ADXRS450_Gyro gyro;
 	
+	public static WPI_TalonSRX innerElevator;
 	
 	public static PowerDistributionPanel pdp;
 	
@@ -61,8 +60,8 @@ public class RobotMap {
 		rearRight.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		rearRight.setSensorPhase(false);
 		
-		leftSet = new SpeedControllerGroup(frontLeft, midLeft, rearLeft);
-		rightSet = new SpeedControllerGroup(frontRight, midRight, rearRight);
+		leftSet = new SpeedControllerGroup(frontLeft, rearLeft);
+		rightSet = new SpeedControllerGroup(frontRight, rearRight);
 		
 		driveTrain = new CSPRobotDrive(leftSet, rightSet);
 		driveTrain.setSafetyEnabled(false);
@@ -72,6 +71,7 @@ public class RobotMap {
 		
 		gyro = new ADXRS450_Gyro();
 		
+		innerElevator = new WPI_TalonSRX(1);
 		
 		gearShift = new DoubleSolenoid(0,1);
 		pdp = new PowerDistributionPanel();
