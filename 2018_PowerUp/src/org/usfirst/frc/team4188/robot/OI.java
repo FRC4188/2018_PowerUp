@@ -8,6 +8,9 @@
 package org.usfirst.frc.team4188.robot;
 
 import org.usfirst.frc.team4188.robot.commands.AutoDriveDistanceBased;
+import org.usfirst.frc.team4188.robot.commands.CylindersIn;
+import org.usfirst.frc.team4188.robot.commands.CylindersOff;
+import org.usfirst.frc.team4188.robot.commands.CylindersOut;
 import org.usfirst.frc.team4188.robot.commands.GearShiftIn;
 import org.usfirst.frc.team4188.robot.commands.GearShiftOff;
 import org.usfirst.frc.team4188.robot.commands.GearShiftOut;
@@ -100,6 +103,11 @@ public class OI {
 	SmartDashboard.putData("Distance Based PID", new AutoDriveDistanceBased(5.0,0.1));
 	pilot2.whenPressed(new TurnToAngle(90,1.0));
 	SmartDashboard.putData("Turn To Angle PID", new TurnToAngle(90,1.0));
+	
+	pilot2.whileHeld(new CylindersIn());
+	pilot2.whenReleased(new CylindersOff());
+	pilot3.whileHeld(new CylindersOut());
+	pilot3.whenReleased(new CylindersOff());
 	 
 	pilot9.whileHeld(new GearShiftIn());
     pilot9.whenReleased(new GearShiftOff());

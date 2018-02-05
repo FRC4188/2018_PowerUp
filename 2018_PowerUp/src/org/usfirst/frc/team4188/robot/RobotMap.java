@@ -46,8 +46,14 @@ public class RobotMap {
 	public static ADXRS450_Gyro gyro;
 	
 	public static WPI_TalonSRX innerElevator;
+	public static WPI_TalonSRX outerElevator;
 	
 	public static PowerDistributionPanel pdp;
+	
+	public static DoubleSolenoid climberSolenoid1;
+	public static DoubleSolenoid climberSolenoid2;
+	public static DoubleSolenoid climberSolenoid3;
+
 	
 	public static void init() {
 		frontLeft = new WPI_TalonSRX(4);
@@ -56,9 +62,9 @@ public class RobotMap {
 		rearRight = new WPI_TalonSRX(8);
 		
 		rearLeft.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.CTRE_MagEncoder_Relative,0, 0);
-		rearLeft.setSensorPhase(false);
+		rearLeft.setSensorPhase(true);
 		rearRight.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
-		rearRight.setSensorPhase(false);
+		rearRight.setSensorPhase(true);
 		
 		leftSet = new SpeedControllerGroup(frontLeft, rearLeft);
 		rightSet = new SpeedControllerGroup(frontRight, rearRight);
@@ -72,9 +78,16 @@ public class RobotMap {
 		gyro = new ADXRS450_Gyro();
 		
 		innerElevator = new WPI_TalonSRX(1);
+		innerElevator.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+		innerElevator.setSensorPhase(true);
+		outerElevator = new WPI_TalonSRX(12);
 		
 		gearShift = new DoubleSolenoid(0,1);
 		pdp = new PowerDistributionPanel();
+		
+		climberSolenoid1 = new DoubleSolenoid(2,3);
+		climberSolenoid2 = new DoubleSolenoid(4,5);
+		climberSolenoid3 = new DoubleSolenoid(6,7);
 		
 	}
 

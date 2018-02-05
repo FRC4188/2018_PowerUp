@@ -8,6 +8,7 @@
 package org.usfirst.frc.team4188.robot;
 
 import org.usfirst.frc.team4188.robot.commandgroups.AutonomousTesting;
+import org.usfirst.frc.team4188.robot.subsystems.Climber;
 import org.usfirst.frc.team4188.robot.subsystems.Elevator;
 import org.usfirst.frc.team4188.robot.subsystems.JevoisCamera;
 import org.usfirst.frc.team4188.robot.subsystems.PIDDriveTrain;
@@ -32,6 +33,7 @@ public class Robot extends TimedRobot {
 	public static PIDDriveTrain m_pidDriveTrain;
 	public static JevoisCamera m_jevoisCamera;
 	public static Elevator m_elevator;
+	public static Climber m_climber;
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -48,13 +50,13 @@ public class Robot extends TimedRobot {
 		m_pidDriveTrain.setPIDInput(PIDInput.none);
 		RobotMap.gyro.calibrate();
 		m_chooser.addObject("Test Auto", new AutonomousTesting());
-//		m_driveTrain = new DriveTrain();
 		
 		
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
 		m_elevator = new Elevator();
-		//m_jevoisCamera = new JevoisCamera();
+		m_jevoisCamera = new JevoisCamera();
+		m_climber = new Climber();
 		
 	}
 
