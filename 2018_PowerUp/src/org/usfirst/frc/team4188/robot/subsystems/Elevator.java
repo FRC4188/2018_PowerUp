@@ -33,7 +33,7 @@ public class Elevator extends PIDSubsystem {
     
     public void ElevatorUp() {
     	innerElevator.set(coPilotXboxController.getY(Hand.kLeft));
-    	outerElevator.set(coPilotXboxController.getY(Hand.kLeft));
+    	outerElevator.set(-coPilotXboxController.getY(Hand.kLeft));
     }
     public void ElevatorStop() {
     	innerElevator.set(0);

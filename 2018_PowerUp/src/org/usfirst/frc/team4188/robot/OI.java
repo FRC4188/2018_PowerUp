@@ -104,10 +104,7 @@ public class OI {
 	pilot2.whenPressed(new TurnToAngle(90,1.0));
 	SmartDashboard.putData("Turn To Angle PID", new TurnToAngle(90,1.0));
 	
-	pilot2.whileHeld(new CylindersIn());
-	pilot2.whenReleased(new CylindersOff());
-	pilot3.whileHeld(new CylindersOut());
-	pilot3.whenReleased(new CylindersOff());
+	
 	 
 	pilot9.whileHeld(new GearShiftIn());
     pilot9.whenReleased(new GearShiftOff());
@@ -130,7 +127,10 @@ public class OI {
 	
 	coPilot1.whileHeld(new RunInnerElevator());
 	coPilot1.whenReleased(new StopInnerElevator());
-	
+	coPilot2.whileHeld(new CylindersIn());
+	coPilot2.whenReleased(new CylindersOff());
+	coPilot3.whileHeld(new CylindersOut());
+	coPilot3.whenReleased(new CylindersOff());
 	
 	}
 

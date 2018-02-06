@@ -12,8 +12,10 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.Ultrasonic;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -35,6 +37,7 @@ public class RobotMap {
 	public static WPI_TalonSRX rearLeft; 
 	public static WPI_TalonSRX frontRight;
 	public static WPI_TalonSRX rearRight;  
+	public static Ultrasonic ultrasonic;
 	
 	public static SpeedControllerGroup leftSet; 
 	public static SpeedControllerGroup rightSet; 
@@ -53,6 +56,12 @@ public class RobotMap {
 	public static DoubleSolenoid climberSolenoid1;
 	public static DoubleSolenoid climberSolenoid2;
 	public static DoubleSolenoid climberSolenoid3;
+	
+	public static WPI_TalonSRX intakeRight;
+	public static WPI_TalonSRX intakeLeft;
+	
+	public static DoubleSolenoid intakeSolenoid;
+	
 
 	
 	public static void init() {
@@ -82,12 +91,20 @@ public class RobotMap {
 		innerElevator.setSensorPhase(true);
 		outerElevator = new WPI_TalonSRX(12);
 		
-		gearShift = new DoubleSolenoid(0,1);
+		gearShift = new DoubleSolenoid(0,0,1);
 		pdp = new PowerDistributionPanel();
 		
-		climberSolenoid1 = new DoubleSolenoid(2,3);
-		climberSolenoid2 = new DoubleSolenoid(4,5);
-		climberSolenoid3 = new DoubleSolenoid(6,7);
+		climberSolenoid1 = new DoubleSolenoid(0,2,3);
+		climberSolenoid2 = new DoubleSolenoid(0,4,5);
+		climberSolenoid3 = new DoubleSolenoid(0,6,7);
+		
+		intakeRight = new WPI_TalonSRX(2);
+		intakeLeft = new WPI_TalonSRX(11);
+		
+		intakeSolenoid = new DoubleSolenoid(1,0,1);
+		
+		ultrasonic = new Ultrasonic(0,1);
+		
 		
 	}
 

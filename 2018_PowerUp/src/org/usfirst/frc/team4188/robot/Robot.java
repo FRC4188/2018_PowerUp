@@ -10,10 +10,12 @@ package org.usfirst.frc.team4188.robot;
 import org.usfirst.frc.team4188.robot.commandgroups.AutonomousTesting;
 import org.usfirst.frc.team4188.robot.subsystems.Climber;
 import org.usfirst.frc.team4188.robot.subsystems.Elevator;
+import org.usfirst.frc.team4188.robot.subsystems.Intake;
 import org.usfirst.frc.team4188.robot.subsystems.JevoisCamera;
 import org.usfirst.frc.team4188.robot.subsystems.PIDDriveTrain;
 import org.usfirst.frc.team4188.robot.subsystems.PIDDriveTrain.PIDInput;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -34,6 +36,9 @@ public class Robot extends TimedRobot {
 	public static JevoisCamera m_jevoisCamera;
 	public static Elevator m_elevator;
 	public static Climber m_climber;
+	public static Intake m_intake;
+	
+	
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -57,7 +62,8 @@ public class Robot extends TimedRobot {
 		m_elevator = new Elevator();
 		m_jevoisCamera = new JevoisCamera();
 		m_climber = new Climber();
-
+		m_intake = new Intake();
+		RobotMap.ultrasonic.setAutomaticMode(true);
 		
 	}
 
@@ -89,6 +95,12 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		//String frcNonsense = DriverStation.getInstance().getGameSpecificMessage();
+		String frcNonsense = "RLR";
+		char mySwitch = frcNonsense.charAt(0);
+		char scale = frcNonsense.charAt(1);
+		char theirSwitch = frcNonsense.charAt(2);
+		
 		m_autonomousCommand = m_chooser.getSelected();
 		
 		/*
@@ -97,7 +109,7 @@ public class Robot extends TimedRobot {
 		 * = new MyAutoCommand(); break; case "Default Auto": default:
 		 * autonomousCommand = new ExampleCommand(); break; }
 		 */
-
+		
 		// schedule the autonomous command (example)
 		Robot.m_pidDriveTrain.gyroReset();
 		Robot.m_pidDriveTrain.resetEncoders();
@@ -133,6 +145,9 @@ public class Robot extends TimedRobot {
 	int counter = 0;
 	@Override
 	public void teleopPeriodic() {
+		
+		
+		
 		Scheduler.getInstance().run();
 		SmartDashboard.putData(Robot.m_pidDriveTrain.getPIDController());
 		SmartDashboard.putData("Drive Train", Robot.m_pidDriveTrain);
@@ -149,6 +164,7 @@ public class Robot extends TimedRobot {
 				(int) SmartDashboard.getNumber("vMin", m_jevoisCamera.V_MIN),
 				(int) SmartDashboard.getNumber("vMax", m_jevoisCamera.V_MAX));
 		}
+		SmartDashboard.putNumber("Ultrasonic Sensor", RobotMap.ultrasonic.getRangeInches());
 	}
 
 	/**
