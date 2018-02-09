@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class StopInnerElevator extends Command {
+public class RunOuterElevator extends Command {
 
-    public StopInnerElevator() {
+    public RunOuterElevator() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -20,7 +20,8 @@ public class StopInnerElevator extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.m_elevator.ElevatorLeadScrewStop();
+    	Robot.m_elevator.ElevatorUp();
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()

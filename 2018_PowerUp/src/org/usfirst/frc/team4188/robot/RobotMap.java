@@ -50,6 +50,7 @@ public class RobotMap {
 	
 	public static WPI_TalonSRX innerElevator;
 	public static WPI_TalonSRX outerElevator;
+	public static WPI_TalonSRX elevatorLeadScrew;
 	
 	public static PowerDistributionPanel pdp;
 	
@@ -59,6 +60,8 @@ public class RobotMap {
 	
 	public static WPI_TalonSRX intakeRight;
 	public static WPI_TalonSRX intakeLeft;
+	public static WPI_TalonSRX intakeRelease;
+
 	
 	public static DoubleSolenoid intakeSolenoid;
 	
@@ -86,12 +89,14 @@ public class RobotMap {
 		
 		gyro = new ADXRS450_Gyro();
 		
-		innerElevator = new WPI_TalonSRX(1);
+		innerElevator = new WPI_TalonSRX(3);
 		innerElevator.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		innerElevator.setSensorPhase(true);
-		outerElevator = new WPI_TalonSRX(12);
+		outerElevator = new WPI_TalonSRX(10);
 		
-		gearShift = new DoubleSolenoid(0,0,1);
+		elevatorLeadScrew = new WPI_TalonSRX(9);
+		
+		gearShift = new DoubleSolenoid(1,0,1);
 		pdp = new PowerDistributionPanel();
 		
 		climberSolenoid1 = new DoubleSolenoid(0,2,3);
@@ -100,8 +105,9 @@ public class RobotMap {
 		
 		intakeRight = new WPI_TalonSRX(2);
 		intakeLeft = new WPI_TalonSRX(11);
+		intakeRelease = new WPI_TalonSRX(1);
 		
-		intakeSolenoid = new DoubleSolenoid(1,0,1);
+		intakeSolenoid = new DoubleSolenoid(1,2,3);
 		
 		ultrasonic = new Ultrasonic(0,1);
 		

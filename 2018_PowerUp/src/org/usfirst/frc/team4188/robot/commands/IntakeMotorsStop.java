@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class StopIntake extends Command {
+public class IntakeMotorsStop extends Command {
 
-    public StopIntake() {
+    public IntakeMotorsStop() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }

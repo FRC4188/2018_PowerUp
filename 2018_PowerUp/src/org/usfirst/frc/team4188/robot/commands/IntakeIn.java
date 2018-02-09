@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class StopInnerElevator extends Command {
+public class IntakeIn extends Command {
 
-    public StopInnerElevator() {
+    public IntakeIn() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -20,7 +20,7 @@ public class StopInnerElevator extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.m_elevator.ElevatorLeadScrewStop();
+    	Robot.m_intake.intakeIn();
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -35,5 +35,6 @@ public class StopInnerElevator extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }

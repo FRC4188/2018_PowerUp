@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class RunIntake extends Command {
+public class IntakeOut extends Command {
 
-    public RunIntake() {
+    public IntakeOut() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -20,7 +20,7 @@ public class RunIntake extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.m_intake.runIntakeMotors();
+    	Robot.m_intake.intakeOut();
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -35,5 +35,6 @@ public class RunIntake extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }

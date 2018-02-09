@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
 public class Elevator extends PIDSubsystem {
 	WPI_TalonSRX innerElevator = RobotMap.innerElevator;
 	WPI_TalonSRX outerElevator = RobotMap.outerElevator;
+	WPI_TalonSRX elevatorLeadScrew = RobotMap.elevatorLeadScrew;
 	XboxController coPilotXboxController = Robot.m_oi.coPilotXboxController;
     // Initialize your subsystem here
     public Elevator() {
@@ -32,14 +33,20 @@ public class Elevator extends PIDSubsystem {
     }
     
     public void ElevatorUp() {
-    	innerElevator.set(coPilotXboxController.getY(Hand.kLeft));
-    	outerElevator.set(-coPilotXboxController.getY(Hand.kLeft));
+    	innerElevator.set(coPilotXboxController.getY(Hand.kLeft)*0.75);
+    	outerElevator.set(-coPilotXboxController.getY(Hand.kLeft)*0.75);
     }
+    
     public void ElevatorStop() {
     	innerElevator.set(0);
     	outerElevator.set(0);
     }
-
+    public void ElevatorLeadScrewRun() {
+    	elevatorLeadScrew.set(coPilotXboxController.getY(Hand.kRight));
+    }
+    public void ElevatorLeadScrewStop() {
+    	elevatorLeadScrew.set(0);
+    }
     protected double returnPIDInput() {
         // Return your input value for the PID loop
         // e.g. a sensor, like a potentiometer:
