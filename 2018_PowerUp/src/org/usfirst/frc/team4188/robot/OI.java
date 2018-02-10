@@ -7,27 +7,28 @@
 
 package org.usfirst.frc.team4188.robot;
 
-import org.usfirst.frc.team4188.robot.commands.AutoDriveDistanceBased;
-import org.usfirst.frc.team4188.robot.commands.CylindersIn;
-import org.usfirst.frc.team4188.robot.commands.CylindersOff;
-import org.usfirst.frc.team4188.robot.commands.CylindersOut;
-import org.usfirst.frc.team4188.robot.commands.GearShiftIn;
-import org.usfirst.frc.team4188.robot.commands.GearShiftOff;
-import org.usfirst.frc.team4188.robot.commands.GearShiftOut;
-import org.usfirst.frc.team4188.robot.commands.IntakeIn;
-import org.usfirst.frc.team4188.robot.commands.IntakeMotorsReverse;
-import org.usfirst.frc.team4188.robot.commands.IntakeMotorsForward;
-import org.usfirst.frc.team4188.robot.commands.IntakeReleaseDown;
-import org.usfirst.frc.team4188.robot.commands.IntakeReleaseStop;
-import org.usfirst.frc.team4188.robot.commands.IntakeReleaseUp;
-import org.usfirst.frc.team4188.robot.commands.IntakeMotorsStop;
-import org.usfirst.frc.team4188.robot.commands.IntakeOff;
-import org.usfirst.frc.team4188.robot.commands.IntakeOut;
-import org.usfirst.frc.team4188.robot.commands.RunInnerElevator;
-import org.usfirst.frc.team4188.robot.commands.RunOuterElevator;
-import org.usfirst.frc.team4188.robot.commands.StopInnerElevator;
-import org.usfirst.frc.team4188.robot.commands.StopOuterElevator;
-import org.usfirst.frc.team4188.robot.commands.TurnToAngle;
+import org.usfirst.frc.team4188.robot.commands.climber.CylindersIn;
+import org.usfirst.frc.team4188.robot.commands.climber.CylindersOff;
+import org.usfirst.frc.team4188.robot.commands.climber.CylindersOut;
+import org.usfirst.frc.team4188.robot.commands.climber.LeadScrewRun;
+import org.usfirst.frc.team4188.robot.commands.climber.LeadScrewStop;
+import org.usfirst.frc.team4188.robot.commands.drive.AutoDriveDistanceBased;
+import org.usfirst.frc.team4188.robot.commands.drive.GearShiftIn;
+import org.usfirst.frc.team4188.robot.commands.drive.GearShiftOff;
+import org.usfirst.frc.team4188.robot.commands.drive.GearShiftOut;
+import org.usfirst.frc.team4188.robot.commands.drive.TurnToAngle;
+import org.usfirst.frc.team4188.robot.commands.elevator.ElevatorRun;
+import org.usfirst.frc.team4188.robot.commands.elevator.ElevatorStop;
+import org.usfirst.frc.team4188.robot.commands.elevator.ElevatorToSwitch;
+import org.usfirst.frc.team4188.robot.commands.intake.IntakeIn;
+import org.usfirst.frc.team4188.robot.commands.intake.IntakeMotorsForward;
+import org.usfirst.frc.team4188.robot.commands.intake.IntakeMotorsReverse;
+import org.usfirst.frc.team4188.robot.commands.intake.IntakeMotorsStop;
+import org.usfirst.frc.team4188.robot.commands.intake.IntakeOut;
+import org.usfirst.frc.team4188.robot.commands.intake.IntakeReleaseDown;
+import org.usfirst.frc.team4188.robot.commands.intake.IntakeReleaseStop;
+import org.usfirst.frc.team4188.robot.commands.intake.IntakeReleaseUp;
+import org.usfirst.frc.team4188.robot.commands.intake.IntakeSolenoidOff;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -139,8 +140,8 @@ public class OI {
 	coPilot11 = new JoystickButton(coPilotXboxController, 11);
 	coPilot12 = new JoystickButton(coPilotXboxController, 12);
 	
-	coPilot6.whileHeld(new RunOuterElevator());
-	coPilot6.whenReleased(new StopOuterElevator());
+	coPilot6.whileHeld(new ElevatorRun());
+	coPilot6.whenReleased(new ElevatorStop());
 	
 	coPilot1.whileHeld(new IntakeMotorsReverse());
 	coPilot1.whenReleased(new IntakeMotorsStop());
@@ -148,18 +149,19 @@ public class OI {
 	coPilot2.whenReleased(new IntakeMotorsStop());
 	
 	coPilot3.whileHeld(new IntakeIn());
-	coPilot3.whenReleased(new IntakeOff());
+	coPilot3.whenReleased(new IntakeSolenoidOff());
 	coPilot4.whileHeld(new IntakeOut());
-	coPilot4.whenReleased(new IntakeOff());
+	coPilot4.whenReleased(new IntakeSolenoidOff());
 	
-	
-	coPilot5.whileHeld(new RunInnerElevator());
-	coPilot5.whenReleased(new StopInnerElevator());
+	coPilot5.whileHeld(new LeadScrewRun());
+	coPilot5.whenReleased(new LeadScrewStop());
 	
 	coPilot7.whileHeld(new IntakeReleaseDown());
 	coPilot7.whenReleased(new IntakeReleaseStop());
 	coPilot8.whenPressed(new IntakeReleaseUp());
 	coPilot8.whenReleased(new IntakeReleaseStop());
+	
+	//coPilot9.whenPressed(new ElevatorToSwitch(2.0, .1));
 	
 	}
 

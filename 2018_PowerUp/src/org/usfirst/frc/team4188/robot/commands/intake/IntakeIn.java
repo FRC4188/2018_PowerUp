@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4188.robot.commands;
+package org.usfirst.frc.team4188.robot.commands.intake;
 
 import org.usfirst.frc.team4188.robot.Robot;
 
@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class GearShiftOff extends Command {
+public class IntakeIn extends Command {
 
-    public GearShiftOff() {
+    public IntakeIn() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -20,7 +20,7 @@ public class GearShiftOff extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.m_pidDriveTrain.shiftGearOff();
+    	Robot.m_intake.intakeIn();
     }
 
     // Make this return true when this Command no longer needs to run execute()

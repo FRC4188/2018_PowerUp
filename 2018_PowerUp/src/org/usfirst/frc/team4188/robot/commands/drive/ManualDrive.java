@@ -1,8 +1,6 @@
-package org.usfirst.frc.team4188.robot.commands;
+package org.usfirst.frc.team4188.robot.commands.drive;
 
 import org.usfirst.frc.team4188.robot.Robot;
-import org.usfirst.frc.team4188.robot.RobotMap;
-import org.usfirst.frc.team4188.robot.subsystems.PIDDriveTrain.PIDInput;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
@@ -18,7 +16,7 @@ XboxController pilotXboxController = Robot.m_oi.pilotXboxController;
     public ManualDrive() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.m_pidDriveTrain);
+    	requires(Robot.m_drivetrain);
     }
 
     // Called just before this Command runs the first time
@@ -42,9 +40,7 @@ XboxController pilotXboxController = Robot.m_oi.pilotXboxController;
     	}
     	
     	*/
-    	
-    	
-    	Robot.m_pidDriveTrain.arcadeDrive(pilotXboxController.getY(Hand.kLeft), pilotXboxController.getX(Hand.kRight)*rotateConstant, 1.0);
+    	Robot.m_drivetrain.arcadeDrive(pilotXboxController.getY(Hand.kLeft), pilotXboxController.getX(Hand.kRight)*rotateConstant, 1.0);
     	/*
     	if((RobotMap.rearRight.getSelectedSensorVelocity(0)*Robot.m_pidDriveTrain.SENSOR_UNITS_PER_ROTATION) > 10.0 ){
     		Robot.m_pidDriveTrain.shiftGearIn();
@@ -66,7 +62,6 @@ XboxController pilotXboxController = Robot.m_oi.pilotXboxController;
     // Called once after isFinished returns true
     protected void end() {
     }
-
     
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run

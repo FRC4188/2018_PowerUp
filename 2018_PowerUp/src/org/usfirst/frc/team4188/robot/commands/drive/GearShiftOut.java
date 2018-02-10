@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4188.robot.commands;
+package org.usfirst.frc.team4188.robot.commands.drive;
 
 import org.usfirst.frc.team4188.robot.Robot;
 
@@ -20,7 +20,7 @@ public class GearShiftOut extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.m_pidDriveTrain.shiftGearOut();
+    	Robot.m_drivetrain.shiftGearOut();
     }
 
     // Make this return true when this Command no longer needs to run execute()

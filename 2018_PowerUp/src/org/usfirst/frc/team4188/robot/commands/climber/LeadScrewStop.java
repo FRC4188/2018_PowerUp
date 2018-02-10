@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4188.robot.commands;
+package org.usfirst.frc.team4188.robot.commands.climber;
 
 import org.usfirst.frc.team4188.robot.Robot;
 
@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class GearShiftIn extends Command {
+public class LeadScrewStop extends Command {
 
-    public GearShiftIn() {
+    public LeadScrewStop() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -20,7 +20,7 @@ public class GearShiftIn extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.m_pidDriveTrain.shiftGearIn();
+    	Robot.m_climber.leadScrewStop();
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -35,6 +35,6 @@ public class GearShiftIn extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	end();
     }
+    
 }

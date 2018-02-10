@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4188.robot.commands;
+package org.usfirst.frc.team4188.robot.commands.elevator;
 
 import org.usfirst.frc.team4188.robot.Robot;
 
@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class IntakeMotorsForward extends Command {
+public class ElevatorStop extends Command {
 
-    public IntakeMotorsForward() {
+    public ElevatorStop() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -20,7 +20,7 @@ public class IntakeMotorsForward extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.m_intake.runIntakeMotors(-1.0);
+    	Robot.m_elevator.elevatorStop();
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Ultrasonic;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -42,15 +43,15 @@ public class RobotMap {
 	public static SpeedControllerGroup leftSet; 
 	public static SpeedControllerGroup rightSet; 
 	
-	public static CSPRobotDrive driveTrain;
+	public static DifferentialDrive drivetrain;
 	
 	public static DoubleSolenoid gearShift;
 	
 	public static ADXRS450_Gyro gyro;
 	
-	public static WPI_TalonSRX innerElevator;
-	public static WPI_TalonSRX outerElevator;
-	public static WPI_TalonSRX elevatorLeadScrew;
+	public static WPI_TalonSRX leftElevator;
+	public static WPI_TalonSRX rightElevator;
+	public static WPI_TalonSRX leadScrew;
 	
 	public static PowerDistributionPanel pdp;
 	
@@ -62,7 +63,6 @@ public class RobotMap {
 	public static WPI_TalonSRX intakeLeft;
 	public static WPI_TalonSRX intakeRelease;
 
-	
 	public static DoubleSolenoid intakeSolenoid;
 	
 
@@ -70,8 +70,8 @@ public class RobotMap {
 	public static void init() {
 		frontLeft = new WPI_TalonSRX(4);
 		rearLeft = new WPI_TalonSRX(6);
-		frontRight = new WPI_TalonSRX(7);
-		rearRight = new WPI_TalonSRX(8);
+		frontRight = new WPI_TalonSRX(8);
+		rearRight = new WPI_TalonSRX(7);
 		
 		rearLeft.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.CTRE_MagEncoder_Relative,0, 0);
 		rearLeft.setSensorPhase(true);
@@ -81,36 +81,29 @@ public class RobotMap {
 		leftSet = new SpeedControllerGroup(frontLeft, rearLeft);
 		rightSet = new SpeedControllerGroup(frontRight, rearRight);
 		
-		driveTrain = new CSPRobotDrive(leftSet, rightSet);
-		driveTrain.setSafetyEnabled(false);
-		driveTrain.setExpiration(0.1);
-		driveTrain.setSensitivity(0.5);
-		driveTrain.setMaxOutput(1.0);
+		drivetrain = new DifferentialDrive(leftSet, rightSet);
 		
 		gyro = new ADXRS450_Gyro();
 		
-		innerElevator = new WPI_TalonSRX(3);
-		innerElevator.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
-		innerElevator.setSensorPhase(true);
-		outerElevator = new WPI_TalonSRX(10);
+		leftElevator = new WPI_TalonSRX(3);
+		leftElevator.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+		leftElevator.setSensorPhase(true);
+		rightElevator = new WPI_TalonSRX(10);
 		
-		elevatorLeadScrew = new WPI_TalonSRX(9);
+		leadScrew = new WPI_TalonSRX(9);
 		
-		gearShift = new DoubleSolenoid(1,0,1);
+		gearShift = new DoubleSolenoid(0,0,1);
 		pdp = new PowerDistributionPanel();
 		
 		climberSolenoid1 = new DoubleSolenoid(0,2,3);
-		climberSolenoid2 = new DoubleSolenoid(0,4,5);
-		climberSolenoid3 = new DoubleSolenoid(0,6,7);
 		
 		intakeRight = new WPI_TalonSRX(2);
 		intakeLeft = new WPI_TalonSRX(11);
 		intakeRelease = new WPI_TalonSRX(1);
 		
-		intakeSolenoid = new DoubleSolenoid(1,2,3);
+		intakeSolenoid = new DoubleSolenoid(0,4,5);
 		
 		ultrasonic = new Ultrasonic(0,1);
-		
 		
 	}
 

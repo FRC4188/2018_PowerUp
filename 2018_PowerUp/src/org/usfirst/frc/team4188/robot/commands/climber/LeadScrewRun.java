@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4188.robot.commands;
+package org.usfirst.frc.team4188.robot.commands.climber;
 
 import org.usfirst.frc.team4188.robot.Robot;
 
@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class IntakeReleaseStop extends Command {
+public class LeadScrewRun extends Command {
 
-    public IntakeReleaseStop() {
+    public LeadScrewRun() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -20,7 +20,7 @@ public class IntakeReleaseStop extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.m_intake.intakeReleaseStop();
+    	Robot.m_climber.leadScrewRun();
     }
 
     // Make this return true when this Command no longer needs to run execute()

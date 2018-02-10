@@ -1,7 +1,7 @@
 package org.usfirst.frc.team4188.robot.commandgroups;
 
-import org.usfirst.frc.team4188.robot.commands.AutoDriveDistanceBased;
-import org.usfirst.frc.team4188.robot.commands.TurnToAngle;
+import org.usfirst.frc.team4188.robot.commands.drive.AutoDriveDistanceBased;
+import org.usfirst.frc.team4188.robot.commands.drive.TurnToAngle;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 

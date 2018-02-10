@@ -1,17 +1,15 @@
-package org.usfirst.frc.team4188.robot.commands;
+package org.usfirst.frc.team4188.robot.commands.intake;
 
 import org.usfirst.frc.team4188.robot.Robot;
-import org.usfirst.frc.team4188.robot.RobotMap;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class CylindersOff extends Command {
+public class IntakeReleaseUp extends Command {
 
-    public CylindersOff() {
+    public IntakeReleaseUp() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -22,8 +20,7 @@ public class CylindersOff extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.m_climber.cylinderOff();
-
+    	Robot.m_intake.intakeReleaseUp();
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -38,6 +35,5 @@ public class CylindersOff extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	end();
     }
 }

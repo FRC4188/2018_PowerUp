@@ -9,13 +9,11 @@ package org.usfirst.frc.team4188.robot;
 
 import org.usfirst.frc.team4188.robot.commandgroups.AutonomousTesting;
 import org.usfirst.frc.team4188.robot.subsystems.Climber;
+import org.usfirst.frc.team4188.robot.subsystems.Drivetrain;
+import org.usfirst.frc.team4188.robot.subsystems.Drivetrain.PIDInput;
 import org.usfirst.frc.team4188.robot.subsystems.Elevator;
 import org.usfirst.frc.team4188.robot.subsystems.Intake;
 import org.usfirst.frc.team4188.robot.subsystems.JevoisCamera;
-import org.usfirst.frc.team4188.robot.subsystems.PIDDriveTrain;
-import org.usfirst.frc.team4188.robot.subsystems.PIDDriveTrain.PIDInput;
-
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -32,14 +30,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends TimedRobot {
 	
 	public static OI m_oi;
-	public static PIDDriveTrain m_pidDriveTrain;
+	public static Drivetrain m_drivetrain;
 	public static JevoisCamera m_jevoisCamera;
 	public static Elevator m_elevator;
 	public static Climber m_climber;
 	public static Intake m_intake;
 	
-	
-
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -50,13 +46,11 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		RobotMap.init();
-		m_pidDriveTrain = new PIDDriveTrain();
+		m_drivetrain = new Drivetrain();
 		m_oi = new OI();
-		m_pidDriveTrain.setPIDInput(PIDInput.none);
+		m_drivetrain.setPIDInput(PIDInput.none);
 		RobotMap.gyro.calibrate();
 		m_chooser.addObject("Test Auto", new AutonomousTesting());
-		
-		
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
 		m_elevator = new Elevator();
@@ -64,7 +58,6 @@ public class Robot extends TimedRobot {
 		m_climber = new Climber();
 		m_intake = new Intake();
 		RobotMap.ultrasonic.setAutomaticMode(true);
-		
 	}
 
 	/**
@@ -74,7 +67,6 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void disabledInit() {
-
 	}
 
 	@Override
@@ -111,8 +103,8 @@ public class Robot extends TimedRobot {
 		 */
 		
 		// schedule the autonomous command (example)
-		Robot.m_pidDriveTrain.gyroReset();
-		Robot.m_pidDriveTrain.resetEncoders();
+		Robot.m_drivetrain.gyroReset();
+		Robot.m_drivetrain.resetEncoders();
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
 		}
@@ -132,10 +124,10 @@ public class Robot extends TimedRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		Robot.m_pidDriveTrain.resetEncoders();
-		Robot.m_pidDriveTrain.gyroReset();
-		Robot.m_pidDriveTrain.setClosedloopRamp(0.1);
-		//Robot.m_pidDriveTrain.enableCurrentLimit();
+		Robot.m_drivetrain.resetEncoders();
+		Robot.m_drivetrain.gyroReset();
+		Robot.m_drivetrain.setClosedloopRamp(0.1);
+		//Robot.m_drivetrain.enableCurrentLimit();
 		
 	}
 
@@ -145,16 +137,13 @@ public class Robot extends TimedRobot {
 	int counter = 0;
 	@Override
 	public void teleopPeriodic() {
-		
-		
-		
 		Scheduler.getInstance().run();
-		SmartDashboard.putData(Robot.m_pidDriveTrain.getPIDController());
-		SmartDashboard.putData("Drive Train", Robot.m_pidDriveTrain);
+		SmartDashboard.putData(Robot.m_drivetrain.getPIDController());
+		SmartDashboard.putData("Drive Train", Robot.m_drivetrain);
 		SmartDashboard.putData(RobotMap.gyro);
-		SmartDashboard.putNumber("Velocity", RobotMap.rearRight.getSelectedSensorVelocity(0)*Robot.m_pidDriveTrain.SENSOR_UNITS_PER_ROTATION);
-		Robot.m_pidDriveTrain.getRightEncoderRotation();
-		Robot.m_pidDriveTrain.getLeftEncoderRotation();
+		SmartDashboard.putNumber("Velocity", RobotMap.rearRight.getSelectedSensorVelocity(0)*Robot.m_drivetrain.SENSOR_UNITS_PER_ROTATION);
+		Robot.m_drivetrain.getRightEncoderRotation();
+		Robot.m_drivetrain.getLeftEncoderRotation();
 		SmartDashboard.putData(RobotMap.pdp);
 		if(counter++%100 ==0) {
 			m_jevoisCamera.setHSV((int) SmartDashboard.getNumber("hMin", m_jevoisCamera.H_MIN),
@@ -165,6 +154,7 @@ public class Robot extends TimedRobot {
 				(int) SmartDashboard.getNumber("vMax", m_jevoisCamera.V_MAX));
 		}
 		SmartDashboard.putNumber("Ultrasonic Sensor", RobotMap.ultrasonic.getRangeInches());
+		Robot.m_drivetrain.setClosedloopRamp(10);
 	}
 
 	/**
@@ -172,8 +162,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void testPeriodic() {
-	
-		SmartDashboard.putData("Drive Train", Robot.m_pidDriveTrain);
-	
+		SmartDashboard.putData("Drive Train", Robot.m_drivetrain);
 	}
+	
 }

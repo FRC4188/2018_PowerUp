@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4188.robot.commands;
+package org.usfirst.frc.team4188.robot.commands.drive;
 
 import org.usfirst.frc.team4188.robot.Robot;
 
@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class IntakeMotorsReverse extends Command {
+public class GearShiftIn extends Command {
 
-    public IntakeMotorsReverse() {
+    public GearShiftIn() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -20,7 +20,7 @@ public class IntakeMotorsReverse extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.m_intake.runIntakeMotors(-1.0);
+    	Robot.m_drivetrain.shiftGearIn();
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -35,5 +35,6 @@ public class IntakeMotorsReverse extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }

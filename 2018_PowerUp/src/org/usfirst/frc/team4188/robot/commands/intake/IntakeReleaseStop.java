@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4188.robot.commands;
+package org.usfirst.frc.team4188.robot.commands.intake;
 
 import org.usfirst.frc.team4188.robot.Robot;
 
@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class RunInnerElevator extends Command {
+public class IntakeReleaseStop extends Command {
 
-    public RunInnerElevator() {
+    public IntakeReleaseStop() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -20,7 +20,7 @@ public class RunInnerElevator extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.m_elevator.ElevatorLeadScrewRun();
+    	Robot.m_intake.intakeReleaseStop();
     }
 
     // Make this return true when this Command no longer needs to run execute()
