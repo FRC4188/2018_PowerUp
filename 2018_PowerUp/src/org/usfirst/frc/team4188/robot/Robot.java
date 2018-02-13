@@ -7,6 +7,15 @@
 
 package org.usfirst.frc.team4188.robot;
 
+import org.usfirst.frc.team4188.robot.commandgroups.AutonomousDoNothing;
+import org.usfirst.frc.team4188.robot.commandgroups.AutonomousLeftScale;
+import org.usfirst.frc.team4188.robot.commandgroups.AutonomousLeftSwitch;
+import org.usfirst.frc.team4188.robot.commandgroups.AutonomousMiddleFrontSwitch;
+import org.usfirst.frc.team4188.robot.commandgroups.AutonomousMiddleScale;
+import org.usfirst.frc.team4188.robot.commandgroups.AutonomousMiddleSideSwitch;
+import org.usfirst.frc.team4188.robot.commandgroups.AutonomousMoveForward;
+import org.usfirst.frc.team4188.robot.commandgroups.AutonomousRightScale;
+import org.usfirst.frc.team4188.robot.commandgroups.AutonomousRightSwitch;
 import org.usfirst.frc.team4188.robot.commandgroups.AutonomousTesting;
 import org.usfirst.frc.team4188.robot.subsystems.Climber;
 import org.usfirst.frc.team4188.robot.subsystems.Drivetrain;
@@ -14,6 +23,8 @@ import org.usfirst.frc.team4188.robot.subsystems.Drivetrain.PIDInput;
 import org.usfirst.frc.team4188.robot.subsystems.Elevator;
 import org.usfirst.frc.team4188.robot.subsystems.Intake;
 import org.usfirst.frc.team4188.robot.subsystems.JevoisCamera;
+
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -50,8 +61,19 @@ public class Robot extends TimedRobot {
 		m_oi = new OI();
 		m_drivetrain.setPIDInput(PIDInput.none);
 		RobotMap.gyro.calibrate();
+		
+		m_chooser.setName("Autonomous");
 		m_chooser.addObject("Test Auto", new AutonomousTesting());
-		// chooser.addObject("My Auto", new MyAutoCommand());
+		m_chooser.addObject("Start Left End Switch", new AutonomousLeftSwitch());
+		m_chooser.addObject("Start Left End Scale", new AutonomousLeftScale());
+		m_chooser.addObject("Start Right End Switch", new AutonomousRightSwitch());
+		m_chooser.addObject("Start Right End Scale", new AutonomousRightScale());
+		m_chooser.addObject("Start Middle End Front Switch", new AutonomousMiddleFrontSwitch());
+		m_chooser.addObject("Start Middle End Side Switch", new AutonomousMiddleSideSwitch());
+		m_chooser.addObject("Start Middle End Scale", new AutonomousMiddleScale());
+		m_chooser.addObject("Start Anywhere Move Forward", new AutonomousMoveForward());
+		m_chooser.addDefault("Do nothing", new AutonomousDoNothing());
+		
 		SmartDashboard.putData("Auto mode", m_chooser);
 		m_elevator = new Elevator();
 		m_jevoisCamera = new JevoisCamera();
@@ -87,14 +109,17 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		//String frcNonsense = DriverStation.getInstance().getGameSpecificMessage();
-		String frcNonsense = "RLR";
-		char mySwitch = frcNonsense.charAt(0);
-		char scale = frcNonsense.charAt(1);
-		char theirSwitch = frcNonsense.charAt(2);
+		String frcNonsense = "LLL";///DriverStation.getInstance().getGameSpecificMessage();
 		
 		m_autonomousCommand = m_chooser.getSelected();
 		
+		try {
+			if(m_autonomousCommand.getClass() != AutonomousMoveForward.class) {
+				m_autonomousCommand = m_autonomousCommand.getClass().getConstructor(String.class).newInstance(frcNonsense);
+			}
+		} catch(Exception e) {
+			m_autonomousCommand = new AutonomousMoveForward();
+		}
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
@@ -138,13 +163,13 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		SmartDashboard.putData(Robot.m_drivetrain.getPIDController());
 		SmartDashboard.putData("Drive Train", Robot.m_drivetrain);
 		SmartDashboard.putData(RobotMap.gyro);
 		SmartDashboard.putNumber("Velocity", RobotMap.rearRight.getSelectedSensorVelocity(0)*Robot.m_drivetrain.SENSOR_UNITS_PER_ROTATION);
 		Robot.m_drivetrain.getRightEncoderRotation();
 		Robot.m_drivetrain.getLeftEncoderRotation();
 		SmartDashboard.putData(RobotMap.pdp);
+		/*
 		if(counter++%100 ==0) {
 			m_jevoisCamera.setHSV((int) SmartDashboard.getNumber("hMin", m_jevoisCamera.H_MIN),
 				(int) SmartDashboard.getNumber("hMax", m_jevoisCamera.H_MAX),
@@ -153,6 +178,7 @@ public class Robot extends TimedRobot {
 				(int) SmartDashboard.getNumber("vMin", m_jevoisCamera.V_MIN),
 				(int) SmartDashboard.getNumber("vMax", m_jevoisCamera.V_MAX));
 		}
+		*/
 		SmartDashboard.putNumber("Ultrasonic Sensor", RobotMap.ultrasonic.getRangeInches());
 		Robot.m_drivetrain.setClosedloopRamp(10);
 	}
@@ -163,6 +189,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void testPeriodic() {
 		SmartDashboard.putData("Drive Train", Robot.m_drivetrain);
+		SmartDashboard.putData(Robot.m_drivetrain.getPIDController());
 	}
 	
 }

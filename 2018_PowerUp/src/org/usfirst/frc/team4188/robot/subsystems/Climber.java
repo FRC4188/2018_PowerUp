@@ -27,20 +27,14 @@ public class Climber extends Subsystem {
     
     public void cylinderOut() {
     	RobotMap.climberSolenoid1.set(Value.kReverse);
-    	RobotMap.climberSolenoid2.set(Value.kReverse);
-    	RobotMap.climberSolenoid3.set(Value.kReverse);
     }
     
     public void cylinderIn() {
     	RobotMap.climberSolenoid1.set(Value.kForward);
-    	RobotMap.climberSolenoid2.set(Value.kForward);
-    	RobotMap.climberSolenoid3.set(Value.kForward);
     }
     
     public void cylinderOff() {
     	RobotMap.climberSolenoid1.set(Value.kOff);
-    	RobotMap.climberSolenoid2.set(Value.kOff);
-    	RobotMap.climberSolenoid3.set(Value.kOff);
     }
 
     public void leadScrewRun() {

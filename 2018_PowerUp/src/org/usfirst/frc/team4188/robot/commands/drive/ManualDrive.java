@@ -29,17 +29,17 @@ XboxController pilotXboxController = Robot.m_oi.pilotXboxController;
   
     	double moveValue;
     	double rotateValue;
-    	double rotateConstant = 0.50;
+    	double rotateConstant = 0.7;
     	double brownOutConstant = 1.0;
-    /*
+    
     	if(pilotXboxController.getTriggerAxis(Hand.kRight)-0.5>0 && !((pilotXboxController.getTriggerAxis(Hand.kLeft)-0.5)>0)){
-    		rotateConstant = 0.85+(0.15*(pilotXboxController.getTriggerAxis(Hand.kRight)-0.5)) ;
+    		rotateConstant = 0.7+(0.3*(pilotXboxController.getTriggerAxis(Hand.kRight)-0.5)) ;
     	}
     	if((pilotXboxController.getTriggerAxis(Hand.kLeft)-0.5>0) && !((pilotXboxController.getTriggerAxis(Hand.kRight)-0.5)>0)){
-    		rotateConstant = 0.85-(0.35*(pilotXboxController.getTriggerAxis(Hand.kLeft)-0.5));
+    		rotateConstant = 0.7-(0.2*(pilotXboxController.getTriggerAxis(Hand.kLeft)-0.5));
     	}
     	
-    	*/
+    	
     	Robot.m_drivetrain.arcadeDrive(pilotXboxController.getY(Hand.kLeft), pilotXboxController.getX(Hand.kRight)*rotateConstant, 1.0);
     	/*
     	if((RobotMap.rearRight.getSelectedSensorVelocity(0)*Robot.m_pidDriveTrain.SENSOR_UNITS_PER_ROTATION) > 10.0 ){

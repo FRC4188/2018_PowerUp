@@ -34,6 +34,13 @@ public class RobotMap {
 	// number and the module. For example you with a rangefinder:
 	// public static int rangefinderPort = 1;
 	// public static int rangefinderModule = 1;
+	
+	// constants for autonomous
+	public static final double ROBOT_LENGTH = 32.0/12;
+	public static final double ROBOT_WIDTH = 28.0/12;
+	public static final double SWITCH_HEIGHT_ROTATIONS = 3.5;
+	public static final double INTAKE_RELEASE_TIME = 0.2;
+	
 	public static WPI_TalonSRX frontLeft; 
 	public static WPI_TalonSRX rearLeft; 
 	public static WPI_TalonSRX frontRight;
@@ -82,6 +89,9 @@ public class RobotMap {
 		rightSet = new SpeedControllerGroup(frontRight, rearRight);
 		
 		drivetrain = new DifferentialDrive(leftSet, rightSet);
+		drivetrain.setSafetyEnabled(false);
+		drivetrain.setExpiration(0.1);
+		drivetrain.setMaxOutput(1.0);
 		
 		gyro = new ADXRS450_Gyro();
 		
