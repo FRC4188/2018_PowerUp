@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -72,6 +73,11 @@ public class RobotMap {
 
 	public static DoubleSolenoid intakeSolenoid;
 	
+	public static Servo leftWingFront;
+	public static Servo leftWingBack;
+	public static Servo rightWingFront;
+	public static Servo rightWingBack;
+	
 
 	
 	public static void init() {
@@ -102,18 +108,23 @@ public class RobotMap {
 		
 		leadScrew = new WPI_TalonSRX(9);
 		
-		gearShift = new DoubleSolenoid(0,0,1);
+		gearShift = new DoubleSolenoid(1,0,1);
 		pdp = new PowerDistributionPanel();
 		
-		climberSolenoid1 = new DoubleSolenoid(0,2,3);
+		climberSolenoid1 = new DoubleSolenoid(1,2,3);
 		
 		intakeRight = new WPI_TalonSRX(2);
 		intakeLeft = new WPI_TalonSRX(11);
 		intakeRelease = new WPI_TalonSRX(1);
 		
-		intakeSolenoid = new DoubleSolenoid(0,4,5);
+		intakeSolenoid = new DoubleSolenoid(1,4,5);
 		
 		ultrasonic = new Ultrasonic(0,1);
+		
+		leftWingFront = new Servo(6);
+		leftWingBack = new Servo(7);
+		rightWingFront = new Servo(8);
+		rightWingBack = new Servo(9);
 		
 	}
 
