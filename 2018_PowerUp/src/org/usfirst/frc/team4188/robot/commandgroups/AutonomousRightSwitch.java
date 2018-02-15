@@ -7,7 +7,6 @@ import org.usfirst.frc.team4188.robot.commands.elevator.ElevatorToSwitch;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeMotorsReverse;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeReleaseDown;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeReleaseStop;
-
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -19,7 +18,7 @@ public class AutonomousRightSwitch extends CommandGroup {
 
     public AutonomousRightSwitch(String positions) {
         
-    	final double INVERSE_ROOT_3 = 1 / Math.sqrt(3.0);
+    	//final double INVERSE_ROOT_3 = 1 / Math.sqrt(3.0);
     	char side = positions.charAt(0);
     	if(side == 'R') {
     		// switch is on right, go straight, turn, and deposit

@@ -8,11 +8,8 @@
 package org.usfirst.frc.team4188.robot;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Ultrasonic;
@@ -56,9 +53,9 @@ public class RobotMap {
 	
 	public static ADXRS450_Gyro gyro;
 	
-	public static WPI_TalonSRX leftElevator;
-	public static WPI_TalonSRX rightElevator;
-	public static WPI_TalonSRX leadScrew;
+	public static WPI_TalonSRX outerElevatorLeft;
+	public static WPI_TalonSRX outerElevatorRight;
+	public static WPI_TalonSRX innerElevator;
 	
 	public static PowerDistributionPanel pdp;
 	
@@ -71,8 +68,6 @@ public class RobotMap {
 	public static WPI_TalonSRX intakeRelease;
 
 	public static DoubleSolenoid intakeSolenoid;
-	
-
 	
 	public static void init() {
 		frontLeft = new WPI_TalonSRX(4);
@@ -95,23 +90,23 @@ public class RobotMap {
 		
 		gyro = new ADXRS450_Gyro();
 		
-		leftElevator = new WPI_TalonSRX(3);
-		leftElevator.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
-		leftElevator.setSensorPhase(true);
-		rightElevator = new WPI_TalonSRX(10);
+		outerElevatorLeft = new WPI_TalonSRX(3);
+		outerElevatorLeft.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+		outerElevatorLeft.setSensorPhase(true);
+		outerElevatorRight = new WPI_TalonSRX(10);
 		
-		leadScrew = new WPI_TalonSRX(9);
+		innerElevator = new WPI_TalonSRX(9);
 		
-		gearShift = new DoubleSolenoid(0,0,1);
+		gearShift = new DoubleSolenoid(1,0,1);
 		pdp = new PowerDistributionPanel();
 		
-		climberSolenoid1 = new DoubleSolenoid(0,2,3);
+		climberSolenoid1 = new DoubleSolenoid(1,2,3);
 		
-		intakeRight = new WPI_TalonSRX(2);
-		intakeLeft = new WPI_TalonSRX(11);
+		intakeRight = new WPI_TalonSRX(11);
+		intakeLeft = new WPI_TalonSRX(2);
 		intakeRelease = new WPI_TalonSRX(1);
 		
-		intakeSolenoid = new DoubleSolenoid(0,4,5);
+		intakeSolenoid = new DoubleSolenoid(1,4,5);
 		
 		ultrasonic = new Ultrasonic(0,1);
 		

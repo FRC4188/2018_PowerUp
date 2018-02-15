@@ -1,15 +1,13 @@
 package org.usfirst.frc.team4188.robot.commands.elevator;
 
-import org.usfirst.frc.team4188.robot.Robot;
-
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class ElevatorStop extends Command {
+public class ElevatorToScale extends Command {
 
-    public ElevatorStop() {
+    public ElevatorToScale() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -20,12 +18,12 @@ public class ElevatorStop extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.m_elevator.elevatorStop();
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true

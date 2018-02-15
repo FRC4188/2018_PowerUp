@@ -1,15 +1,14 @@
 package org.usfirst.frc.team4188.robot.commands.elevator;
 
 import org.usfirst.frc.team4188.robot.Robot;
-
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class ElevatorRun  extends Command {
+public class InnerElevatorStop extends Command {
 
-    public ElevatorRun() {
+    public InnerElevatorStop() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -20,8 +19,7 @@ public class ElevatorRun  extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.m_elevator.manualElevator();
-    	
+    	Robot.m_elevator.innerElevatorStop();
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -37,4 +35,5 @@ public class ElevatorRun  extends Command {
     // subsystems is scheduled to run
     protected void interrupted() {
     }
+    
 }

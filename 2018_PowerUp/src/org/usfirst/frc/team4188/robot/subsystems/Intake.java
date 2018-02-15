@@ -49,11 +49,11 @@ public class Intake extends Subsystem {
     }
     
     public void intakeReleaseDown() {
-    	intakeRelease.set(0.25);
+    	intakeRelease.set(0.1);
     }
     
     public void intakeReleaseUp() {
-    	intakeRelease.set(-0.25);
+    	intakeRelease.set(-1);
     }
     
     public void intakeReleaseStop() {

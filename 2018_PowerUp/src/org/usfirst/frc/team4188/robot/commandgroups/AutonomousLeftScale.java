@@ -3,11 +3,9 @@ package org.usfirst.frc.team4188.robot.commandgroups;
 import org.usfirst.frc.team4188.robot.RobotMap;
 import org.usfirst.frc.team4188.robot.commands.drive.AutoDriveDistanceBased;
 import org.usfirst.frc.team4188.robot.commands.drive.TurnToAngle;
-import org.usfirst.frc.team4188.robot.commands.elevator.ElevatorToSwitch;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeMotorsReverse;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeReleaseDown;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeReleaseStop;
-
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**

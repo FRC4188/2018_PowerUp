@@ -1,15 +1,14 @@
-package org.usfirst.frc.team4188.robot.commands.climber;
+package org.usfirst.frc.team4188.robot.commands.elevator;
 
 import org.usfirst.frc.team4188.robot.Robot;
-
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class LeadScrewStop extends Command {
+public class OuterElevatorRun  extends Command {
 
-    public LeadScrewStop() {
+    public OuterElevatorRun() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -20,7 +19,8 @@ public class LeadScrewStop extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.m_climber.leadScrewStop();
+    	Robot.m_elevator.outerElevatorRun();
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -36,5 +36,4 @@ public class LeadScrewStop extends Command {
     // subsystems is scheduled to run
     protected void interrupted() {
     }
-    
 }

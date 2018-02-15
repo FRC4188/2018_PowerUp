@@ -27,10 +27,10 @@ XboxController pilotXboxController = Robot.m_oi.pilotXboxController;
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
   
-    	double moveValue;
-    	double rotateValue;
+    	//double moveValue;
+    	//double rotateValue;
     	double rotateConstant = 0.7;
-    	double brownOutConstant = 1.0;
+    	//double brownOutConstant = 1.0;
     
     	if(pilotXboxController.getTriggerAxis(Hand.kRight)-0.5>0 && !((pilotXboxController.getTriggerAxis(Hand.kLeft)-0.5)>0)){
     		rotateConstant = 0.7+(0.3*(pilotXboxController.getTriggerAxis(Hand.kRight)-0.5)) ;

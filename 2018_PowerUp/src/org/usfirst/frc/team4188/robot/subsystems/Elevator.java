@@ -2,7 +2,6 @@ package org.usfirst.frc.team4188.robot.subsystems;
 
 import org.usfirst.frc.team4188.robot.Robot;
 import org.usfirst.frc.team4188.robot.RobotMap;
-
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController;
@@ -13,8 +12,9 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
  */
 public class Elevator extends PIDSubsystem {
 	
-	WPI_TalonSRX rightElevator = RobotMap.rightElevator;
-	WPI_TalonSRX leftElevator = RobotMap.leftElevator;
+	WPI_TalonSRX outerElevatorRight = RobotMap.outerElevatorRight;
+	WPI_TalonSRX outerElevatorLeft = RobotMap.outerElevatorLeft;
+	WPI_TalonSRX innerElevator = RobotMap.innerElevator;
 	XboxController coPilotXboxController = Robot.m_oi.coPilotXboxController;
  
 	// Initialize your subsystem here
@@ -31,14 +31,26 @@ public class Elevator extends PIDSubsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
     
-    public void manualElevator() {
-    	leftElevator.set(coPilotXboxController.getY(Hand.kLeft)*0.75);
-    	rightElevator.set(-coPilotXboxController.getY(Hand.kLeft)*0.75);
+    public void outerElevatorRun() {
+    	outerElevatorLeft.set(coPilotXboxController.getY(Hand.kLeft)*0.75);
+    	outerElevatorRight.set(-coPilotXboxController.getY(Hand.kLeft)*0.75);
     }
     
-    public void elevatorStop() {
-    	leftElevator.set(0);
-    	rightElevator.set(0);
+    public void outerElevatorStop() {
+    	outerElevatorLeft.set(0);
+    	outerElevatorRight.set(0);
+    }
+    
+    public void innerElevatorRun() {
+    	if((coPilotXboxController.getY(Hand.kRight)*-1)>0) {
+    		innerElevator.set(coPilotXboxController.getY(Hand.kRight)*-.75);
+    	} else {
+    		innerElevator.set(coPilotXboxController.getY(Hand.kRight)*-.25);
+    	}
+    }
+    
+    public void innerElevatorStop() {
+    	innerElevator.set(0);
     }
     
     public void setPID(double p, double i, double d) {
@@ -51,14 +63,14 @@ public class Elevator extends PIDSubsystem {
         // Return your input value for the PID loop
         // e.g. a sensor, like a potentiometer:
         // yourPot.getAverageVoltage() / kYourMaxVoltage;
-        return Math.abs(leftElevator.getSelectedSensorPosition(0));
+        return Math.abs(outerElevatorLeft.getSelectedSensorPosition(0));
     }
 
     protected void usePIDOutput(double output) {
         // Use output to drive your system, like a motor
         // e.g. yourMotor.set(output);
-    	leftElevator.set(output);
-    	rightElevator.set(-output);
+    	outerElevatorLeft.set(output);
+    	outerElevatorRight.set(-output);
     }
     
 }

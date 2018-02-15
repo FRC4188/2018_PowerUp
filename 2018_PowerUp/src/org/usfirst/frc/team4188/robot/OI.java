@@ -10,16 +10,15 @@ package org.usfirst.frc.team4188.robot;
 import org.usfirst.frc.team4188.robot.commands.climber.CylindersIn;
 import org.usfirst.frc.team4188.robot.commands.climber.CylindersOff;
 import org.usfirst.frc.team4188.robot.commands.climber.CylindersOut;
-import org.usfirst.frc.team4188.robot.commands.climber.LeadScrewRun;
-import org.usfirst.frc.team4188.robot.commands.climber.LeadScrewStop;
 import org.usfirst.frc.team4188.robot.commands.drive.AutoDriveDistanceBased;
 import org.usfirst.frc.team4188.robot.commands.drive.GearShiftIn;
 import org.usfirst.frc.team4188.robot.commands.drive.GearShiftOff;
 import org.usfirst.frc.team4188.robot.commands.drive.GearShiftOut;
 import org.usfirst.frc.team4188.robot.commands.drive.TurnToAngle;
-import org.usfirst.frc.team4188.robot.commands.elevator.ElevatorRun;
-import org.usfirst.frc.team4188.robot.commands.elevator.ElevatorStop;
-import org.usfirst.frc.team4188.robot.commands.elevator.ElevatorToSwitch;
+import org.usfirst.frc.team4188.robot.commands.elevator.OuterElevatorRun;
+import org.usfirst.frc.team4188.robot.commands.elevator.OuterElevatorStop;
+import org.usfirst.frc.team4188.robot.commands.elevator.InnerElevatorRun;
+import org.usfirst.frc.team4188.robot.commands.elevator.InnerElevatorStop;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeIn;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeMotorsForward;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeMotorsReverse;
@@ -29,7 +28,6 @@ import org.usfirst.frc.team4188.robot.commands.intake.IntakeReleaseDown;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeReleaseStop;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeReleaseUp;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeSolenoidOff;
-
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -140,8 +138,8 @@ public class OI {
 	coPilot11 = new JoystickButton(coPilotXboxController, 11);
 	coPilot12 = new JoystickButton(coPilotXboxController, 12);
 	
-	coPilot6.whileHeld(new ElevatorRun());
-	coPilot6.whenReleased(new ElevatorStop());
+	coPilot6.whileHeld(new OuterElevatorRun());
+	coPilot6.whenReleased(new OuterElevatorStop());
 	
 	coPilot1.whileHeld(new IntakeMotorsReverse());
 	coPilot1.whenReleased(new IntakeMotorsStop());
@@ -153,15 +151,15 @@ public class OI {
 	coPilot4.whileHeld(new IntakeOut());
 	coPilot4.whenReleased(new IntakeSolenoidOff());
 	
-	coPilot5.whileHeld(new LeadScrewRun());
-	coPilot5.whenReleased(new LeadScrewStop());
+	coPilot5.whileHeld(new InnerElevatorRun());
+	coPilot5.whenReleased(new InnerElevatorStop());
 	
 	coPilot7.whileHeld(new IntakeReleaseDown());
 	coPilot7.whenReleased(new IntakeReleaseStop());
 	coPilot8.whenPressed(new IntakeReleaseUp());
 	coPilot8.whenReleased(new IntakeReleaseStop());
 	
-	//coPilot9.whenPressed(new ElevatorToSwitch(2.0, .1));
+	//coPilot9.whenPressed(new ElevatorToSwitch(2.0, .1)); 
 	
 	}
 

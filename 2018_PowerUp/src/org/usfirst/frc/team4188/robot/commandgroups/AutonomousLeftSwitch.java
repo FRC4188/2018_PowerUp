@@ -19,7 +19,7 @@ public class AutonomousLeftSwitch extends CommandGroup {
 
     public AutonomousLeftSwitch(String positions) {
     	
-    	final double INVERSE_ROOT_3 = 1 / Math.sqrt(3.00);
+    	//final double INVERSE_ROOT_3 = 1 / Math.sqrt(3.00);
     	char side = positions.charAt(0);
     	if(side == 'L') {
     		// switch is on left, go straight, turn, and deposit
