@@ -70,16 +70,12 @@ public class RobotMap {
 
 	public static DoubleSolenoid intakeSolenoid;
 	
-<<<<<<< HEAD
-=======
 	public static Servo leftWingFront;
 	public static Servo leftWingBack;
 	public static Servo rightWingFront;
 	public static Servo rightWingBack;
 	
-
 	
->>>>>>> branch 'master' of https://github.com/FRC4188/2018_PowerUp.git
 	public static void init() {
 		frontLeft = new WPI_TalonSRX(4);
 		rearLeft = new WPI_TalonSRX(6);

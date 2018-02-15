@@ -121,6 +121,8 @@ public class OI {
 	pilot4.whileHeld(new CylindersOut());
 	pilot4.whenReleased(new CylindersOff());
 	
+	pilot7.whenPressed(new RaiseWings());
+	pilot8.whenPressed(new LowerWings());
 	 
 	pilot9.whileHeld(new GearShiftIn());
     pilot9.whenReleased(new GearShiftOff());
