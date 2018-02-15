@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -69,6 +70,16 @@ public class RobotMap {
 
 	public static DoubleSolenoid intakeSolenoid;
 	
+<<<<<<< HEAD
+=======
+	public static Servo leftWingFront;
+	public static Servo leftWingBack;
+	public static Servo rightWingFront;
+	public static Servo rightWingBack;
+	
+
+	
+>>>>>>> branch 'master' of https://github.com/FRC4188/2018_PowerUp.git
 	public static void init() {
 		frontLeft = new WPI_TalonSRX(4);
 		rearLeft = new WPI_TalonSRX(6);
@@ -109,6 +120,11 @@ public class RobotMap {
 		intakeSolenoid = new DoubleSolenoid(1,4,5);
 		
 		ultrasonic = new Ultrasonic(0,1);
+		
+		leftWingFront = new Servo(6);
+		leftWingBack = new Servo(7);
+		rightWingFront = new Servo(8);
+		rightWingBack = new Servo(9);
 		
 	}
 

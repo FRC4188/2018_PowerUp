@@ -23,6 +23,7 @@ import org.usfirst.frc.team4188.robot.subsystems.Drivetrain.PIDInput;
 import org.usfirst.frc.team4188.robot.subsystems.Elevator;
 import org.usfirst.frc.team4188.robot.subsystems.Intake;
 import org.usfirst.frc.team4188.robot.subsystems.JevoisCamera;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -44,9 +45,11 @@ public class Robot extends TimedRobot {
 	public static Elevator m_elevator;
 	public static Climber m_climber;
 	public static Intake m_intake;
+	public static Wings m_wings;
 	
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
+	String gameMessage = "";
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -77,6 +80,7 @@ public class Robot extends TimedRobot {
 		m_jevoisCamera = new JevoisCamera();
 		m_climber = new Climber();
 		m_intake = new Intake();
+		m_wings = new Wings();
 		RobotMap.ultrasonic.setAutomaticMode(true);
 	}
 
@@ -92,6 +96,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		gameMessage = DriverStation.getInstance().getGameSpecificMessage();
 	}
 
 	/**
@@ -107,16 +112,16 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		String frcNonsense = "LLL";///DriverStation.getInstance().getGameSpecificMessage();
+		gameMessage = "LLL";
 		
 		m_autonomousCommand = m_chooser.getSelected();
 		
 		try {
 			if(m_autonomousCommand.getClass() != AutonomousMoveForward.class) {
-				m_autonomousCommand = m_autonomousCommand.getClass().getConstructor(String.class).newInstance(frcNonsense);
+				m_autonomousCommand = m_autonomousCommand.getClass().getConstructor(String.class).newInstance(gameMessage);
 			}
 		} catch(Exception e) {
-			m_autonomousCommand = new AutonomousMoveForward();
+			m_autonomousCommand = new AutonomousDoNothing();
 		}
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",

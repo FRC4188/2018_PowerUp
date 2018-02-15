@@ -28,8 +28,11 @@ import org.usfirst.frc.team4188.robot.commands.intake.IntakeReleaseDown;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeReleaseStop;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeReleaseUp;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeSolenoidOff;
+import org.usfirst.frc.team4188.robot.commands.wings.LowerWings;
+import org.usfirst.frc.team4188.robot.commands.wings.RaiseWings;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**

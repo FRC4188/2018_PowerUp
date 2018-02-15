@@ -16,7 +16,7 @@ public class AutonomousMiddleScale extends CommandGroup {
 	public AutonomousMiddleScale() {}
 
     public AutonomousMiddleScale(String positions) {
-    	char side = positions.charAt(0);
+    	char side = positions.charAt(1);
     	if(side == 'L') {
     		// switch is on left
     		addSequential(new IntakeReleaseDown(), RobotMap.INTAKE_RELEASE_TIME);
