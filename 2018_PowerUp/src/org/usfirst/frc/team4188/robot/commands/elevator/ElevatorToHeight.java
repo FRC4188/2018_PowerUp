@@ -1,21 +1,24 @@
 package org.usfirst.frc.team4188.robot.commands.elevator;
 
 import org.usfirst.frc.team4188.robot.Robot;
+import org.usfirst.frc.team4188.robot.RobotMap;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class ElevatorToSwitch extends Command {
+public class ElevatorToHeight extends Command {
 
-    private double setpoint;
+	private double setpoint;
 	private double tolerance;
 	
-	public ElevatorToSwitch(double setpoint, double tolerance) {
+	public ElevatorToHeight(double setpoint, double tolerance) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	this.setpoint = setpoint;
-    	this.tolerance = tolerance;
+		requires(Robot.m_elevator);
+		this.setpoint = setpoint;
+		this.tolerance = tolerance;
     }
 
     // Called just before this Command runs the first time
@@ -38,7 +41,7 @@ public class ElevatorToSwitch extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.m_elevator.disable();
-    	Robot.m_elevator.free();
+    	//Robot.m_elevator.free();
     }
 
     // Called when another command which requires one or more of the same

@@ -8,6 +8,8 @@
 package org.usfirst.frc.team4188.robot;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
@@ -64,9 +66,9 @@ public class RobotMap {
 	public static DoubleSolenoid climberSolenoid2;
 	public static DoubleSolenoid climberSolenoid3;
 	
-	public static WPI_TalonSRX intakeRight;
-	public static WPI_TalonSRX intakeLeft;
-	public static WPI_TalonSRX intakeRelease;
+	public static WPI_VictorSPX intakeRight;
+	public static WPI_VictorSPX intakeLeft;
+	public static WPI_VictorSPX intakeRelease;
 
 	public static DoubleSolenoid intakeSolenoid;
 	
@@ -77,7 +79,7 @@ public class RobotMap {
 	
 	
 	public static void init() {
-		frontLeft = new WPI_TalonSRX(4);
+		frontLeft = new WPI_TalonSRX(5);
 		rearLeft = new WPI_TalonSRX(6);
 		frontRight = new WPI_TalonSRX(8);
 		rearRight = new WPI_TalonSRX(7);
@@ -101,19 +103,23 @@ public class RobotMap {
 		outerElevatorLeft.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		outerElevatorLeft.setSensorPhase(true);
 		outerElevatorRight = new WPI_TalonSRX(10);
+		outerElevatorRight.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+		outerElevatorRight.setSensorPhase(true);
 		
 		innerElevator = new WPI_TalonSRX(9);
+		innerElevator.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+		innerElevator.setSensorPhase(true);
 		
-		gearShift = new DoubleSolenoid(1,0,1);
+		gearShift = new DoubleSolenoid(0,0,1);
 		pdp = new PowerDistributionPanel();
 		
-		climberSolenoid1 = new DoubleSolenoid(1,2,3);
+		climberSolenoid1 = new DoubleSolenoid(0,2,3);
 		
-		intakeRight = new WPI_TalonSRX(11);
-		intakeLeft = new WPI_TalonSRX(2);
-		intakeRelease = new WPI_TalonSRX(1);
+		intakeRight = new WPI_VictorSPX(12);
+		intakeLeft = new WPI_VictorSPX(1);
+		intakeRelease = new WPI_VictorSPX(11);
 		
-		intakeSolenoid = new DoubleSolenoid(1,4,5);
+		intakeSolenoid = new DoubleSolenoid(0,4,5);
 		
 		ultrasonic = new Ultrasonic(0,1);
 		

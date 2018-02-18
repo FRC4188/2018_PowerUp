@@ -42,7 +42,7 @@ public class Elevator extends PIDSubsystem {
     }
     
     public void innerElevatorRun() {
-    	if((coPilotXboxController.getY(Hand.kRight)*-1)>0) {
+    	if(coPilotXboxController.getY(Hand.kRight) < 0) {
     		innerElevator.set(coPilotXboxController.getY(Hand.kRight)*-.75);
     	} else {
     		innerElevator.set(coPilotXboxController.getY(Hand.kRight)*-.25);
@@ -51,6 +51,18 @@ public class Elevator extends PIDSubsystem {
     
     public void innerElevatorStop() {
     	innerElevator.set(0);
+    }
+    
+    public void bothElevatorsRun(double power) {
+    	innerElevator.set(power);
+    	outerElevatorLeft.set(-power);
+    	outerElevatorRight.set(power);
+    }
+    
+    public void bothElevatorsStop() {
+    	innerElevator.set(0);
+    	outerElevatorLeft.set(0);
+    	outerElevatorRight.set(0);
     }
     
     public void setPID(double p, double i, double d) {

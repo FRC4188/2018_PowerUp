@@ -161,7 +161,7 @@ public class OI {
 	
 	coPilot7.whileHeld(new IntakeReleaseDown());
 	coPilot7.whenReleased(new IntakeReleaseStop());
-	coPilot8.whenPressed(new IntakeReleaseUp());
+	coPilot8.whileHeld(new IntakeReleaseUp());
 	coPilot8.whenReleased(new IntakeReleaseStop());
 	
 	//coPilot9.whenPressed(new ElevatorToSwitch(2.0, .1)); 

@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class JevoisCamera extends Subsystem {
 	
 	// boolean for camera view
-	private static final boolean CAMERA_VIEW = true;
+	private static final boolean CAMERA_VIEW = false;
 	
 	// constants for camera setup
 	private static final int BUAD_RATE = 115200;
@@ -163,46 +163,47 @@ public class JevoisCamera extends Subsystem {
 		}
 		if(serial == null) {
 			DriverStation.reportError("Unable to start serial connection", false);
-			return;
 		}
-		// start capture
-		if(CAMERA_VIEW) {
-			try {
-				camera = CameraServer.getInstance().startAutomaticCapture();
-				camera.setVideoMode(detectMode);
-				//camera.setExposureHoldCurrent();
-				//camera.setWhiteBalanceHoldCurrent();
-			} catch(Exception e) {
-				// if camera connection fails, default to no stream
-				if(camera != null) camera.free();
+		else {
+			// start capture
+			if(CAMERA_VIEW) {
+				try {
+					camera = CameraServer.getInstance().startAutomaticCapture();
+					camera.setVideoMode(detectMode);
+					//camera.setExposureHoldCurrent();
+					//camera.setWhiteBalanceHoldCurrent();
+				} catch(Exception e) {
+					// if camera connection fails, default to no stream
+					if(camera != null) camera.free();
+					sendSerial("setmapping " + NO_STREAM_MAP);
+					sendSerial("streamon");
+				}
+			}
+			else {
 				sendSerial("setmapping " + NO_STREAM_MAP);
 				sendSerial("streamon");
 			}
-		}
-		else {
-			sendSerial("setmapping " + NO_STREAM_MAP);
-			sendSerial("streamon");
-		}
-		// set default HSV
-		setHSV(H_MIN, H_MAX, S_MIN, S_MAX, V_MIN, V_MAX);
-		// set default data
-		SmartDashboard.putNumber("X pos", x);
-		SmartDashboard.putNumber("Y pos", y);
-		SmartDashboard.putNumber("Width", w);
-		SmartDashboard.putNumber("Height", h);
-		SmartDashboard.putNumber("Distance", distance);
-		SmartDashboard.putNumber("Angle", angle);
-		SmartDashboard.putString("Orientation", orientation);
-		// setup thread
-		listenerThread = new Thread(new Runnable() {
-			public void run() {
-				while(!Thread.interrupted()) {
-					detectCube();
+			// set default HSV
+			setHSV(H_MIN, H_MAX, S_MIN, S_MAX, V_MIN, V_MAX);
+			// set default data
+			SmartDashboard.putNumber("X pos", x);
+			SmartDashboard.putNumber("Y pos", y);
+			SmartDashboard.putNumber("Width", w);
+			SmartDashboard.putNumber("Height", h);
+			SmartDashboard.putNumber("Distance", distance);
+			SmartDashboard.putNumber("Angle", angle);
+			SmartDashboard.putString("Orientation", orientation);
+			// setup thread
+			listenerThread = new Thread(new Runnable() {
+				public void run() {
+					while(!Thread.interrupted()) {
+						detectCube();
+					}
 				}
-			}
-		});
-		listenerThread.setDaemon(true);
-		listenerThread.start();
+			});
+			listenerThread.setDaemon(true);
+			listenerThread.start();
+		}
 	}
 	
 
