@@ -2,6 +2,10 @@ package org.usfirst.frc.team4188.robot.subsystems;
 
 import org.usfirst.frc.team4188.robot.Robot;
 import org.usfirst.frc.team4188.robot.RobotMap;
+import org.usfirst.frc.team4188.robot.commands.elevator.BothElevatorsRun;
+import org.usfirst.frc.team4188.robot.commands.elevator.InnerElevatorRun;
+import org.usfirst.frc.team4188.robot.commands.elevator.OuterElevatorRun;
+
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController;
@@ -29,6 +33,7 @@ public class Elevator extends PIDSubsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
+    	setDefaultCommand(new BothElevatorsRun());
     }
     
     public void outerElevatorRun() {
@@ -53,10 +58,10 @@ public class Elevator extends PIDSubsystem {
     	innerElevator.set(0);
     }
     
-    public void bothElevatorsRun(double power) {
-    	innerElevator.set(power);
-    	outerElevatorLeft.set(-power);
-    	outerElevatorRight.set(power);
+    public void bothElevatorsRun(double innerPower, double outerPower) {
+    	innerElevator.set(innerPower);
+    	outerElevatorLeft.set(-outerPower);
+    	outerElevatorRight.set(outerPower);
     }
     
     public void bothElevatorsStop() {

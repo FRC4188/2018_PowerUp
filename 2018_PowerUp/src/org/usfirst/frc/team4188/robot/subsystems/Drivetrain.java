@@ -78,11 +78,11 @@ public class Drivetrain extends PIDSubsystem {
     	switch (sensorType) {
     	case gyro:
     		SmartDashboard.putString("Current PID Input", "Gyro");
-    		//setPID(0.1,0.0,0.15);
+    		setPID(0.1,0.0,0.15);
     		break;
     	case encoder:
     		SmartDashboard.putString("Current PID Input", "Rear Right Encoder");
-    		//setPID(0.13,0.0,0.0);
+    		setPID(0.13,0.0,0.0);
     		break;
     	case none:
     		SmartDashboard.putString("Current PID Input", "None");
