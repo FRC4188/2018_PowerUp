@@ -67,6 +67,7 @@ public class Drivetrain extends PIDSubsystem {
 	
 	public enum PIDInput{
 		gyro,
+		encoderToAngle,
 		encoder,
 		none
 	}
@@ -98,6 +99,8 @@ public class Drivetrain extends PIDSubsystem {
 	   switch (sensorType) {
 	    	case gyro:
 	    		return gyro.getAngle();
+	    	case encoderToAngle:
+	    		return Math.abs(rearRight.getSelectedSensorPosition(0)* SENSOR_UNITS);
 	    	case encoder:
 	    		return Math.abs(rearRight.getSelectedSensorPosition(0) * SENSOR_UNITS);
 	    	case none:
@@ -123,9 +126,14 @@ public class Drivetrain extends PIDSubsystem {
     		frontLeft.follow(rearLeft);
     		frontRight.follow(rearRight);
     		break;
-    	case encoder:
+    	case encoderToAngle:
     		rearRight.set(output);
         	rearLeft.set(output);
+        	frontLeft.follow(rearLeft);
+        	frontRight.follow(rearRight);
+    	case encoder:
+    		rearRight.set(output);
+        	rearLeft.set(-output);
         	frontLeft.follow(rearLeft);
         	frontRight.follow(rearRight);
         	break;
