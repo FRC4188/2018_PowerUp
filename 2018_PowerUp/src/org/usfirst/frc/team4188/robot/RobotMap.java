@@ -35,9 +35,12 @@ public class RobotMap {
 	// public static int rangefinderPort = 1;
 	// public static int rangefinderModule = 1;
 	
+	public enum RobotType{
+		SCRAPPY,
+		BREAKOUT
+	}
+	
 	// constants for autonomous
-	public static final double ROBOT_LENGTH = 32.0/12;
-	public static final double ROBOT_WIDTH = 28.0/12;
 	public static final double SWITCH_HEIGHT_ROTATIONS = 3.5;
 	public static final double INTAKE_RELEASE_TIME = 0.2;
 	
@@ -110,16 +113,16 @@ public class RobotMap {
 		innerElevator.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		innerElevator.setSensorPhase(true);
 		
-		gearShift = new DoubleSolenoid(0,0,1);
+		gearShift = new DoubleSolenoid(0,1);
 		pdp = new PowerDistributionPanel();
 		
-		climberSolenoid1 = new DoubleSolenoid(0,2,3);
+		climberSolenoid1 = new DoubleSolenoid(2,3);
 		
 		intakeRight = new WPI_VictorSPX(12);
 		intakeLeft = new WPI_VictorSPX(1);
 		intakeRelease = new WPI_VictorSPX(11);
 		
-		intakeSolenoid = new DoubleSolenoid(0,4,5);
+		intakeSolenoid = new DoubleSolenoid(4,5);
 		
 		ultrasonic = new Ultrasonic(0,1);
 		

@@ -39,6 +39,6 @@ public class ElevatorToFloor extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.m_elevator.disable();
-    	//Robot.m_elevator.free();
+    	Robot.m_elevator.free();
     }
 }

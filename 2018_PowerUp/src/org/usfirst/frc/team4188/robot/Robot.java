@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team4188.robot;
 
+import org.usfirst.frc.team4188.robot.RobotMap.RobotType;
 import org.usfirst.frc.team4188.robot.commandgroups.AutonomousDoNothing;
 import org.usfirst.frc.team4188.robot.commandgroups.AutonomousLeftScale;
 import org.usfirst.frc.team4188.robot.commandgroups.AutonomousLeftSwitch;
@@ -41,6 +42,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends TimedRobot {
 	
+	public static RobotType m_name = RobotMap.RobotType.SCRAPPY;
+	
+	public static double ROBOT_LENGTH;
+	public static double ROBOT_WIDTH;
+	
 	public static OI m_oi;
 	public static Drivetrain m_drivetrain;
 	public static JevoisCamera m_jevoisCamera;
@@ -59,6 +65,17 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
+		
+		switch(m_name) {
+		case SCRAPPY:
+			ROBOT_LENGTH = 39.0/12.0;
+			ROBOT_WIDTH = 25.0/12.0;
+			break;
+		case BREAKOUT:
+			ROBOT_LENGTH = 39.0/12.0;
+			ROBOT_WIDTH = 25.0/12.0;
+			break;
+		}
 		RobotMap.init();
 		m_drivetrain = new Drivetrain();
 		m_oi = new OI();
@@ -116,15 +133,16 @@ public class Robot extends TimedRobot {
 	public void autonomousInit() {
 		gameMessage = "LLL";
 		
-		m_autonomousCommand = m_chooser.getSelected();
+		m_autonomousCommand = (Command)m_chooser.getSelected();
 		
 		try {
 			if(m_autonomousCommand.getClass() != AutonomousMoveForward.class) {
-				m_autonomousCommand = m_autonomousCommand.getClass().getConstructor(String.class).newInstance(gameMessage);
+				m_autonomousCommand = (Command)m_autonomousCommand.getClass().getConstructor(String.class).newInstance(gameMessage);
 			}
 		} catch(Exception e) {
-			m_autonomousCommand = new AutonomousDoNothing();
+			m_autonomousCommand = new AutonomousMoveForward();
 		}
+		
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand

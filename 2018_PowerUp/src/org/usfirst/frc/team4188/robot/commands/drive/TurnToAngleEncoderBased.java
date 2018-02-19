@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4188.robot.commands.drive;
 
 import org.usfirst.frc.team4188.robot.Robot;
+import org.usfirst.frc.team4188.robot.RobotMap;
 import org.usfirst.frc.team4188.robot.subsystems.Drivetrain.PIDInput;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -10,21 +11,22 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class TurnToAngleEncoderBased extends Command {
 
-	double angle;
 	double turnDistance;
 	double tolerance;
     public TurnToAngleEncoderBased(double angle, double tolerance) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	
-    	this.angle = angle;
     	this.tolerance = tolerance;
-    	turnDistance = 1.04 * Math.toRadians(angle);
+    	turnDistance = 12.5/12.0 * Math.toRadians(-angle);
     	requires(Robot.m_drivetrain);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	RobotMap.gyro.reset();
+    	RobotMap.frontLeft.setInverted(true);
+    	RobotMap.rearLeft.setInverted(true);
     	Robot.m_drivetrain.setPIDInput(PIDInput.encoderToAngle);
     	Robot.m_drivetrain.resetEncoders();
     	Robot.m_drivetrain.setAbsoluteTolerance(tolerance);
@@ -45,6 +47,8 @@ public class TurnToAngleEncoderBased extends Command {
     protected void end() {
     	Robot.m_drivetrain.disable();
     	Robot.m_drivetrain.free();
+    	RobotMap.frontLeft.setInverted(false);
+    	RobotMap.rearLeft.setInverted(false);
     }
 
     // Called when another command which requires one or more of the same

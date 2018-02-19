@@ -41,7 +41,7 @@ public class ElevatorToHeight extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.m_elevator.disable();
-    	//Robot.m_elevator.free();
+    	Robot.m_elevator.free();
     }
 
     // Called when another command which requires one or more of the same

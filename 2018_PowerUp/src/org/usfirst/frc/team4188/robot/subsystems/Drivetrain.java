@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4188.robot.subsystems;
 
+import org.usfirst.frc.team4188.robot.Robot;
 import org.usfirst.frc.team4188.robot.RobotMap;
 import org.usfirst.frc.team4188.robot.commands.drive.ManualDrive;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -16,6 +17,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Drivetrain extends PIDSubsystem {
 	
+	int polarity;
+	
     // Initialize your subsystem here
     public Drivetrain() {
         // Use these to get going:
@@ -23,6 +26,14 @@ public class Drivetrain extends PIDSubsystem {
         //                  to
         // enable() - Enables the PID controller.
     	super("DriveTrain Encoders", 0.0,0.0,0.0);
+    	switch(Robot.m_name) {
+    		case SCRAPPY:
+    			polarity = -1;
+    			break;
+    		case BREAKOUT:
+    			polarity = 1;
+    			break;
+    	}
     }
     
 	WPI_TalonSRX frontLeft = RobotMap.frontLeft;
@@ -37,7 +48,8 @@ public class Drivetrain extends PIDSubsystem {
 	
 	public final double SENSOR_UNITS = 1.0/4096.0;
 	public final double SENSOR_UNITS_PER_ROTATION = (3600.0/SENSOR_UNITS);
-	public final double ROTATION_TO_INCHES_CONSTANT = 4.0 * Math.PI;
+	public final double ROTATION_TO_FEET_CONSTANT = 6.0/12.0 * Math.PI;
+	public final double UNITS_TO_FEET_CONSTANT = SENSOR_UNITS * ROTATION_TO_FEET_CONSTANT;
 	
 	public enum PIDType {
     	noType,
@@ -81,9 +93,13 @@ public class Drivetrain extends PIDSubsystem {
     		SmartDashboard.putString("Current PID Input", "Gyro");
     		setPID(0.1,0.0,0.15);
     		break;
+    	case encoderToAngle:
+    		SmartDashboard.putString("Current PID Input", "Rear Left Encoder");
+    		setPID(0.3,0.02,0.005);
+    		break;
     	case encoder:
-    		SmartDashboard.putString("Current PID Input", "Rear Right Encoder");
-    		setPID(0.13,0.0,0.0);
+    		SmartDashboard.putString("Current PID Input", "Rear Left Encoder");
+    		setPID(0.1, 0.001, 0.0);
     		break;
     	case none:
     		SmartDashboard.putString("Current PID Input", "None");
@@ -100,9 +116,9 @@ public class Drivetrain extends PIDSubsystem {
 	    	case gyro:
 	    		return gyro.getAngle();
 	    	case encoderToAngle:
-	    		return Math.abs(rearRight.getSelectedSensorPosition(0)* SENSOR_UNITS);
+	    		return rearLeft.getSelectedSensorPosition(0) * UNITS_TO_FEET_CONSTANT;
 	    	case encoder:
-	    		return Math.abs(rearRight.getSelectedSensorPosition(0) * SENSOR_UNITS);
+	    		return Math.abs(rearLeft.getSelectedSensorPosition(0) * UNITS_TO_FEET_CONSTANT);
 	    	case none:
 	    		return -1.0;
 	    	default:

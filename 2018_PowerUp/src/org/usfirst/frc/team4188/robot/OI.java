@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team4188.robot;
 
+import org.usfirst.frc.team4188.robot.commandgroups.AutonomousLeftScale;
+import org.usfirst.frc.team4188.robot.commandgroups.AutonomousLeftSwitch;
 import org.usfirst.frc.team4188.robot.commands.climber.CylindersIn;
 import org.usfirst.frc.team4188.robot.commands.climber.CylindersOff;
 import org.usfirst.frc.team4188.robot.commands.climber.CylindersOut;
@@ -15,6 +17,7 @@ import org.usfirst.frc.team4188.robot.commands.drive.GearShiftIn;
 import org.usfirst.frc.team4188.robot.commands.drive.GearShiftOff;
 import org.usfirst.frc.team4188.robot.commands.drive.GearShiftOut;
 import org.usfirst.frc.team4188.robot.commands.drive.TurnToAngle;
+import org.usfirst.frc.team4188.robot.commands.drive.TurnToAngleEncoderBased;
 import org.usfirst.frc.team4188.robot.commands.elevator.OuterElevatorRun;
 import org.usfirst.frc.team4188.robot.commands.elevator.OuterElevatorStop;
 import org.usfirst.frc.team4188.robot.commands.elevator.InnerElevatorRun;
@@ -112,10 +115,15 @@ public class OI {
     pilot11 = new JoystickButton(pilotXboxController, 11);
     pilot12 = new JoystickButton(pilotXboxController, 12);
     
-	pilot1.whenPressed(new AutoDriveDistanceBased(5.0,0.1));
-	SmartDashboard.putData("Distance Based PID", new AutoDriveDistanceBased(5.0,0.1));
-	pilot2.whenPressed(new TurnToAngle(90,1.0));
-	SmartDashboard.putData("Turn To Angle PID", new TurnToAngle(90,1.0));
+	//pilot1.whenPressed(new AutoDriveDistanceBased(5.0,0.1));
+    //SmartDashboard.putData("Distance Based PID", new AutoDriveDistanceBased(10.0,0.1));
+    pilot1.whenPressed(new AutonomousLeftSwitch("LLL"));
+	//pilot2.whenPressed(new TurnToAngle(90,1.0));
+	//SmartDashboard.putData("Turn To Angle PID", new TurnToAngle(90,1.0));
+	//pilot2.whenPressed(new TurnToAngleEncoderBased(90, 0.006));
+	//SmartDashboard.putData("Turn to Angle w/ Encoder PID", new TurnToAngleEncoderBased(90, 1.0));
+    pilot2.whenPressed(new AutonomousLeftScale("LLL"));
+	
 	pilot3.whileHeld(new CylindersIn());
 	pilot3.whenReleased(new CylindersOff());
 	pilot4.whileHeld(new CylindersOut());
