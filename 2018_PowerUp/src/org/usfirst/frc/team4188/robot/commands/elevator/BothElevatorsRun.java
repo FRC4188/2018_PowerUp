@@ -27,11 +27,12 @@ public class BothElevatorsRun extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	if(coPilot.getY(Hand.kRight) < 0) {
-    		inner = coPilot.getY(Hand.kRight)*-.75;
+    		inner = coPilot.getY(Hand.kRight)*-1;
     	} else {
-    		inner = coPilot.getY(Hand.kRight)*-.25;
+    		inner = coPilot.getY(Hand.kRight)*-.75;
     	}
-    	outer = coPilot.getY(Hand.kLeft)*0.75;
+    	//outer = coPilot.getY(Hand.kLeft);
+    	outer = 0;
     	Robot.m_elevator.bothElevatorsRun(inner, outer);
     }
 

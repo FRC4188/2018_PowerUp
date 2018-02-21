@@ -1,19 +1,13 @@
-package org.usfirst.frc.team4188.robot.commands.elevator;
+package org.usfirst.frc.team4188.robot.commands.drive;
 
-import org.usfirst.frc.team4188.robot.Robot;
-
-import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class InnerElevatorRun extends Command {
-	
-	XboxController coPilot = Robot.m_oi.coPilotXboxController;
+public class Delay extends Command {
 
-    public InnerElevatorRun() {
+    public Delay() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -24,12 +18,11 @@ public class InnerElevatorRun extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.m_elevator.innerElevatorRun(coPilot.getY(Hand.kRight));
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true

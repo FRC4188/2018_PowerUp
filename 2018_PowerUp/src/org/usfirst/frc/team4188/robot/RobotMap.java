@@ -40,6 +40,11 @@ public class RobotMap {
 		BREAKOUT
 	}
 	
+	public enum Height{
+		SWITCH,
+		SCALE
+	}
+	
 	// constants for autonomous
 	public static final double SWITCH_HEIGHT_ROTATIONS = 3.5;
 	public static final double INTAKE_RELEASE_TIME = 0.2;

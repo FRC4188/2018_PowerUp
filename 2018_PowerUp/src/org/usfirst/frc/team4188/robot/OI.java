@@ -20,6 +20,7 @@ import org.usfirst.frc.team4188.robot.commands.drive.TurnToAngle;
 import org.usfirst.frc.team4188.robot.commands.drive.TurnToAngleEncoderBased;
 import org.usfirst.frc.team4188.robot.commands.elevator.OuterElevatorRun;
 import org.usfirst.frc.team4188.robot.commands.elevator.OuterElevatorStop;
+import org.usfirst.frc.team4188.robot.commands.elevator.ElevatorToHeight;
 import org.usfirst.frc.team4188.robot.commands.elevator.InnerElevatorRun;
 import org.usfirst.frc.team4188.robot.commands.elevator.InnerElevatorStop;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeIn;
@@ -115,14 +116,10 @@ public class OI {
     pilot11 = new JoystickButton(pilotXboxController, 11);
     pilot12 = new JoystickButton(pilotXboxController, 12);
     
-	//pilot1.whenPressed(new AutoDriveDistanceBased(5.0,0.1));
-    //SmartDashboard.putData("Distance Based PID", new AutoDriveDistanceBased(10.0,0.1));
-    pilot1.whenPressed(new AutonomousLeftSwitch("LLL"));
-	//pilot2.whenPressed(new TurnToAngle(90,1.0));
-	//SmartDashboard.putData("Turn To Angle PID", new TurnToAngle(90,1.0));
-	//pilot2.whenPressed(new TurnToAngleEncoderBased(90, 0.006));
-	//SmartDashboard.putData("Turn to Angle w/ Encoder PID", new TurnToAngleEncoderBased(90, 1.0));
-    pilot2.whenPressed(new AutonomousLeftScale("LLL"));
+	pilot1.whenPressed(new AutoDriveDistanceBased(5.0,0.1));
+    SmartDashboard.putData("Distance Based PID", new AutoDriveDistanceBased(10.0,0.1));
+	pilot2.whenPressed(new TurnToAngleEncoderBased(-90, 0.01));
+	SmartDashboard.putData("Turn to Angle w/ Encoder PID", new TurnToAngleEncoderBased(90, 1.0));
 	
 	pilot3.whileHeld(new CylindersIn());
 	pilot3.whenReleased(new CylindersOff());
@@ -155,6 +152,9 @@ public class OI {
 	coPilot1.whenReleased(new IntakeMotorsStop());
 	coPilot2.whileHeld(new IntakeMotorsForward());
 	coPilot2.whenReleased(new IntakeMotorsStop());
+	
+	coPilot3.whenPressed(new ElevatorToHeight(RobotMap.SWITCH_HEIGHT_ROTATIONS, 0.5));
+	coPilot4.whenPressed(new ElevatorToHeight(0.00001, 0.1));
 	
 	coPilot5.whileHeld(new IntakeIn());
 	coPilot5.whenReleased(new IntakeSolenoidOff());

@@ -19,7 +19,8 @@ public class Elevator extends PIDSubsystem {
 	WPI_TalonSRX outerElevatorRight = RobotMap.outerElevatorRight;
 	WPI_TalonSRX outerElevatorLeft = RobotMap.outerElevatorLeft;
 	WPI_TalonSRX innerElevator = RobotMap.innerElevator;
-	XboxController coPilotXboxController = Robot.m_oi.coPilotXboxController;
+	
+	public final double SENSOR_UNITS = 1.0/4096.0;
  
 	// Initialize your subsystem here
     public Elevator() {
@@ -36,9 +37,9 @@ public class Elevator extends PIDSubsystem {
     	setDefaultCommand(new BothElevatorsRun());
     }
     
-    public void outerElevatorRun() {
-    	outerElevatorLeft.set(coPilotXboxController.getY(Hand.kLeft)*0.75);
-    	outerElevatorRight.set(-coPilotXboxController.getY(Hand.kLeft)*0.75);
+    public void outerElevatorRun(double power) {
+    	outerElevatorLeft.set(power);
+    	outerElevatorRight.set(-power);
     }
     
     public void outerElevatorStop() {
@@ -46,11 +47,11 @@ public class Elevator extends PIDSubsystem {
     	outerElevatorRight.set(0);
     }
     
-    public void innerElevatorRun() {
-    	if(coPilotXboxController.getY(Hand.kRight) < 0) {
-    		innerElevator.set(coPilotXboxController.getY(Hand.kRight)*-.75);
+    public void innerElevatorRun(double power) {
+    	if(power < 0) {
+    		innerElevator.set(power*-.75);
     	} else {
-    		innerElevator.set(coPilotXboxController.getY(Hand.kRight)*-.25);
+    		innerElevator.set(power*-.25);
     	}
     }
     
@@ -80,14 +81,13 @@ public class Elevator extends PIDSubsystem {
         // Return your input value for the PID loop
         // e.g. a sensor, like a potentiometer:
         // yourPot.getAverageVoltage() / kYourMaxVoltage;
-        return Math.abs(outerElevatorLeft.getSelectedSensorPosition(0));
+        return innerElevator.getSelectedSensorPosition(0) * SENSOR_UNITS;
     }
 
     protected void usePIDOutput(double output) {
         // Use output to drive your system, like a motor
         // e.g. yourMotor.set(output);
-    	outerElevatorLeft.set(output);
-    	outerElevatorRight.set(-output);
+    	innerElevator.set(output);
     }
     
 }

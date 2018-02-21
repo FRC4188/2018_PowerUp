@@ -78,11 +78,10 @@ public class Robot extends TimedRobot {
 		}
 		RobotMap.init();
 		m_drivetrain = new Drivetrain();
-		m_oi = new OI();
 		m_drivetrain.setPIDInput(PIDInput.none);
 		RobotMap.gyro.calibrate();
 		
-		m_chooser.setName("Autonomous");
+		m_chooser.setName("Autonomous Selecter");
 		m_chooser.addObject("Test Auto", new AutonomousTesting());
 		m_chooser.addObject("Start Left End Switch", new AutonomousLeftSwitch());
 		m_chooser.addObject("Start Left End Scale", new AutonomousLeftScale());
@@ -100,6 +99,7 @@ public class Robot extends TimedRobot {
 		m_climber = new Climber();
 		m_intake = new Intake();
 		m_wings = new Wings();
+		m_oi = new OI();
 		RobotMap.ultrasonic.setAutomaticMode(true);
 	}
 
@@ -116,6 +116,7 @@ public class Robot extends TimedRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		gameMessage = DriverStation.getInstance().getGameSpecificMessage();
+		m_autonomousCommand = (Command)m_chooser.getSelected();
 	}
 
 	/**
@@ -131,9 +132,9 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		gameMessage = "LLL";
+		gameMessage = "RRR";
 		
-		m_autonomousCommand = (Command)m_chooser.getSelected();
+		//m_autonomousCommand = (Command)m_chooser.getSelected();
 		
 		try {
 			if(m_autonomousCommand.getClass() != AutonomousMoveForward.class) {

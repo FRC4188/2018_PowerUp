@@ -13,8 +13,6 @@ public class Climber extends Subsystem {
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-	
-	XboxController coPilotXboxController = Robot.m_oi.coPilotXboxController;
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.

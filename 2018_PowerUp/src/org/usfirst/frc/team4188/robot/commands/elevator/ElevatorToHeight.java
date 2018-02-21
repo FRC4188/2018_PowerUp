@@ -23,7 +23,7 @@ public class ElevatorToHeight extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.m_elevator.setSetpoint(setpoint);
+    	Robot.m_elevator.setSetpoint(-setpoint);
     	Robot.m_elevator.setAbsoluteTolerance(tolerance);
     	Robot.m_elevator.setPID(.25, .1, 0);
     }
@@ -47,6 +47,7 @@ public class ElevatorToHeight extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
     
 }

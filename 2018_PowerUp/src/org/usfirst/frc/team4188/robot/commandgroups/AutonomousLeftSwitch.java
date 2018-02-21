@@ -3,6 +3,7 @@ package org.usfirst.frc.team4188.robot.commandgroups;
 import org.usfirst.frc.team4188.robot.Robot;
 import org.usfirst.frc.team4188.robot.RobotMap;
 import org.usfirst.frc.team4188.robot.commands.drive.AutoDriveDistanceBased;
+import org.usfirst.frc.team4188.robot.commands.drive.Delay;
 import org.usfirst.frc.team4188.robot.commands.drive.TurnToAngle;
 import org.usfirst.frc.team4188.robot.commands.drive.TurnToAngleEncoderBased;
 import org.usfirst.frc.team4188.robot.commands.elevator.ElevatorToHeight;
@@ -29,8 +30,10 @@ public class AutonomousLeftSwitch extends CommandGroup {
     		//addSequential(new IntakeReleaseStop());
     		//addParallel(new ElevatorToHeight(RobotMap.SWITCH_HEIGHT_ROTATIONS, 0.1));
     		addSequential(new AutoDriveDistanceBased(168.0/12 - Robot.ROBOT_LENGTH / 2, 1.0));
-    		addSequential(new TurnToAngleEncoderBased(90.0, 0.001), 3.0);
-    		addSequential(new AutoDriveDistanceBased(55.56/12 - Robot.ROBOT_WIDTH / 2 - Robot.ROBOT_LENGTH / 2, 0.1));
+    		addSequential(new Delay(), 0.5);
+    		addSequential(new TurnToAngleEncoderBased(90.0, 0.01));
+    		addSequential(new Delay(), 0.5);
+    		addSequential(new AutoDriveDistanceBased(55.56/12 - Robot.ROBOT_WIDTH / 2 - Robot.ROBOT_LENGTH / 2, 0.1), 2.0);
     		//addSequential(new IntakeMotorsReverse());
     		// EXTRA
     		/*
