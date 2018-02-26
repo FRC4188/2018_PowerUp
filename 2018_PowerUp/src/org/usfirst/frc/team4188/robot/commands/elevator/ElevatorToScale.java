@@ -22,6 +22,16 @@ public class ElevatorToScale extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	/*
+    	if(outerLimitSwitch()) {
+    		Robot.m_elevator.bothElevatorsRun(0.5, 0.0);
+    	else if(innerLimitSwitch()) {
+    		Robot.m_elevator.bothElevatorsRun(0.0, 0.5);
+    	}
+    	else if(innerLimitSwitch && outerLimitSwitch){
+    		Robot.m_elevator.bothElevatorsStop()
+    	}
+    	 */
     }
 
     // Make this return true when this Command no longer needs to run execute()

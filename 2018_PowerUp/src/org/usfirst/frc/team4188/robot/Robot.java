@@ -9,15 +9,21 @@ package org.usfirst.frc.team4188.robot;
 
 import org.usfirst.frc.team4188.robot.RobotMap.RobotType;
 import org.usfirst.frc.team4188.robot.commandgroups.AutonomousDoNothing;
-import org.usfirst.frc.team4188.robot.commandgroups.AutonomousLeftScale;
-import org.usfirst.frc.team4188.robot.commandgroups.AutonomousLeftSwitch;
-import org.usfirst.frc.team4188.robot.commandgroups.AutonomousMiddleFrontSwitch;
-import org.usfirst.frc.team4188.robot.commandgroups.AutonomousMiddleScale;
-import org.usfirst.frc.team4188.robot.commandgroups.AutonomousMiddleSideSwitch;
 import org.usfirst.frc.team4188.robot.commandgroups.AutonomousMoveForward;
-import org.usfirst.frc.team4188.robot.commandgroups.AutonomousRightScale;
-import org.usfirst.frc.team4188.robot.commandgroups.AutonomousRightSwitch;
-import org.usfirst.frc.team4188.robot.commandgroups.AutonomousTesting;
+import org.usfirst.frc.team4188.robot.commandgroups.left.scale.AutonomousLeftScaleGoingLeft;
+import org.usfirst.frc.team4188.robot.commandgroups.left.scale.AutonomousLeftScaleGoingRight;
+import org.usfirst.frc.team4188.robot.commandgroups.left.sideswitch.AutonomousLeftSwitchGoingLeft;
+import org.usfirst.frc.team4188.robot.commandgroups.left.sideswitch.AutonomousLeftSwitchGoingRight;
+import org.usfirst.frc.team4188.robot.commandgroups.middle.frontswitch.AutonomousMiddleFrontSwitchGoingLeft;
+import org.usfirst.frc.team4188.robot.commandgroups.middle.frontswitch.AutonomousMiddleFrontSwitchGoingRight;
+import org.usfirst.frc.team4188.robot.commandgroups.middle.scale.AutonomousMiddleScaleGoingLeft;
+import org.usfirst.frc.team4188.robot.commandgroups.middle.scale.AutonomousMiddleScaleGoingRight;
+import org.usfirst.frc.team4188.robot.commandgroups.middle.sideswitch.AutonomousMiddleSideSwitchGoingLeft;
+import org.usfirst.frc.team4188.robot.commandgroups.middle.sideswitch.AutonomousMiddleSideSwitchGoingRight;
+import org.usfirst.frc.team4188.robot.commandgroups.right.scale.AutonomousRightScaleGoingLeft;
+import org.usfirst.frc.team4188.robot.commandgroups.right.scale.AutonomousRightScaleGoingRight;
+import org.usfirst.frc.team4188.robot.commandgroups.right.sideswitch.AutonomousRightSwitchGoingLeft;
+import org.usfirst.frc.team4188.robot.commandgroups.right.sideswitch.AutonomousRightSwitchGoingRight;
 import org.usfirst.frc.team4188.robot.subsystems.Climber;
 import org.usfirst.frc.team4188.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team4188.robot.subsystems.Drivetrain.PIDInput;
@@ -26,8 +32,10 @@ import org.usfirst.frc.team4188.robot.subsystems.Intake;
 import org.usfirst.frc.team4188.robot.subsystems.JevoisCamera;
 import org.usfirst.frc.team4188.robot.subsystems.Wings;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -47,6 +55,9 @@ public class Robot extends TimedRobot {
 	public static double ROBOT_LENGTH;
 	public static double ROBOT_WIDTH;
 	
+	public static double INNER_ELEVATOR_FLAT_POWER;
+	public static double OUTER_ELEVATOR_FLAT_POWER;
+	
 	public static OI m_oi;
 	public static Drivetrain m_drivetrain;
 	public static JevoisCamera m_jevoisCamera;
@@ -56,8 +67,9 @@ public class Robot extends TimedRobot {
 	public static Wings m_wings;
 	
 	Command m_autonomousCommand;
-	SendableChooser<Command> m_chooser = new SendableChooser<>();
-	String gameMessage = "";
+	String m_selectedCommand;
+	SendableChooser<String> m_chooser = new SendableChooser<>();
+	String gameMessage = "NNN";
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -70,10 +82,14 @@ public class Robot extends TimedRobot {
 		case SCRAPPY:
 			ROBOT_LENGTH = 39.0/12.0;
 			ROBOT_WIDTH = 25.0/12.0;
+			INNER_ELEVATOR_FLAT_POWER = 0.1;
+			OUTER_ELEVATOR_FLAT_POWER = 0.0;
 			break;
 		case BREAKOUT:
 			ROBOT_LENGTH = 39.0/12.0;
 			ROBOT_WIDTH = 25.0/12.0;
+			INNER_ELEVATOR_FLAT_POWER = 0.1;
+			OUTER_ELEVATOR_FLAT_POWER = 0.0;
 			break;
 		}
 		RobotMap.init();
@@ -82,16 +98,15 @@ public class Robot extends TimedRobot {
 		RobotMap.gyro.calibrate();
 		
 		m_chooser.setName("Autonomous Selecter");
-		m_chooser.addObject("Test Auto", new AutonomousTesting());
-		m_chooser.addObject("Start Left End Switch", new AutonomousLeftSwitch());
-		m_chooser.addObject("Start Left End Scale", new AutonomousLeftScale());
-		m_chooser.addObject("Start Right End Switch", new AutonomousRightSwitch());
-		m_chooser.addObject("Start Right End Scale", new AutonomousRightScale());
-		m_chooser.addObject("Start Middle End Front Switch", new AutonomousMiddleFrontSwitch());
-		m_chooser.addObject("Start Middle End Side Switch", new AutonomousMiddleSideSwitch());
-		m_chooser.addObject("Start Middle End Scale", new AutonomousMiddleScale());
-		m_chooser.addObject("Start Anywhere Move Forward", new AutonomousMoveForward());
-		m_chooser.addDefault("Do nothing", new AutonomousDoNothing());
+		m_chooser.addObject("Start Left End Switch", "Start Left End Switch");
+		m_chooser.addObject("Start Left End Scale", "Start Left End Scale");
+		m_chooser.addObject("Start Right End Switch", "Start Right End Switch");
+		m_chooser.addObject("Start Right End Scale", "Start Right End Scale");
+		m_chooser.addObject("Start Middle End Front Switch", "Start Middle End Front Switch");
+		m_chooser.addObject("Start Middle End Side Switch", "Start Middle End Side Switch");
+		m_chooser.addObject("Start Middle End Scale", "Start Middle End Scale");
+		m_chooser.addObject("Start Anywhere Move Forward", "Start Anywhere Move Forward");
+		m_chooser.addDefault("Do Nothing", "Do Nothing");
 		
 		SmartDashboard.putData("Auto mode", m_chooser);
 		m_elevator = new Elevator();
@@ -101,6 +116,8 @@ public class Robot extends TimedRobot {
 		m_wings = new Wings();
 		m_oi = new OI();
 		RobotMap.ultrasonic.setAutomaticMode(true);
+		
+		CameraServer.getInstance().startAutomaticCapture();
 	}
 
 	/**
@@ -116,7 +133,7 @@ public class Robot extends TimedRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		gameMessage = DriverStation.getInstance().getGameSpecificMessage();
-		m_autonomousCommand = (Command)m_chooser.getSelected();
+		m_selectedCommand = m_chooser.getSelected();
 	}
 
 	/**
@@ -132,24 +149,113 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		gameMessage = "RRR";
+		//gameMessage = "RRR";
 		
-		//m_autonomousCommand = (Command)m_chooser.getSelected();
+		char switchSide = gameMessage.charAt(0);
+		char scaleSide = gameMessage.charAt(1);
 		
-		try {
-			if(m_autonomousCommand.getClass() != AutonomousMoveForward.class) {
-				m_autonomousCommand = (Command)m_autonomousCommand.getClass().getConstructor(String.class).newInstance(gameMessage);
+		switch(m_selectedCommand) {
+		case "Start Left End Switch":
+			switch(switchSide) {
+			case 'L':
+				m_autonomousCommand = new AutonomousLeftSwitchGoingLeft();
+				break;
+			case 'R':
+				m_autonomousCommand = new AutonomousLeftSwitchGoingRight();
+				break;
+			default:
+				m_autonomousCommand = new AutonomousDoNothing();
+				break;
 			}
-		} catch(Exception e) {
+			break;
+		case "Start Left End Scale":
+			switch(scaleSide) {
+			case 'L':
+				m_autonomousCommand = new AutonomousLeftScaleGoingLeft();
+				break;
+			case 'R':
+				m_autonomousCommand = new AutonomousLeftScaleGoingRight();
+				break;
+			default:
+				m_autonomousCommand = new AutonomousDoNothing();
+				break;
+			}
+			break;
+		case "Start Middle End Front Switch":
+			switch(switchSide) {
+			case 'L':
+				m_autonomousCommand = new AutonomousMiddleFrontSwitchGoingLeft();
+				break;
+			case 'R':
+				m_autonomousCommand = new AutonomousMiddleFrontSwitchGoingRight();
+				break;
+			default:
+				m_autonomousCommand = new AutonomousDoNothing();
+				break;
+			}
+			break;
+		case "Start Middle End Side Switch":
+			switch(switchSide) {
+			case 'L':
+				m_autonomousCommand = new AutonomousMiddleSideSwitchGoingLeft();
+				break;
+			case 'R':
+				m_autonomousCommand = new AutonomousMiddleSideSwitchGoingRight();
+				break;
+			default:
+				m_autonomousCommand = new AutonomousDoNothing();
+				break;
+			}
+			break;
+		case "Start Middle End Scale":
+			switch(scaleSide) {
+			case 'L':
+				m_autonomousCommand = new AutonomousMiddleScaleGoingLeft();
+				break;
+			case 'R':
+				m_autonomousCommand = new AutonomousMiddleScaleGoingRight();
+				break;
+			default:
+				m_autonomousCommand = new AutonomousDoNothing();
+				break;
+			}
+			break;
+		case "Start Right End Switch":
+			switch(switchSide) {
+			case 'L':
+				m_autonomousCommand = new AutonomousRightSwitchGoingLeft();
+				break;
+			case 'R':
+				m_autonomousCommand = new AutonomousRightSwitchGoingRight();
+				break;
+			default:
+				m_autonomousCommand = new AutonomousDoNothing();
+				break;
+			}
+			break;
+		case "Start Right End Scale":
+			switch(scaleSide) {
+			case 'L':
+				m_autonomousCommand = new AutonomousRightScaleGoingLeft();
+				break;
+			case 'R':
+				m_autonomousCommand = new AutonomousRightScaleGoingRight();
+				break;
+			default:
+				m_autonomousCommand = new AutonomousDoNothing();
+				break;
+			}
+			break;
+		case "Start Anywhere Move Forward":
 			m_autonomousCommand = new AutonomousMoveForward();
+			break;
+		case "Do Nothing":
+			m_autonomousCommand = new AutonomousDoNothing();
+			break;
+		default:
+			m_autonomousCommand = new AutonomousDoNothing();
+			break;
 		}
-		
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector",
-		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-		 * = new MyAutoCommand(); break; case "Default Auto": default:
-		 * autonomousCommand = new ExampleCommand(); break; }
-		 */
 		
 		// schedule the autonomous command (example)
 		Robot.m_drivetrain.gyroReset();
@@ -183,7 +289,6 @@ public class Robot extends TimedRobot {
 	/**
 	 * This function is called periodically during operator control.
 	 */
-	int counter = 0;
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
@@ -193,18 +298,11 @@ public class Robot extends TimedRobot {
 		Robot.m_drivetrain.getRightEncoderRotation();
 		Robot.m_drivetrain.getLeftEncoderRotation();
 		SmartDashboard.putData(RobotMap.pdp);
-		/*
-		if(counter++%100 ==0) {
-			m_jevoisCamera.setHSV((int) SmartDashboard.getNumber("hMin", m_jevoisCamera.H_MIN),
-				(int) SmartDashboard.getNumber("hMax", m_jevoisCamera.H_MAX),
-				(int) SmartDashboard.getNumber("sMin", m_jevoisCamera.S_MIN),
-				(int) SmartDashboard.getNumber("sMax", m_jevoisCamera.S_MAX),
-				(int) SmartDashboard.getNumber("vMin", m_jevoisCamera.V_MIN),
-				(int) SmartDashboard.getNumber("vMax", m_jevoisCamera.V_MAX));
-		}
-		*/
 		SmartDashboard.putNumber("Ultrasonic Sensor", RobotMap.ultrasonic.getRangeInches());
 		Robot.m_drivetrain.setClosedloopRamp(10);
+		// testing data
+		SmartDashboard.putNumber("Elevator Up Power", Robot.m_oi.coPilotXboxController.getY(Hand.kLeft));
+		SmartDashboard.putNumber("Inner Elevator Encoder", RobotMap.innerElevator.getSelectedSensorPosition(0));
 	}
 
 	/**

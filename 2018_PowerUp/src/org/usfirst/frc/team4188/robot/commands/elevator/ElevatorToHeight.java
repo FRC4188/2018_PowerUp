@@ -1,8 +1,6 @@
 package org.usfirst.frc.team4188.robot.commands.elevator;
 
 import org.usfirst.frc.team4188.robot.Robot;
-import org.usfirst.frc.team4188.robot.RobotMap;
-
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -23,7 +21,7 @@ public class ElevatorToHeight extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.m_elevator.setSetpoint(-setpoint);
+    	Robot.m_elevator.setSetpoint(setpoint);
     	Robot.m_elevator.setAbsoluteTolerance(tolerance);
     	Robot.m_elevator.setPID(.25, .1, 0);
     }

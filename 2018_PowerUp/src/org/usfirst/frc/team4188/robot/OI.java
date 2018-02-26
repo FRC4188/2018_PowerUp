@@ -7,8 +7,6 @@
 
 package org.usfirst.frc.team4188.robot;
 
-import org.usfirst.frc.team4188.robot.commandgroups.AutonomousLeftScale;
-import org.usfirst.frc.team4188.robot.commandgroups.AutonomousLeftSwitch;
 import org.usfirst.frc.team4188.robot.commands.climber.CylindersIn;
 import org.usfirst.frc.team4188.robot.commands.climber.CylindersOff;
 import org.usfirst.frc.team4188.robot.commands.climber.CylindersOut;
@@ -16,13 +14,8 @@ import org.usfirst.frc.team4188.robot.commands.drive.AutoDriveDistanceBased;
 import org.usfirst.frc.team4188.robot.commands.drive.GearShiftIn;
 import org.usfirst.frc.team4188.robot.commands.drive.GearShiftOff;
 import org.usfirst.frc.team4188.robot.commands.drive.GearShiftOut;
-import org.usfirst.frc.team4188.robot.commands.drive.TurnToAngle;
 import org.usfirst.frc.team4188.robot.commands.drive.TurnToAngleEncoderBased;
-import org.usfirst.frc.team4188.robot.commands.elevator.OuterElevatorRun;
-import org.usfirst.frc.team4188.robot.commands.elevator.OuterElevatorStop;
 import org.usfirst.frc.team4188.robot.commands.elevator.ElevatorToHeight;
-import org.usfirst.frc.team4188.robot.commands.elevator.InnerElevatorRun;
-import org.usfirst.frc.team4188.robot.commands.elevator.InnerElevatorStop;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeIn;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeMotorsForward;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeMotorsReverse;
@@ -36,7 +29,6 @@ import org.usfirst.frc.team4188.robot.commands.wings.LowerWings;
 import org.usfirst.frc.team4188.robot.commands.wings.RaiseWings;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -116,10 +108,10 @@ public class OI {
     pilot11 = new JoystickButton(pilotXboxController, 11);
     pilot12 = new JoystickButton(pilotXboxController, 12);
     
-	pilot1.whenPressed(new AutoDriveDistanceBased(5.0,0.1));
-    SmartDashboard.putData("Distance Based PID", new AutoDriveDistanceBased(10.0,0.1));
-	pilot2.whenPressed(new TurnToAngleEncoderBased(-90, 0.01));
-	SmartDashboard.putData("Turn to Angle w/ Encoder PID", new TurnToAngleEncoderBased(90, 1.0));
+	pilot1.whenPressed(new AutoDriveDistanceBased(5.0,0.2));
+    SmartDashboard.putData("Distance Based PID", new AutoDriveDistanceBased(10.0,0.2));
+	pilot2.whenPressed(new TurnToAngleEncoderBased(90, 0.1));
+	SmartDashboard.putData("Turn to Angle w/ Encoder PID", new TurnToAngleEncoderBased(90, 0.1));
 	
 	pilot3.whileHeld(new CylindersIn());
 	pilot3.whenReleased(new CylindersOff());
@@ -153,7 +145,7 @@ public class OI {
 	coPilot2.whileHeld(new IntakeMotorsForward());
 	coPilot2.whenReleased(new IntakeMotorsStop());
 	
-	coPilot3.whenPressed(new ElevatorToHeight(RobotMap.SWITCH_HEIGHT_ROTATIONS, 0.5));
+	coPilot3.whenPressed(new ElevatorToHeight(RobotMap.SWITCH_HEIGHT, 0.5));
 	coPilot4.whenPressed(new ElevatorToHeight(0.00001, 0.1));
 	
 	coPilot5.whileHeld(new IntakeIn());

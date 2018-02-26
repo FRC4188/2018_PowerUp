@@ -2,8 +2,6 @@ package org.usfirst.frc.team4188.robot.subsystems;
 
 import org.usfirst.frc.team4188.robot.RobotMap;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
@@ -21,7 +19,8 @@ public class Intake extends Subsystem {
 		
 		WPI_VictorSPX intakeRight = RobotMap.intakeRight;
 		WPI_VictorSPX intakeLeft = RobotMap.intakeLeft;
-		WPI_VictorSPX intakeRelease = RobotMap.intakeRelease;
+		WPI_TalonSRX intakeReleaseLeft = RobotMap.intakeReleaseLeft;
+		WPI_TalonSRX intakeReleaseRight = RobotMap.intakeReleaseRight;
 		DoubleSolenoid intakeSolenoid = RobotMap.intakeSolenoid;
 		
     public void initDefaultCommand() {
@@ -52,15 +51,18 @@ public class Intake extends Subsystem {
     }
     
     public void intakeReleaseDown() {
-    	intakeRelease.set(1.0);
+    	intakeReleaseLeft.set(1.0);
+    	intakeReleaseRight.set(1.0);
     }
     
     public void intakeReleaseUp() {
-    	intakeRelease.set(-1.0);
+    	intakeReleaseLeft.set(-1.0);
+    	intakeReleaseRight.set(-1.0);
     }
     
     public void intakeReleaseStop() {
-    	intakeRelease.set(0.0);
+    	intakeReleaseLeft.set(0.0);
+    	intakeReleaseRight.set(0.0);
     }
     
 }

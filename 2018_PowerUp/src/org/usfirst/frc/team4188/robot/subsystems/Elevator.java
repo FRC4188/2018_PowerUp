@@ -1,14 +1,8 @@
 package org.usfirst.frc.team4188.robot.subsystems;
 
-import org.usfirst.frc.team4188.robot.Robot;
 import org.usfirst.frc.team4188.robot.RobotMap;
 import org.usfirst.frc.team4188.robot.commands.elevator.BothElevatorsRun;
-import org.usfirst.frc.team4188.robot.commands.elevator.InnerElevatorRun;
-import org.usfirst.frc.team4188.robot.commands.elevator.OuterElevatorRun;
-
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
 /**
@@ -20,7 +14,9 @@ public class Elevator extends PIDSubsystem {
 	WPI_TalonSRX outerElevatorLeft = RobotMap.outerElevatorLeft;
 	WPI_TalonSRX innerElevator = RobotMap.innerElevator;
 	
-	public final double SENSOR_UNITS = 1.0/4096.0;
+	private final double SENSOR_UNITS = 1.0/4096.0;
+	private final double INCHES_PER_ROTATION = 1.0;
+	private final double INCHES_PER_UNIT = SENSOR_UNITS * INCHES_PER_ROTATION;
  
 	// Initialize your subsystem here
     public Elevator() {
@@ -81,7 +77,7 @@ public class Elevator extends PIDSubsystem {
         // Return your input value for the PID loop
         // e.g. a sensor, like a potentiometer:
         // yourPot.getAverageVoltage() / kYourMaxVoltage;
-        return innerElevator.getSelectedSensorPosition(0) * SENSOR_UNITS;
+        return innerElevator.getSelectedSensorPosition(0) * INCHES_PER_UNIT;
     }
 
     protected void usePIDOutput(double output) {

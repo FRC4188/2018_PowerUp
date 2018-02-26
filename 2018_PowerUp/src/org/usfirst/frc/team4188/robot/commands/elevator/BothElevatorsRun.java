@@ -26,13 +26,25 @@ public class BothElevatorsRun extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(coPilot.getY(Hand.kRight) < 0) {
-    		inner = coPilot.getY(Hand.kRight)*-1;
+    	// inner elevator power ranges from +1 to -0.5
+    	double innerInput = coPilot.getY(Hand.kRight);
+    	if(innerInput <= 0) {
+    		// going up
+    		inner = innerInput*(Robot.INNER_ELEVATOR_FLAT_POWER-1) + Robot.INNER_ELEVATOR_FLAT_POWER;
     	} else {
-    		inner = coPilot.getY(Hand.kRight)*-.75;
+    		// going down
+    		inner = innerInput*(-0.5 - Robot.INNER_ELEVATOR_FLAT_POWER) + Robot.INNER_ELEVATOR_FLAT_POWER;
     	}
-    	//outer = coPilot.getY(Hand.kLeft);
-    	outer = 0;
+    	// inner elevator power ranges from -1 to +1
+    	double outerInput = coPilot.getY(Hand.kLeft);
+    	if(outerInput <= 0) {
+    		// going up
+    		outer = outerInput * (Robot.OUTER_ELEVATOR_FLAT_POWER + 1) + Robot.OUTER_ELEVATOR_FLAT_POWER;
+    	}
+    	else {
+    		// going down
+    		outer = outerInput * (1 - Robot.OUTER_ELEVATOR_FLAT_POWER)+ Robot.OUTER_ELEVATOR_FLAT_POWER;
+    	}
     	Robot.m_elevator.bothElevatorsRun(inner, outer);
     }
 

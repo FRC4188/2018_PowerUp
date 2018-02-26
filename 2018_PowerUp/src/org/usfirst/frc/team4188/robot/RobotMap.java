@@ -7,10 +7,13 @@
 
 package org.usfirst.frc.team4188.robot;
 
+import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
+import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.Servo;
@@ -40,13 +43,8 @@ public class RobotMap {
 		BREAKOUT
 	}
 	
-	public enum Height{
-		SWITCH,
-		SCALE
-	}
-	
 	// constants for autonomous
-	public static final double SWITCH_HEIGHT_ROTATIONS = 3.5;
+	public static final double SWITCH_HEIGHT = 24.0;
 	public static final double INTAKE_RELEASE_TIME = 0.2;
 	
 	public static WPI_TalonSRX frontLeft; 
@@ -76,7 +74,8 @@ public class RobotMap {
 	
 	public static WPI_VictorSPX intakeRight;
 	public static WPI_VictorSPX intakeLeft;
-	public static WPI_VictorSPX intakeRelease;
+	public static WPI_TalonSRX intakeReleaseLeft;
+	public static WPI_TalonSRX intakeReleaseRight;
 
 	public static DoubleSolenoid intakeSolenoid;
 	
@@ -85,8 +84,23 @@ public class RobotMap {
 	public static Servo rightWingFront;
 	public static Servo rightWingBack;
 	
-	
 	public static void init() {
+		
+		/* current motor mappings
+		1: intake wheel left (Victor)
+		2: intake release left
+		3: outer elevator left
+		4: intake release right
+		5: front left drive
+		6: rear left drive
+		7: rear right drive
+		8: front right drive
+		9: inner elevator
+		10: outer elevator right
+		11: Nothing (Victor)
+		12: intake wheel right (Victor)
+		*/
+		
 		frontLeft = new WPI_TalonSRX(5);
 		rearLeft = new WPI_TalonSRX(6);
 		frontRight = new WPI_TalonSRX(8);
@@ -123,9 +137,11 @@ public class RobotMap {
 		
 		climberSolenoid1 = new DoubleSolenoid(2,3);
 		
-		intakeRight = new WPI_VictorSPX(12);
 		intakeLeft = new WPI_VictorSPX(1);
-		intakeRelease = new WPI_VictorSPX(11);
+		intakeRight = new WPI_VictorSPX(12);
+		intakeReleaseLeft = new WPI_TalonSRX(2);
+		intakeReleaseRight = new WPI_TalonSRX(4);
+		intakeReleaseRight.setInverted(true);
 		
 		intakeSolenoid = new DoubleSolenoid(4,5);
 		
@@ -135,7 +151,6 @@ public class RobotMap {
 		leftWingBack = new Servo(7);
 		rightWingFront = new Servo(8);
 		rightWingBack = new Servo(9);
-		
 	}
 
 }
