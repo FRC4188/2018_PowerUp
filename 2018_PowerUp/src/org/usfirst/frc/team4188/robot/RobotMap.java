@@ -9,9 +9,9 @@ package org.usfirst.frc.team4188.robot;
 
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
+import com.ctre.phoenix.motorcontrol.RemoteLimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -84,6 +84,9 @@ public class RobotMap {
 	public static Servo rightWingFront;
 	public static Servo rightWingBack;
 	
+	public static DigitalInput intakeReleaseTopLimit;
+	public static DigitalInput intakeReleaseBottomLimit;
+	
 	public static void init() {
 		
 		/* current motor mappings
@@ -124,13 +127,23 @@ public class RobotMap {
 		outerElevatorLeft = new WPI_TalonSRX(3);
 		outerElevatorLeft.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		outerElevatorLeft.setSensorPhase(true);
+		outerElevatorLeft.overrideLimitSwitchesEnable(true);
+		outerElevatorLeft.configForwardLimitSwitchSource(RemoteLimitSwitchSource.RemoteTalonSRX, LimitSwitchNormal.NormallyOpen, 10, 10);
+		outerElevatorLeft.configReverseLimitSwitchSource(RemoteLimitSwitchSource.RemoteTalonSRX, LimitSwitchNormal.NormallyOpen, 10, 10);
+		
 		outerElevatorRight = new WPI_TalonSRX(10);
 		outerElevatorRight.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		outerElevatorRight.setSensorPhase(true);
+		outerElevatorRight.overrideLimitSwitchesEnable(true);
+		outerElevatorRight.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 10);
+		outerElevatorRight.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 10);
 		
 		innerElevator = new WPI_TalonSRX(9);
 		innerElevator.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		innerElevator.setSensorPhase(true);
+		innerElevator.overrideLimitSwitchesEnable(true);
+		innerElevator.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 10);
+		innerElevator.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 10);
 		
 		gearShift = new DoubleSolenoid(0,1);
 		pdp = new PowerDistributionPanel();
@@ -149,8 +162,12 @@ public class RobotMap {
 		
 		leftWingFront = new Servo(6);
 		leftWingBack = new Servo(7);
-		rightWingFront = new Servo(8);
+		rightWingFront = new Servo(8); 
 		rightWingBack = new Servo(9);
+		
+		//intakeReleaseTopLimit = new DigitalInput(0);
+		//intakeReleaseBottomLimit = new DigitalInput(1);
+		
 	}
 
 }

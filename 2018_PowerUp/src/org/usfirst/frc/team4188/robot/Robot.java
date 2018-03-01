@@ -31,7 +31,6 @@ import org.usfirst.frc.team4188.robot.subsystems.Elevator;
 import org.usfirst.frc.team4188.robot.subsystems.Intake;
 import org.usfirst.frc.team4188.robot.subsystems.JevoisCamera;
 import org.usfirst.frc.team4188.robot.subsystems.Wings;
-
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -50,7 +49,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends TimedRobot {
 	
-	public static RobotType m_name = RobotMap.RobotType.SCRAPPY;
+	public static RobotType m_name = RobotMap.RobotType.BREAKOUT;
 	
 	public static double ROBOT_LENGTH;
 	public static double ROBOT_WIDTH;
@@ -82,14 +81,14 @@ public class Robot extends TimedRobot {
 		case SCRAPPY:
 			ROBOT_LENGTH = 39.0/12.0;
 			ROBOT_WIDTH = 25.0/12.0;
-			INNER_ELEVATOR_FLAT_POWER = 0.1;
-			OUTER_ELEVATOR_FLAT_POWER = 0.0;
+			INNER_ELEVATOR_FLAT_POWER = 0.05;
+			OUTER_ELEVATOR_FLAT_POWER = -0.075;
 			break;
 		case BREAKOUT:
 			ROBOT_LENGTH = 39.0/12.0;
 			ROBOT_WIDTH = 25.0/12.0;
-			INNER_ELEVATOR_FLAT_POWER = 0.1;
-			OUTER_ELEVATOR_FLAT_POWER = 0.0;
+			INNER_ELEVATOR_FLAT_POWER = 0.05;
+			OUTER_ELEVATOR_FLAT_POWER = -0.075;
 			break;
 		}
 		RobotMap.init();
@@ -282,6 +281,7 @@ public class Robot extends TimedRobot {
 		Robot.m_drivetrain.resetEncoders();
 		Robot.m_drivetrain.gyroReset();
 		Robot.m_drivetrain.setClosedloopRamp(0.1);
+		Robot.m_elevator.resetEncoders();
 		//Robot.m_drivetrain.enableCurrentLimit();
 		
 	}
@@ -289,6 +289,9 @@ public class Robot extends TimedRobot {
 	/**
 	 * This function is called periodically during operator control.
 	 */
+	private final double SENSOR_UNITS = 1.0/4096.0;
+	private final double INCHES_PER_ROTATION = 1.375*Math.PI;
+	private final double INCHES_PER_UNIT = SENSOR_UNITS * INCHES_PER_ROTATION;
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
@@ -301,8 +304,9 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("Ultrasonic Sensor", RobotMap.ultrasonic.getRangeInches());
 		Robot.m_drivetrain.setClosedloopRamp(10);
 		// testing data
+		
 		SmartDashboard.putNumber("Elevator Up Power", Robot.m_oi.coPilotXboxController.getY(Hand.kLeft));
-		SmartDashboard.putNumber("Inner Elevator Encoder", RobotMap.innerElevator.getSelectedSensorPosition(0));
+		SmartDashboard.putNumber("Inner Elevator Encoder", RobotMap.innerElevator.getSelectedSensorPosition(0) * INCHES_PER_UNIT);
 	}
 
 	/**

@@ -19,7 +19,7 @@ public class Intake extends Subsystem {
 		
 		WPI_VictorSPX intakeRight = RobotMap.intakeRight;
 		WPI_VictorSPX intakeLeft = RobotMap.intakeLeft;
-		WPI_TalonSRX intakeReleaseLeft = RobotMap.intakeReleaseLeft;
+		WPI_TalonSRX intakeReleaseLeft = RobotMap.intakeReleaseLeft;		
 		WPI_TalonSRX intakeReleaseRight = RobotMap.intakeReleaseRight;
 		DoubleSolenoid intakeSolenoid = RobotMap.intakeSolenoid;
 		
@@ -50,19 +50,9 @@ public class Intake extends Subsystem {
     	intakeSolenoid.set(Value.kOff);
     }
     
-    public void intakeReleaseDown() {
-    	intakeReleaseLeft.set(1.0);
-    	intakeReleaseRight.set(1.0);
-    }
-    
-    public void intakeReleaseUp() {
-    	intakeReleaseLeft.set(-1.0);
-    	intakeReleaseRight.set(-1.0);
-    }
-    
-    public void intakeReleaseStop() {
-    	intakeReleaseLeft.set(0.0);
-    	intakeReleaseRight.set(0.0);
+    public void runIntakeRelease(double speed) {
+    	intakeReleaseLeft.set(speed);
+    	intakeReleaseRight.set(speed);
     }
     
 }

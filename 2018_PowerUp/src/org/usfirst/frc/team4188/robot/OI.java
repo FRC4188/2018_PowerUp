@@ -21,9 +21,7 @@ import org.usfirst.frc.team4188.robot.commands.intake.IntakeMotorsForward;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeMotorsReverse;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeMotorsStop;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeOut;
-import org.usfirst.frc.team4188.robot.commands.intake.IntakeReleaseDown;
-import org.usfirst.frc.team4188.robot.commands.intake.IntakeReleaseStop;
-import org.usfirst.frc.team4188.robot.commands.intake.IntakeReleaseUp;
+import org.usfirst.frc.team4188.robot.commands.intake.IntakeReleaseRun;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeSolenoidOff;
 import org.usfirst.frc.team4188.robot.commands.wings.LowerWings;
 import org.usfirst.frc.team4188.robot.commands.wings.RaiseWings;
@@ -145,20 +143,21 @@ public class OI {
 	coPilot2.whileHeld(new IntakeMotorsForward());
 	coPilot2.whenReleased(new IntakeMotorsStop());
 	
-	coPilot3.whenPressed(new ElevatorToHeight(RobotMap.SWITCH_HEIGHT, 0.5));
-	coPilot4.whenPressed(new ElevatorToHeight(0.00001, 0.1));
+	coPilot3.whileHeld(new IntakeIn());
+	coPilot3.whenReleased(new IntakeSolenoidOff());
+	coPilot4.whileHeld(new IntakeOut());
+	coPilot4.whenReleased(new IntakeSolenoidOff());
 	
 	coPilot5.whileHeld(new IntakeIn());
 	coPilot5.whenReleased(new IntakeSolenoidOff());
 	coPilot6.whileHeld(new IntakeOut());
 	coPilot6.whenReleased(new IntakeSolenoidOff());
 	
-	coPilot7.whileHeld(new IntakeReleaseDown());
-	coPilot7.whenReleased(new IntakeReleaseStop());
-	coPilot8.whileHeld(new IntakeReleaseUp());
-	coPilot8.whenReleased(new IntakeReleaseStop());
+	coPilot7.whenPressed(new IntakeReleaseRun(.75));
+	coPilot8.whenPressed(new IntakeReleaseRun(-.5));
 	
-	//coPilot9.whenPressed(new ElevatorToSwitch(2.0, .1)); 
+	coPilot9.whenPressed(new ElevatorToHeight(2.0, .1));
+	
 	
 	}
 

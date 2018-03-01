@@ -15,7 +15,7 @@ public class Elevator extends PIDSubsystem {
 	WPI_TalonSRX innerElevator = RobotMap.innerElevator;
 	
 	private final double SENSOR_UNITS = 1.0/4096.0;
-	private final double INCHES_PER_ROTATION = 1.0;
+	private final double INCHES_PER_ROTATION = 1.375*Math.PI;
 	private final double INCHES_PER_UNIT = SENSOR_UNITS * INCHES_PER_ROTATION;
  
 	// Initialize your subsystem here
@@ -84,6 +84,12 @@ public class Elevator extends PIDSubsystem {
         // Use output to drive your system, like a motor
         // e.g. yourMotor.set(output);
     	innerElevator.set(output);
+    }
+    
+    public void resetEncoders() {
+    	innerElevator.setSelectedSensorPosition(0, 0, 0);
+    	outerElevatorRight.setSelectedSensorPosition(0, 0, 0);
+    	outerElevatorLeft.setSelectedSensorPosition(0, 0, 0);
     }
     
 }
