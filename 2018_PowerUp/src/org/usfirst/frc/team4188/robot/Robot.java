@@ -294,7 +294,7 @@ public class Robot extends TimedRobot {
 	private final double INCHES_PER_UNIT = SENSOR_UNITS * INCHES_PER_ROTATION;
 	@Override
 	public void teleopPeriodic() {
-		Scheduler.getInstance().run();
+		Scheduler.getInstance().run(); 
 		SmartDashboard.putData("Drive Train", Robot.m_drivetrain);
 		SmartDashboard.putData(RobotMap.gyro);
 		SmartDashboard.putNumber("Velocity", RobotMap.rearRight.getSelectedSensorVelocity(0)*Robot.m_drivetrain.SENSOR_UNITS_PER_ROTATION);
