@@ -165,8 +165,8 @@ public class RobotMap {
 		rightWingFront = new Servo(8); 
 		rightWingBack = new Servo(9);
 		
-		intakeReleaseTopLimit = new DigitalInput(0);
-		intakeReleaseBottomLimit = new DigitalInput(1);
+		intakeReleaseTopLimit = new DigitalInput(2);
+		intakeReleaseBottomLimit = new DigitalInput(3);
 		
 	}
 

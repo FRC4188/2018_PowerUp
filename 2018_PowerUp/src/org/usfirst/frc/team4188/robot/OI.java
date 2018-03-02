@@ -21,7 +21,10 @@ import org.usfirst.frc.team4188.robot.commands.intake.IntakeMotorsForward;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeMotorsReverse;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeMotorsStop;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeOut;
+import org.usfirst.frc.team4188.robot.commands.intake.IntakeReleaseDown;
+import org.usfirst.frc.team4188.robot.commands.intake.IntakeReleaseOff;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeReleaseRun;
+import org.usfirst.frc.team4188.robot.commands.intake.IntakeReleaseUp;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeSolenoidOff;
 import org.usfirst.frc.team4188.robot.commands.wings.LowerWings;
 import org.usfirst.frc.team4188.robot.commands.wings.RaiseWings;
@@ -106,11 +109,12 @@ public class OI {
     pilot11 = new JoystickButton(pilotXboxController, 11);
     pilot12 = new JoystickButton(pilotXboxController, 12);
     
+    /*
 	pilot1.whenPressed(new AutoDriveDistanceBased(5.0,0.2));
     SmartDashboard.putData("Distance Based PID", new AutoDriveDistanceBased(10.0,0.2));
 	pilot2.whenPressed(new TurnToAngleEncoderBased(90, 0.1));
 	SmartDashboard.putData("Turn to Angle w/ Encoder PID", new TurnToAngleEncoderBased(90, 0.1));
-	
+	*/
 	pilot3.whileHeld(new CylindersIn());
 	pilot3.whenReleased(new CylindersOff());
 	pilot4.whileHeld(new CylindersOut());
@@ -143,20 +147,27 @@ public class OI {
 	coPilot2.whileHeld(new IntakeMotorsForward());
 	coPilot2.whenReleased(new IntakeMotorsStop());
 	
+	/*
 	coPilot3.whileHeld(new IntakeIn());
 	coPilot3.whenReleased(new IntakeSolenoidOff());
 	coPilot4.whileHeld(new IntakeOut());
 	coPilot4.whenReleased(new IntakeSolenoidOff());
+	*/
 	
 	coPilot5.whileHeld(new IntakeIn());
 	coPilot5.whenReleased(new IntakeSolenoidOff());
 	coPilot6.whileHeld(new IntakeOut());
 	coPilot6.whenReleased(new IntakeSolenoidOff());
-	
+	/**
 	coPilot7.whenPressed(new IntakeReleaseRun(.75));
 	coPilot8.whenPressed(new IntakeReleaseRun(-.5));
+	**/
+	coPilot7.whileHeld(new IntakeReleaseDown());
+	coPilot7.whenReleased(new IntakeReleaseOff());
+	coPilot8.whileHeld(new IntakeReleaseUp());
+	coPilot8.whenReleased(new IntakeReleaseOff());
 	
-	coPilot9.whenPressed(new ElevatorToHeight(2.0, .1));
+	//coPilot9.whenPressed(new ElevatorToHeight(2.0, .1));
 	
 	
 	}

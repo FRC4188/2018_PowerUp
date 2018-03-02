@@ -66,8 +66,8 @@ public class Robot extends TimedRobot {
 	public static Wings m_wings;
 	
 	Command m_autonomousCommand;
-	String m_selectedCommand;
-	SendableChooser<String> m_chooser = new SendableChooser<>();
+	int m_selectedCommand;
+	SendableChooser<Integer> m_chooser = new SendableChooser<>();
 	String gameMessage = "NNN";
 
 	/**
@@ -96,18 +96,18 @@ public class Robot extends TimedRobot {
 		m_drivetrain.setPIDInput(PIDInput.none);
 		RobotMap.gyro.calibrate();
 		
-		m_chooser.setName("Autonomous Selecter");
-		m_chooser.addObject("Start Left End Switch", "Start Left End Switch");
-		m_chooser.addObject("Start Left End Scale", "Start Left End Scale");
-		m_chooser.addObject("Start Right End Switch", "Start Right End Switch");
-		m_chooser.addObject("Start Right End Scale", "Start Right End Scale");
-		m_chooser.addObject("Start Middle End Front Switch", "Start Middle End Front Switch");
-		m_chooser.addObject("Start Middle End Side Switch", "Start Middle End Side Switch");
-		m_chooser.addObject("Start Middle End Scale", "Start Middle End Scale");
-		m_chooser.addObject("Start Anywhere Move Forward", "Start Anywhere Move Forward");
-		m_chooser.addDefault("Do Nothing", "Do Nothing");
+		m_chooser.setName("Autonomous Selector");
+		m_chooser.addObject("Start Left End Switch", 0);
+		m_chooser.addObject("Start Left End Scale", 1);
+		m_chooser.addObject("Start Right End Switch", 2);
+		m_chooser.addObject("Start Right End Scale", 3);
+		m_chooser.addDefault("Start Middle End Front Switch", 4);
+		m_chooser.addObject("Start Middle End Side Switch", 5);
+		m_chooser.addObject("Start Middle End Scale", 6);
+		m_chooser.addObject("Start Anywhere Move Forward", 7);
+		m_chooser.addObject("Do Nothing", 8);
 		
-		SmartDashboard.putData("Auto mode", m_chooser);
+		SmartDashboard.putData("Autonomous Selector USE THIS DEAR GOD", m_chooser);
 		m_elevator = new Elevator();
 		m_jevoisCamera = new JevoisCamera();
 		m_climber = new Climber();
@@ -148,13 +148,14 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		//gameMessage = "RRR";
+		// TODO REMOVE
+		gameMessage = "RRR";
 		
 		char switchSide = gameMessage.charAt(0);
 		char scaleSide = gameMessage.charAt(1);
 		
 		switch(m_selectedCommand) {
-		case "Start Left End Switch":
+		case 0:
 			switch(switchSide) {
 			case 'L':
 				m_autonomousCommand = new AutonomousLeftSwitchGoingLeft();
@@ -163,11 +164,11 @@ public class Robot extends TimedRobot {
 				m_autonomousCommand = new AutonomousLeftSwitchGoingRight();
 				break;
 			default:
-				m_autonomousCommand = new AutonomousDoNothing();
+				m_autonomousCommand = new AutonomousMoveForward();
 				break;
 			}
 			break;
-		case "Start Left End Scale":
+		case 1:
 			switch(scaleSide) {
 			case 'L':
 				m_autonomousCommand = new AutonomousLeftScaleGoingLeft();
@@ -176,11 +177,11 @@ public class Robot extends TimedRobot {
 				m_autonomousCommand = new AutonomousLeftScaleGoingRight();
 				break;
 			default:
-				m_autonomousCommand = new AutonomousDoNothing();
+				m_autonomousCommand = new AutonomousMoveForward();
 				break;
 			}
 			break;
-		case "Start Middle End Front Switch":
+		case 2:
 			switch(switchSide) {
 			case 'L':
 				m_autonomousCommand = new AutonomousMiddleFrontSwitchGoingLeft();
@@ -189,11 +190,11 @@ public class Robot extends TimedRobot {
 				m_autonomousCommand = new AutonomousMiddleFrontSwitchGoingRight();
 				break;
 			default:
-				m_autonomousCommand = new AutonomousDoNothing();
+				m_autonomousCommand = new AutonomousMoveForward();
 				break;
 			}
 			break;
-		case "Start Middle End Side Switch":
+		case 3:
 			switch(switchSide) {
 			case 'L':
 				m_autonomousCommand = new AutonomousMiddleSideSwitchGoingLeft();
@@ -202,11 +203,11 @@ public class Robot extends TimedRobot {
 				m_autonomousCommand = new AutonomousMiddleSideSwitchGoingRight();
 				break;
 			default:
-				m_autonomousCommand = new AutonomousDoNothing();
+				m_autonomousCommand = new AutonomousMoveForward();
 				break;
 			}
 			break;
-		case "Start Middle End Scale":
+		case 4:
 			switch(scaleSide) {
 			case 'L':
 				m_autonomousCommand = new AutonomousMiddleScaleGoingLeft();
@@ -215,11 +216,11 @@ public class Robot extends TimedRobot {
 				m_autonomousCommand = new AutonomousMiddleScaleGoingRight();
 				break;
 			default:
-				m_autonomousCommand = new AutonomousDoNothing();
+				m_autonomousCommand = new AutonomousMoveForward();
 				break;
 			}
 			break;
-		case "Start Right End Switch":
+		case 5:
 			switch(switchSide) {
 			case 'L':
 				m_autonomousCommand = new AutonomousRightSwitchGoingLeft();
@@ -228,11 +229,11 @@ public class Robot extends TimedRobot {
 				m_autonomousCommand = new AutonomousRightSwitchGoingRight();
 				break;
 			default:
-				m_autonomousCommand = new AutonomousDoNothing();
+				m_autonomousCommand = new AutonomousMoveForward();
 				break;
 			}
 			break;
-		case "Start Right End Scale":
+		case 6:
 			switch(scaleSide) {
 			case 'L':
 				m_autonomousCommand = new AutonomousRightScaleGoingLeft();
@@ -241,18 +242,18 @@ public class Robot extends TimedRobot {
 				m_autonomousCommand = new AutonomousRightScaleGoingRight();
 				break;
 			default:
-				m_autonomousCommand = new AutonomousDoNothing();
+				m_autonomousCommand = new AutonomousMoveForward();
 				break;
 			}
 			break;
-		case "Start Anywhere Move Forward":
+		case 7:
 			m_autonomousCommand = new AutonomousMoveForward();
 			break;
-		case "Do Nothing":
+		case 8:
 			m_autonomousCommand = new AutonomousDoNothing();
 			break;
 		default:
-			m_autonomousCommand = new AutonomousDoNothing();
+			m_autonomousCommand = new AutonomousMoveForward();
 			break;
 		}
 		

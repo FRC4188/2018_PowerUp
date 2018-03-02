@@ -5,6 +5,7 @@ import org.usfirst.frc.team4188.robot.RobotMap;
 import org.usfirst.frc.team4188.robot.commands.drive.AutoDriveDistanceBased;
 import org.usfirst.frc.team4188.robot.commands.drive.TurnToAngleEncoderBased;
 import org.usfirst.frc.team4188.robot.commands.elevator.ElevatorToHeight;
+import org.usfirst.frc.team4188.robot.commands.intake.IntakeMotorsForward;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeMotorsReverse;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeMotorsStop;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeReleaseRun;
@@ -26,7 +27,7 @@ public class AutonomousMiddleSideSwitchGoingRight extends CommandGroup {
 		addSequential(new AutoDriveDistanceBased(144.0/12, 0.2));
 		addSequential(new TurnToAngleEncoderBased(-90.0, 0.1));
 		addSequential(new AutoDriveDistanceBased(12.0/12, 0.2));
-		addSequential(new IntakeMotorsReverse(), 0.5);
+		addSequential(new IntakeMotorsForward(), 0.5);
 		addSequential(new IntakeMotorsStop());
     }
 }
