@@ -102,11 +102,11 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Start Left End Scale", 1);
 		m_chooser.addObject("Start Right End Switch", 2);
 		m_chooser.addObject("Start Right End Scale", 3);
-		m_chooser.addDefault("Start Middle End Front Switch", 4);
+		m_chooser.addObject("Start Middle End Front Switch", 4);
 		m_chooser.addObject("Start Middle End Side Switch", 5);
 		m_chooser.addObject("Start Middle End Scale", 6);
 		m_chooser.addObject("Start Anywhere Move Forward", 7);
-		m_chooser.addObject("Do Nothing", 8);
+		m_chooser.addDefault("Do Nothing", 8);
 		
 		SmartDashboard.putData("Autonomous Selector", m_chooser);
 		
@@ -153,7 +153,9 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		// TODO REMOVE
-		gameMessage = "LLL";
+		//gameMessage = "LLL";
+		gameMessage = DriverStation.getInstance().getGameSpecificMessage();
+		
 		m_selectedCommand = (int) m_chooser.getSelected();
 		
 		System.out.println(m_selectedCommand);
@@ -314,7 +316,7 @@ public class Robot extends TimedRobot {
 		Robot.m_drivetrain.getLeftEncoderRotation();
 		SmartDashboard.putData(RobotMap.pdp);
 		SmartDashboard.putNumber("Ultrasonic Sensor", RobotMap.ultrasonic.getRangeInches());
-		Robot.m_drivetrain.setClosedloopRamp(10);
+		Robot.m_drivetrain.setClosedloopRamp(5);
 		// testing data
 		
 		SmartDashboard.putNumber("Elevator Up Power", Robot.m_oi.coPilotXboxController.getY(Hand.kLeft));

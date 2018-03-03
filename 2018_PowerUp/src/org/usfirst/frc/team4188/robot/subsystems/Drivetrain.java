@@ -95,11 +95,11 @@ public class Drivetrain extends PIDSubsystem {
     		break;
     	case encoderToAngle:
     		SmartDashboard.putString("Current PID Input", "Rear Left Encoder");
-    		setPID(0.3,0.02,0.005);
+    		setPID(0.1,0.005,0.007);
     		break;
     	case encoder:
     		SmartDashboard.putString("Current PID Input", "Rear Left Encoder");
-    		setPID(0.1, 0.001, 0.0);
+    		setPID(0.13, 0.0, 0.0);
     		break;
     	case none:
     		SmartDashboard.putString("Current PID Input", "None");

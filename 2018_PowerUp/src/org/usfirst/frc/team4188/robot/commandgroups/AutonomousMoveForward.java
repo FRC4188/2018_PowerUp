@@ -2,6 +2,7 @@ package org.usfirst.frc.team4188.robot.commandgroups;
 
 import org.usfirst.frc.team4188.robot.Robot;
 import org.usfirst.frc.team4188.robot.commands.drive.AutoDriveDistanceBased;
+import org.usfirst.frc.team4188.robot.commands.drive.GearShiftIn;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -11,9 +12,11 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutonomousMoveForward extends CommandGroup {
 
 	public AutonomousMoveForward() {
-		addSequential(new AutoDriveDistanceBased(140/12 - Robot.ROBOT_LENGTH / 2, 0.1));
+		addSequential(new GearShiftIn());
+		addSequential(new AutoDriveDistanceBased(200/12 - Robot.ROBOT_LENGTH / 2, 0.1));
 	}
     public AutonomousMoveForward(String positions) {
-    	addSequential(new AutoDriveDistanceBased(140/12 - Robot.ROBOT_LENGTH / 2, 0.1));
+    	addSequential(new GearShiftIn());
+    	addSequential(new AutoDriveDistanceBased(200/12 - Robot.ROBOT_LENGTH / 2, 0.1));
     }
 }

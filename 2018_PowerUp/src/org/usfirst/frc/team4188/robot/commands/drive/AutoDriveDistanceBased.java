@@ -10,10 +10,11 @@ import edu.wpi.first.wpilibj.command.Command;
 public class AutoDriveDistanceBased extends Command {
 	double distance;
 	double tolerance;
+	public final double AUTO_CORRECTION = 20.0/12.5;
     public AutoDriveDistanceBased(double distance, double tolerance) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	this.distance = distance;
+    	this.distance = distance*AUTO_CORRECTION;
     	this.tolerance = tolerance;
     	requires(Robot.m_drivetrain);
     }
