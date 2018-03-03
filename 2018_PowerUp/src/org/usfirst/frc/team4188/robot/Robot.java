@@ -85,7 +85,7 @@ public class Robot extends TimedRobot {
 			OUTER_ELEVATOR_FLAT_POWER = -0.075;
 			break;
 		case BREAKOUT:
-			ROBOT_LENGTH = 39.0/12.0;
+			ROBOT_LENGTH = 39.0/12.0;     
 			ROBOT_WIDTH = 25.0/12.0;
 			INNER_ELEVATOR_FLAT_POWER = 0.05;
 			OUTER_ELEVATOR_FLAT_POWER = -0.075;
@@ -95,6 +95,7 @@ public class Robot extends TimedRobot {
 		m_drivetrain = new Drivetrain();
 		m_drivetrain.setPIDInput(PIDInput.none);
 		RobotMap.gyro.calibrate();
+		
 		
 		m_chooser.setName("Autonomous Selector");
 		m_chooser.addObject("Start Left End Switch", 0);
@@ -107,7 +108,8 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Start Anywhere Move Forward", 7);
 		m_chooser.addObject("Do Nothing", 8);
 		
-		SmartDashboard.putData("Autonomous Selector USE THIS DEAR GOD", m_chooser);
+		SmartDashboard.putData("Autonomous Selector", m_chooser);
+		
 		m_elevator = new Elevator();
 		m_jevoisCamera = new JevoisCamera();
 		m_climber = new Climber();
@@ -117,6 +119,7 @@ public class Robot extends TimedRobot {
 		RobotMap.ultrasonic.setAutomaticMode(true);
 		
 		CameraServer.getInstance().startAutomaticCapture();
+		m_selectedCommand = (int) m_chooser.getSelected();
 	}
 
 	/**
@@ -126,13 +129,14 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void disabledInit() {
+		m_selectedCommand = (int) m_chooser.getSelected();
 	}
 
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		gameMessage = DriverStation.getInstance().getGameSpecificMessage();
-		m_selectedCommand = m_chooser.getSelected();
+		m_selectedCommand = (int) m_chooser.getSelected();
 	}
 
 	/**
@@ -145,124 +149,129 @@ public class Robot extends TimedRobot {
 	 * <p>You can add additional auto modes by adding additional commands to the
 	 * chooser code above (like the commented example) or additional comparisons
 	 * to the switch structure below with additional strings & commands.
-	 */
+	 */ 
 	@Override
 	public void autonomousInit() {
 		// TODO REMOVE
-		gameMessage = "RRR";
+		gameMessage = "LLL";
+		m_selectedCommand = (int) m_chooser.getSelected();
+		
+		System.out.println(m_selectedCommand);
 		
 		char switchSide = gameMessage.charAt(0);
 		char scaleSide = gameMessage.charAt(1);
 		
 		switch(m_selectedCommand) {
-		case 0:
-			switch(switchSide) {
-			case 'L':
-				m_autonomousCommand = new AutonomousLeftSwitchGoingLeft();
+			case 0:
+				switch(switchSide) {
+				case 'L':
+					m_autonomousCommand = new AutonomousLeftSwitchGoingLeft();
+					break;
+				case 'R':
+					m_autonomousCommand = new AutonomousLeftSwitchGoingRight();
+					break;
+				default:
+					m_autonomousCommand = new AutonomousMoveForward();
+					break;
+				}
 				break;
-			case 'R':
-				m_autonomousCommand = new AutonomousLeftSwitchGoingRight();
+			case 1:
+				switch(scaleSide) {
+				case 'L':
+					m_autonomousCommand = new AutonomousLeftScaleGoingLeft();
+					break;
+				case 'R':
+					m_autonomousCommand = new AutonomousLeftScaleGoingRight();
+					break;
+				default:
+					m_autonomousCommand = new AutonomousMoveForward();
+					break;
+				}
+				break;
+			case 2:
+				switch(switchSide) {
+				case 'L':
+					m_autonomousCommand = new AutonomousMiddleFrontSwitchGoingLeft();
+					break;
+				case 'R':
+					m_autonomousCommand = new AutonomousMiddleFrontSwitchGoingRight();
+					break;
+				default:
+					m_autonomousCommand = new AutonomousMoveForward();
+					break;
+				}
+				break;
+			case 3:
+				switch(switchSide) {
+				case 'L':
+					m_autonomousCommand = new AutonomousMiddleSideSwitchGoingLeft();
+					break;
+				case 'R':
+					m_autonomousCommand = new AutonomousMiddleSideSwitchGoingRight();
+					break;
+				default:
+					m_autonomousCommand = new AutonomousMoveForward();
+					break;
+				}
+				break;
+			case 4:
+				switch(scaleSide) {
+				case 'L':
+					m_autonomousCommand = new AutonomousMiddleScaleGoingLeft();
+					break;
+				case 'R':
+					m_autonomousCommand = new AutonomousMiddleScaleGoingRight();
+					break;
+				default:
+					m_autonomousCommand = new AutonomousMoveForward();
+					break;
+				}
+				break;
+			case 5:
+				switch(switchSide) {
+				case 'L':
+					m_autonomousCommand = new AutonomousRightSwitchGoingLeft();
+					break;
+				case 'R':
+					m_autonomousCommand = new AutonomousRightSwitchGoingRight();
+					break;
+				default:
+					m_autonomousCommand = new AutonomousMoveForward();
+					break;
+				}
+				break;
+			case 6:
+				switch(scaleSide) {
+				case 'L':
+					m_autonomousCommand = new AutonomousRightScaleGoingLeft();
+					break;
+				case 'R':
+					m_autonomousCommand = new AutonomousRightScaleGoingRight();
+					break;
+				default:
+					m_autonomousCommand = new AutonomousMoveForward();
+					break;
+				}
+				break;
+			case 7:
+				m_autonomousCommand = new AutonomousMoveForward();
+				break;
+			case 8:
+				m_autonomousCommand = new AutonomousDoNothing();
 				break;
 			default:
 				m_autonomousCommand = new AutonomousMoveForward();
 				break;
-			}
-			break;
-		case 1:
-			switch(scaleSide) {
-			case 'L':
-				m_autonomousCommand = new AutonomousLeftScaleGoingLeft();
-				break;
-			case 'R':
-				m_autonomousCommand = new AutonomousLeftScaleGoingRight();
-				break;
-			default:
-				m_autonomousCommand = new AutonomousMoveForward();
-				break;
-			}
-			break;
-		case 2:
-			switch(switchSide) {
-			case 'L':
-				m_autonomousCommand = new AutonomousMiddleFrontSwitchGoingLeft();
-				break;
-			case 'R':
-				m_autonomousCommand = new AutonomousMiddleFrontSwitchGoingRight();
-				break;
-			default:
-				m_autonomousCommand = new AutonomousMoveForward();
-				break;
-			}
-			break;
-		case 3:
-			switch(switchSide) {
-			case 'L':
-				m_autonomousCommand = new AutonomousMiddleSideSwitchGoingLeft();
-				break;
-			case 'R':
-				m_autonomousCommand = new AutonomousMiddleSideSwitchGoingRight();
-				break;
-			default:
-				m_autonomousCommand = new AutonomousMoveForward();
-				break;
-			}
-			break;
-		case 4:
-			switch(scaleSide) {
-			case 'L':
-				m_autonomousCommand = new AutonomousMiddleScaleGoingLeft();
-				break;
-			case 'R':
-				m_autonomousCommand = new AutonomousMiddleScaleGoingRight();
-				break;
-			default:
-				m_autonomousCommand = new AutonomousMoveForward();
-				break;
-			}
-			break;
-		case 5:
-			switch(switchSide) {
-			case 'L':
-				m_autonomousCommand = new AutonomousRightSwitchGoingLeft();
-				break;
-			case 'R':
-				m_autonomousCommand = new AutonomousRightSwitchGoingRight();
-				break;
-			default:
-				m_autonomousCommand = new AutonomousMoveForward();
-				break;
-			}
-			break;
-		case 6:
-			switch(scaleSide) {
-			case 'L':
-				m_autonomousCommand = new AutonomousRightScaleGoingLeft();
-				break;
-			case 'R':
-				m_autonomousCommand = new AutonomousRightScaleGoingRight();
-				break;
-			default:
-				m_autonomousCommand = new AutonomousMoveForward();
-				break;
-			}
-			break;
-		case 7:
-			m_autonomousCommand = new AutonomousMoveForward();
-			break;
-		case 8:
-			m_autonomousCommand = new AutonomousDoNothing();
-			break;
-		default:
-			m_autonomousCommand = new AutonomousMoveForward();
-			break;
-		}
+	}
+		
+		
 		
 		// schedule the autonomous command (example)
 		Robot.m_drivetrain.gyroReset();
 		Robot.m_drivetrain.resetEncoders();
-		if (m_autonomousCommand != null) {
+		//if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
-		}
+		//}
 	}
 
 	/**
@@ -270,6 +279,8 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
+		
+		
 		Scheduler.getInstance().run();
 	}
 

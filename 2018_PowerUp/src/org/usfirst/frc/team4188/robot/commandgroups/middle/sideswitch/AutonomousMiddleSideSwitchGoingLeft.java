@@ -19,8 +19,8 @@ public class AutonomousMiddleSideSwitchGoingLeft extends CommandGroup {
 
     public AutonomousMiddleSideSwitchGoingLeft() {
     	// switch is on left
-    	addSequential(new IntakeReleaseRun(-.5));
-		addParallel(new ElevatorToHeight(RobotMap.SWITCH_HEIGHT, 1.0));
+    	//addSequential(new IntakeReleaseRun(-.5));
+		//addParallel(new ElevatorToHeight(RobotMap.SWITCH_HEIGHT, 1.0));
 		addSequential(new AutoDriveDistanceBased(20.0/12, 0.2));
 		addSequential(new TurnToAngleEncoderBased(-90.0, 0.1));
 		addSequential(new AutoDriveDistanceBased(84.0/12 + Robot.ROBOT_WIDTH / 2 + Robot.ROBOT_LENGTH / 2, 0.2));
