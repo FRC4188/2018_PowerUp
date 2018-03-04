@@ -170,10 +170,10 @@ public class Robot extends TimedRobot {
 					m_autonomousCommand = new AutonomousLeftSwitchGoingLeft();
 					break;
 				case 'R':
-					m_autonomousCommand = new AutonomousMoveForward();
+					m_autonomousCommand = new AutonomousDoNothing();
 					break;
 				default:
-					m_autonomousCommand = new AutonomousMoveForward();
+					m_autonomousCommand = new AutonomousDoNothing();
 					break;
 				}
 				break;

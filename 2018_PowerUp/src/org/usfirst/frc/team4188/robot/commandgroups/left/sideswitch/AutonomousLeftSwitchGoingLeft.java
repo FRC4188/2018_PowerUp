@@ -21,11 +21,18 @@ public class AutonomousLeftSwitchGoingLeft extends CommandGroup {
     	// switch is on left, go straight, turn, and deposit
     	//addSequential(new IntakeReleaseRun(-.5));
 		//addParallel(new ElevatorToHeight(RobotMap.SWITCH_HEIGHT, 1.0));
+    	/*
     	addSequential(new AutoDriveDistanceBased(84.0/12 - Robot.ROBOT_LENGTH / 2, 10.0), 3.5);
 		addSequential(new Delay(), 2.0);
 		addSequential(new TurnToAngleEncoderBased(90.0, 3.0));
 		addSequential(new AutoDriveDistanceBased(55.56/12 - Robot.ROBOT_WIDTH / 2 - Robot.ROBOT_LENGTH / 2, 0.5));
 		addSequential(new IntakeMotorsForward(false), 7.0);
 		addSequential(new IntakeMotorsStop());
+		*/
+    	
+    	//front switch simple auto
+    	addSequential(new AutoDriveDistanceBased(100/12 - Robot.ROBOT_LENGTH /2, 5.0), 3.5);
+    	addSequential(new Delay(), 2.0);
+    	addSequential(new IntakeMotorsForward(false), 7.0);
     }
 }
