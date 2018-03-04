@@ -9,9 +9,12 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class IntakeMotorsForward extends Command {
 
-    public IntakeMotorsForward() {
+    private boolean finishNow;
+
+	public IntakeMotorsForward(boolean finishNow) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	this.finishNow = finishNow;
     }
 
     // Called just before this Command runs the first time
@@ -20,12 +23,12 @@ public class IntakeMotorsForward extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.m_intake.runIntakeMotors(0.75);
+    	Robot.m_intake.runIntakeMotors(-0.75);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return finishNow;
     }
 
     // Called once after isFinished returns true

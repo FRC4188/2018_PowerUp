@@ -26,7 +26,7 @@ public class AutonomousLeftScaleGoingRight extends CommandGroup {
 		addSequential(new AutoDriveDistanceBased(290.915/12, 0.2));
 		addParallel(new ElevatorToScale());
 		addSequential(new TurnToAngleEncoderBased(-90.0, 0.1));
-		addSequential(new IntakeMotorsForward(), 0.5);
+		addSequential(new IntakeMotorsForward(false), 0.5);
 		addSequential(new IntakeMotorsStop());
     }
 }

@@ -143,13 +143,13 @@ public class OI {
 	coPilot12 = new JoystickButton(coPilotXboxController, 12);
 	
 	
-	coPilot1.whileHeld(new IntakeMotorsForward());
+	coPilot1.whileHeld(new IntakeMotorsReverse());
 	coPilot1.whenReleased(new IntakeMotorsStop());
-	coPilot2.whileHeld(new IntakeMotorsReverse());
+	coPilot2.whileHeld(new IntakeMotorsForward(true));
 	coPilot2.whenReleased(new IntakeMotorsStop());
 	
-	//coPilot3.whenPressed(new TurnToAngleEncoderBased(90.0, .1));
-	//coPilot4.whenPressed(new AutoDriveDistanceBased(7.65, .1));	
+	coPilot3.whenPressed(new TurnToAngleEncoderBased(90.0, 3.0));
+	//coPilot4.whenPressed(new AutoDriveDistanceBased(168.0/12 - Robot.ROBOT_LENGTH / 2, 10.0));	
 	
 	coPilot5.whileHeld(new IntakeIn());
 	coPilot5.whenReleased(new IntakeSolenoidOff());

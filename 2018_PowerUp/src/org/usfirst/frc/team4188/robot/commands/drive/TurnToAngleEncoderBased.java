@@ -3,7 +3,6 @@ package org.usfirst.frc.team4188.robot.commands.drive;
 import org.usfirst.frc.team4188.robot.Robot;
 import org.usfirst.frc.team4188.robot.RobotMap;
 import org.usfirst.frc.team4188.robot.subsystems.Drivetrain.PIDInput;
-
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -25,8 +24,8 @@ public class TurnToAngleEncoderBased extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	RobotMap.gyro.reset();
-    	RobotMap.frontLeft.setInverted(true);
-    	RobotMap.rearLeft.setInverted(true);
+    	//RobotMap.frontLeft.setInverted(true);
+    	//RobotMap.rearLeft.setInverted(true);
     	Robot.m_drivetrain.setPIDInput(PIDInput.encoderToAngle);
     	Robot.m_drivetrain.resetEncoders();
     	Robot.m_drivetrain.setAbsoluteTolerance(tolerance);

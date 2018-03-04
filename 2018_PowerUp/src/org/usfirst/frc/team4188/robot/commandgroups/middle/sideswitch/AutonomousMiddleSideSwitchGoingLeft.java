@@ -28,7 +28,7 @@ public class AutonomousMiddleSideSwitchGoingLeft extends CommandGroup {
 		addSequential(new AutoDriveDistanceBased(144.0/12, 0.2));
 		addSequential(new TurnToAngleEncoderBased(90.0, 0.1));
 		addSequential(new AutoDriveDistanceBased(12.0/12, 0.2));
-		addSequential(new IntakeMotorsForward(), 0.5);
+		addSequential(new IntakeMotorsForward(false), 0.5);
 		addSequential(new IntakeMotorsStop());
     }
 }

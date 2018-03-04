@@ -23,7 +23,7 @@ public class AutonomousRightSwitchGoingRight extends CommandGroup {
 		addSequential(new AutoDriveDistanceBased(168.0/12 - Robot.ROBOT_LENGTH / 2, 0.2));
 		addSequential(new TurnToAngleEncoderBased(-90.0, 0.1));
 		addSequential(new AutoDriveDistanceBased(55.56/12 - Robot.ROBOT_WIDTH / 2 - Robot.ROBOT_LENGTH / 2, 0.2));
-		addSequential(new IntakeMotorsForward(), 0.5);
+		addSequential(new IntakeMotorsForward(false), 0.5);
 		addSequential(new IntakeMotorsStop());
     }
 }

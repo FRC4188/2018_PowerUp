@@ -100,13 +100,13 @@ public class Robot extends TimedRobot {
 		m_chooser.setName("Autonomous Selector");
 		m_chooser.addObject("Start Left End Switch", 0);
 		m_chooser.addObject("Start Left End Scale", 1);
-		m_chooser.addObject("Start Right End Switch", 2);
-		m_chooser.addObject("Start Right End Scale", 3);
-		m_chooser.addObject("Start Middle End Front Switch", 4);
-		m_chooser.addObject("Start Middle End Side Switch", 5);
-		m_chooser.addObject("Start Middle End Scale", 6);
-		m_chooser.addObject("Start Anywhere Move Forward", 7);
-		m_chooser.addDefault("Do Nothing", 8);
+		m_chooser.addObject("Start Middle End Front Switch", 2);
+		m_chooser.addObject("Start Middle End Side Switch", 3);
+		m_chooser.addObject("Start Middle End Scale", 4);
+		m_chooser.addObject("Start Right End Switch", 5);
+		m_chooser.addObject("Start Right End Scale", 6);
+		m_chooser.addDefault("Start Anywhere Move Forward", 7);
+		m_chooser.addObject("Do Nothing", 8);
 		
 		SmartDashboard.putData("Autonomous Selector", m_chooser);
 		
@@ -153,8 +153,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		// TODO REMOVE
-		//gameMessage = "LLL";
-		gameMessage = DriverStation.getInstance().getGameSpecificMessage();
+		gameMessage = "LLL";
+		//gameMessage = DriverStation.getInstance().getGameSpecificMessage();
 		
 		m_selectedCommand = (int) m_chooser.getSelected();
 		
@@ -170,7 +170,7 @@ public class Robot extends TimedRobot {
 					m_autonomousCommand = new AutonomousLeftSwitchGoingLeft();
 					break;
 				case 'R':
-					m_autonomousCommand = new AutonomousLeftSwitchGoingRight();
+					m_autonomousCommand = new AutonomousMoveForward();
 					break;
 				default:
 					m_autonomousCommand = new AutonomousMoveForward();
@@ -183,7 +183,7 @@ public class Robot extends TimedRobot {
 					m_autonomousCommand = new AutonomousLeftScaleGoingLeft();
 					break;
 				case 'R':
-					m_autonomousCommand = new AutonomousLeftScaleGoingRight();
+					m_autonomousCommand = new AutonomousMoveForward();
 					break;
 				default:
 					m_autonomousCommand = new AutonomousMoveForward();
@@ -232,7 +232,7 @@ public class Robot extends TimedRobot {
 			case 5:
 				switch(switchSide) {
 				case 'L':
-					m_autonomousCommand = new AutonomousRightSwitchGoingLeft();
+					m_autonomousCommand = new AutonomousMoveForward();
 					break;
 				case 'R':
 					m_autonomousCommand = new AutonomousRightSwitchGoingRight();
@@ -245,7 +245,7 @@ public class Robot extends TimedRobot {
 			case 6:
 				switch(scaleSide) {
 				case 'L':
-					m_autonomousCommand = new AutonomousRightScaleGoingLeft();
+					m_autonomousCommand = new AutonomousMoveForward();
 					break;
 				case 'R':
 					m_autonomousCommand = new AutonomousRightScaleGoingRight();
@@ -317,6 +317,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData(RobotMap.pdp);
 		SmartDashboard.putNumber("Ultrasonic Sensor", RobotMap.ultrasonic.getRangeInches());
 		Robot.m_drivetrain.setClosedloopRamp(5);
+		//Robot.m_drivetrain.enableCurrentLimit();
 		// testing data
 		
 		SmartDashboard.putNumber("Elevator Up Power", Robot.m_oi.coPilotXboxController.getY(Hand.kLeft));

@@ -27,7 +27,7 @@ public class AutonomousMiddleScaleGoingRight extends CommandGroup {
 		addSequential(new AutoDriveDistanceBased(304.0/12  - Robot.ROBOT_LENGTH, 0.2));
 		addParallel(new ElevatorToScale());
 		addSequential(new TurnToAngleEncoderBased(-90.0, 0.1));
-		addSequential(new IntakeMotorsForward(), 0.5);
+		addSequential(new IntakeMotorsForward(false), 0.5);
 		addSequential(new IntakeMotorsStop());
     }
 }
