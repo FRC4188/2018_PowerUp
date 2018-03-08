@@ -1,36 +1,36 @@
-package org.usfirst.frc.team4188.robot.commands.elevator;
+package org.usfirst.frc.team4188.robot.commands.drive;
 
 import org.usfirst.frc.team4188.robot.Robot;
-import org.usfirst.frc.team4188.robot.RobotMap;
 
-import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class InnerElevatorRun extends Command {
-	
-	XboxController coPilot = Robot.m_oi.coPilotXboxController;
+public class Turn extends Command {
 
-    public InnerElevatorRun() {
+    private double leftSpeed;
+	private double rightSpeed;
+
+	public Turn(double leftSpeed, double rightSpeed) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	this.leftSpeed = leftSpeed;
+    	this.rightSpeed = rightSpeed;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.m_drivetrain.turn(leftSpeed, rightSpeed);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.m_elevator.innerElevatorRun(coPilot.getY(Hand.kRight)*RobotMap.brownoutMultiplier);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true

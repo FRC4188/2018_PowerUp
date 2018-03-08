@@ -3,6 +3,7 @@ package org.usfirst.frc.team4188.robot.commandgroups.right.sideswitch;
 import org.usfirst.frc.team4188.robot.Robot;
 import org.usfirst.frc.team4188.robot.RobotMap;
 import org.usfirst.frc.team4188.robot.commands.drive.AutoDriveDistanceBased;
+import org.usfirst.frc.team4188.robot.commands.drive.Delay;
 import org.usfirst.frc.team4188.robot.commands.drive.TurnToAngleEncoderBased;
 import org.usfirst.frc.team4188.robot.commands.elevator.ElevatorToHeight;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeMotorsForward;
@@ -20,10 +21,16 @@ public class AutonomousRightSwitchGoingRight extends CommandGroup {
     	// switch is on right, go straight, turn, and deposit
     	//addSequential(new IntakeReleaseRun(-.5));
 		//addParallel(new ElevatorToHeight(RobotMap.SWITCH_HEIGHT, 1.0));
-		addSequential(new AutoDriveDistanceBased(168.0/12 - Robot.ROBOT_LENGTH / 2, 0.2));
+		/*
+    	addSequential(new AutoDriveDistanceBased(168.0/12 - Robot.ROBOT_LENGTH / 2, 0.2));
 		addSequential(new TurnToAngleEncoderBased(-90.0, 0.1));
 		addSequential(new AutoDriveDistanceBased(55.56/12 - Robot.ROBOT_WIDTH / 2 - Robot.ROBOT_LENGTH / 2, 0.2));
 		addSequential(new IntakeMotorsForward(false), 0.5);
 		addSequential(new IntakeMotorsStop());
+		*/
+    	
+    	addSequential(new AutoDriveDistanceBased(5.5851063, 0.3), 4.0);
+    	addSequential(new Delay(), 1.0);
+    	addSequential(new IntakeMotorsForward(false), 3.0);
     }
 }

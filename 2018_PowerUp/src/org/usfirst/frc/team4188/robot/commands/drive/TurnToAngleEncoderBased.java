@@ -18,14 +18,15 @@ public class TurnToAngleEncoderBased extends Command {
     	
     	this.tolerance = tolerance;
     	turnDistance = 12.5/12.0 * Math.toRadians(-angle);
+    	
     	requires(Robot.m_drivetrain);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	RobotMap.gyro.reset();
-    	//RobotMap.frontLeft.setInverted(true);
-    	//RobotMap.rearLeft.setInverted(true);
+    	RobotMap.frontLeft.setInverted(true);
+    	RobotMap.rearLeft.setInverted(true);
     	Robot.m_drivetrain.setPIDInput(PIDInput.encoderToAngle);
     	Robot.m_drivetrain.resetEncoders();
     	Robot.m_drivetrain.setAbsoluteTolerance(tolerance);

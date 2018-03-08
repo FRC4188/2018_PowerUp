@@ -95,7 +95,7 @@ public class Drivetrain extends PIDSubsystem {
     		break;
     	case encoderToAngle:
     		SmartDashboard.putString("Current PID Input", "Rear Left Encoder");
-    		setPID(0.1,0.005,0.007);
+    		setPID(0.3,0.02,0.005);
     		break;
     	case encoder:
     		SmartDashboard.putString("Current PID Input", "Rear Left Encoder");
@@ -167,6 +167,13 @@ public class Drivetrain extends PIDSubsystem {
 		drivetrain.arcadeDrive(moveValue, rotateValue);
 	}
     
+    public void turn(double leftSpeed, double rightSpeed) {
+    	frontLeft.set(leftSpeed);
+    	rearLeft.set(leftSpeed);
+    	frontRight.set(rightSpeed);
+    	rearRight.set(rightSpeed);
+    }
+    
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
@@ -208,11 +215,11 @@ public class Drivetrain extends PIDSubsystem {
     	rearRight.configClosedloopRamp(timeToRamp, 0);
     }
     
-    public void setOpenloopRampRate(double rampRate) {
-    	frontLeft.configOpenloopRamp(rampRate, 0);
-    	rearLeft.configOpenloopRamp(rampRate, 0);
-    	frontRight.configOpenloopRamp(rampRate, 0);
-    	rearRight.configOpenloopRamp(rampRate, 0);
+    public void setOpenloopRampRate(double timeToRamp) {
+    	frontLeft.configOpenloopRamp(timeToRamp, 0);
+    	rearLeft.configOpenloopRamp(timeToRamp, 0);
+    	frontRight.configOpenloopRamp(timeToRamp, 0);
+    	rearRight.configOpenloopRamp(timeToRamp, 0);
     }
     
     public void enableCurrentLimit() {
@@ -220,6 +227,14 @@ public class Drivetrain extends PIDSubsystem {
     	rearLeft.enableCurrentLimit(true);
     	frontRight.enableCurrentLimit(true);
     	rearRight.enableCurrentLimit(true);
+    }
+    
+    public void conservePower(boolean on) {
+   		if(on){
+   			RobotMap.brownoutMultiplier = .7;
+   		} else {
+   			RobotMap.brownoutMultiplier = 1.0;
+   		}	
     }
     
     public void shiftGearIn() {

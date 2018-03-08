@@ -51,6 +51,9 @@ public class Robot extends TimedRobot {
 	
 	public static RobotType m_name = RobotMap.RobotType.BREAKOUT;
 	
+	public enum PowerState{NORMAL, POWERCONSERVING}
+	public static PowerState powerState = PowerState.NORMAL; 
+	
 	public static double ROBOT_LENGTH;
 	public static double ROBOT_WIDTH;
 	
@@ -232,13 +235,13 @@ public class Robot extends TimedRobot {
 			case 5:
 				switch(switchSide) {
 				case 'L':
-					m_autonomousCommand = new AutonomousMoveForward();
+					m_autonomousCommand = new AutonomousDoNothing();
 					break;
 				case 'R':
 					m_autonomousCommand = new AutonomousRightSwitchGoingRight();
 					break;
 				default:
-					m_autonomousCommand = new AutonomousMoveForward();
+					m_autonomousCommand = new AutonomousDoNothing();
 					break;
 				}
 				break;
@@ -316,12 +319,25 @@ public class Robot extends TimedRobot {
 		Robot.m_drivetrain.getLeftEncoderRotation();
 		SmartDashboard.putData(RobotMap.pdp);
 		SmartDashboard.putNumber("Ultrasonic Sensor", RobotMap.ultrasonic.getRangeInches());
-		Robot.m_drivetrain.setClosedloopRamp(5);
+		Robot.m_drivetrain.setOpenloopRampRate(0.2);
 		//Robot.m_drivetrain.enableCurrentLimit();
 		// testing data
 		
 		SmartDashboard.putNumber("Elevator Up Power", Robot.m_oi.coPilotXboxController.getY(Hand.kLeft));
 		SmartDashboard.putNumber("Inner Elevator Encoder", RobotMap.innerElevator.getSelectedSensorPosition(0) * INCHES_PER_UNIT);
+	
+		if(powerState == PowerState.NORMAL){
+	        if(RobotMap.pdp.getVoltage() < 7.0){
+	        	Robot.m_drivetrain.conservePower(true);
+	        	powerState = PowerState.POWERCONSERVING;
+	        }
+	    }
+	    if(powerState == PowerState.POWERCONSERVING){
+	        if(Math.abs(Robot.m_oi.pilotXboxController.getY(Hand.kLeft))<0.3){
+	       		Robot.m_drivetrain.conservePower(false);
+	        	powerState = PowerState.NORMAL;
+	        }
+	   }
 	}
 
 	/**

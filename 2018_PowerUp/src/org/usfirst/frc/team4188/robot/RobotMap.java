@@ -87,6 +87,8 @@ public class RobotMap {
 	public static DigitalInput intakeReleaseTopLimit;
 	public static DigitalInput intakeReleaseBottomLimit;
 	
+	public static double brownoutMultiplier;
+	
 	public static void init() {
 		
 		/* current motor mappings
@@ -167,6 +169,8 @@ public class RobotMap {
 		
 		intakeReleaseTopLimit = new DigitalInput(2);
 		intakeReleaseBottomLimit = new DigitalInput(3);
+		
+		brownoutMultiplier = 1.0;
 		
 	}
 

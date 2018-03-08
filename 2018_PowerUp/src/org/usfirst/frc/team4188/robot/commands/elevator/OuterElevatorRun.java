@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4188.robot.commands.elevator;
 
 import org.usfirst.frc.team4188.robot.Robot;
+import org.usfirst.frc.team4188.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController;
@@ -24,7 +25,7 @@ public class OuterElevatorRun  extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.m_elevator.outerElevatorRun(coPilot.getY(Hand.kLeft));
+    	Robot.m_elevator.outerElevatorRun(coPilot.getY(Hand.kLeft)*RobotMap.brownoutMultiplier);
     	
     }
 

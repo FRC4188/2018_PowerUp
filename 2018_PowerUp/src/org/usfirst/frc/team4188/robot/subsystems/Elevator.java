@@ -77,13 +77,16 @@ public class Elevator extends PIDSubsystem {
         // Return your input value for the PID loop
         // e.g. a sensor, like a potentiometer:
         // yourPot.getAverageVoltage() / kYourMaxVoltage;
-        return innerElevator.getSelectedSensorPosition(0) * INCHES_PER_UNIT;
+        return innerElevator.getSelectedSensorPosition(0) * INCHES_PER_UNIT
+        		+ outerElevatorLeft.getSelectedSensorPosition(0)* INCHES_PER_UNIT;
     }
 
     protected void usePIDOutput(double output) {
         // Use output to drive your system, like a motor
         // e.g. yourMotor.set(output);
     	innerElevator.set(output);
+    	outerElevatorLeft.set(-output);
+    	outerElevatorRight.set(output);
     }
     
     public void resetEncoders() {

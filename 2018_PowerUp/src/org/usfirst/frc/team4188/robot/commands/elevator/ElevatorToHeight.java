@@ -23,7 +23,7 @@ public class ElevatorToHeight extends Command {
     protected void initialize() {
     	Robot.m_elevator.setSetpoint(setpoint);
     	Robot.m_elevator.setAbsoluteTolerance(tolerance);
-    	Robot.m_elevator.setPID(.25, .1, 0);
+    	Robot.m_elevator.setPID(.1, 0, 0);
     }
 
     // Called repeatedly when this Command is scheduled to run

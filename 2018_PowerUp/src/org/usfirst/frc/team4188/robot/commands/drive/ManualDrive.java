@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4188.robot.commands.drive;
 
 import org.usfirst.frc.team4188.robot.Robot;
+import org.usfirst.frc.team4188.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
@@ -40,7 +41,7 @@ XboxController pilotXboxController = Robot.m_oi.pilotXboxController;
     	}
     	
     	
-    	Robot.m_drivetrain.arcadeDrive(pilotXboxController.getY(Hand.kLeft), pilotXboxController.getX(Hand.kRight)*rotateConstant, 1.0);
+    	Robot.m_drivetrain.arcadeDrive(pilotXboxController.getY(Hand.kLeft)*RobotMap.brownoutMultiplier, pilotXboxController.getX(Hand.kRight)*rotateConstant, 1.0);
     	/*
     	if((RobotMap.rearRight.getSelectedSensorVelocity(0)*Robot.m_pidDriveTrain.SENSOR_UNITS_PER_ROTATION) > 10.0 ){
     		Robot.m_pidDriveTrain.shiftGearIn();

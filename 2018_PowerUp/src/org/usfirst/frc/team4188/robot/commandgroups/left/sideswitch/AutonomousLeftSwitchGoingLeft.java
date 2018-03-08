@@ -31,8 +31,8 @@ public class AutonomousLeftSwitchGoingLeft extends CommandGroup {
 		*/
     	
     	//front switch simple auto
-    	addSequential(new AutoDriveDistanceBased(100/12 - Robot.ROBOT_LENGTH /2, 5.0), 3.5);
-    	addSequential(new Delay(), 2.0);
-    	addSequential(new IntakeMotorsForward(false), 7.0);
+    	addSequential(new AutoDriveDistanceBased(5.5851063, 0.3), 4.0);
+    	addSequential(new Delay(), 1.0);
+    	addSequential(new IntakeMotorsForward(false), 3.0);
     }
 }

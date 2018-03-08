@@ -14,6 +14,8 @@ import org.usfirst.frc.team4188.robot.commands.drive.AutoDriveDistanceBased;
 import org.usfirst.frc.team4188.robot.commands.drive.GearShiftIn;
 import org.usfirst.frc.team4188.robot.commands.drive.GearShiftOff;
 import org.usfirst.frc.team4188.robot.commands.drive.GearShiftOut;
+import org.usfirst.frc.team4188.robot.commands.drive.Turn;
+import org.usfirst.frc.team4188.robot.commands.drive.TurnToAngle;
 import org.usfirst.frc.team4188.robot.commands.drive.TurnToAngleEncoderBased;
 import org.usfirst.frc.team4188.robot.commands.elevator.ElevatorToHeight;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeIn;
@@ -142,14 +144,13 @@ public class OI {
 	coPilot11 = new JoystickButton(coPilotXboxController, 11);
 	coPilot12 = new JoystickButton(coPilotXboxController, 12);
 	
-	
 	coPilot1.whileHeld(new IntakeMotorsReverse());
 	coPilot1.whenReleased(new IntakeMotorsStop());
 	coPilot2.whileHeld(new IntakeMotorsForward(true));
 	coPilot2.whenReleased(new IntakeMotorsStop());
 	
-	coPilot3.whenPressed(new TurnToAngleEncoderBased(90.0, 3.0));
-	//coPilot4.whenPressed(new AutoDriveDistanceBased(168.0/12 - Robot.ROBOT_LENGTH / 2, 10.0));	
+	coPilot3.whenPressed(new TurnToAngle(90.0, 3.0));
+	coPilot4.whenPressed(new AutoDriveDistanceBased(200/12 - Robot.ROBOT_LENGTH / 2, 1.0));	
 	
 	coPilot5.whileHeld(new IntakeIn());
 	coPilot5.whenReleased(new IntakeSolenoidOff());
