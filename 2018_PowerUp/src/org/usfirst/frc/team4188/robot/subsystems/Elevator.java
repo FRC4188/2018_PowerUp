@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4188.robot.subsystems;
 
+import org.usfirst.frc.team4188.robot.Robot;
 import org.usfirst.frc.team4188.robot.RobotMap;
 import org.usfirst.frc.team4188.robot.commands.elevator.BothElevatorsRun;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -14,9 +15,9 @@ public class Elevator extends PIDSubsystem {
 	WPI_TalonSRX outerElevatorLeft = RobotMap.outerElevatorLeft;
 	WPI_TalonSRX innerElevator = RobotMap.innerElevator;
 	
-	private final double SENSOR_UNITS = 1.0/4096.0;
-	private final double INCHES_PER_ROTATION = 1.375*Math.PI;
-	private final double INCHES_PER_UNIT = SENSOR_UNITS * INCHES_PER_ROTATION;
+	public final double SENSOR_UNITS = 1.0/4096.0;
+	public final double INCHES_PER_ROTATION = 0.8*Math.PI;
+	public final double INCHES_PER_UNIT = SENSOR_UNITS * INCHES_PER_ROTATION;
  
 	// Initialize your subsystem here
     public Elevator() {
@@ -34,8 +35,8 @@ public class Elevator extends PIDSubsystem {
     }
     
     public void outerElevatorRun(double power) {
-    	outerElevatorLeft.set(power);
-    	outerElevatorRight.set(-power);
+    	outerElevatorLeft.set(-power);
+    	outerElevatorRight.set(power);
     }
     
     public void outerElevatorStop() {
@@ -73,20 +74,30 @@ public class Elevator extends PIDSubsystem {
     	getPIDController().setD(d);
     }
     
+    private static double inputReturn;
+    
     protected double returnPIDInput() {
         // Return your input value for the PID loop
         // e.g. a sensor, like a potentiometer:
         // yourPot.getAverageVoltage() / kYourMaxVoltage;
-        return innerElevator.getSelectedSensorPosition(0) * INCHES_PER_UNIT
-        		+ outerElevatorLeft.getSelectedSensorPosition(0)* INCHES_PER_UNIT;
+        if(Robot.innerElevatorStatus == Robot.InnerElevatorStatus.GOOD) { 
+        	inputReturn = innerElevator.getSelectedSensorPosition(0) * INCHES_PER_UNIT;
+        } else if(Robot.innerElevatorStatus == Robot.InnerElevatorStatus.BROKEN) {
+        	inputReturn = outerElevatorLeft.getSelectedSensorPosition(0) * INCHES_PER_UNIT;
+        } 
+        
+        return inputReturn;
     }
 
     protected void usePIDOutput(double output) {
         // Use output to drive your system, like a motor
         // e.g. yourMotor.set(output);
-    	innerElevator.set(output);
-    	outerElevatorLeft.set(-output);
-    	outerElevatorRight.set(output);
+        if(Robot.innerElevatorStatus == Robot.InnerElevatorStatus.GOOD) { 
+        	innerElevator.set(-output);
+        } else if(Robot.innerElevatorStatus == Robot.InnerElevatorStatus.BROKEN) {
+        	outerElevatorLeft.set(output);
+        	outerElevatorRight.set(-output);
+        } 
     }
     
     public void resetEncoders() {

@@ -47,7 +47,6 @@ public class Drivetrain extends PIDSubsystem {
 	DifferentialDrive drivetrain = RobotMap.drivetrain;
 	
 	public final double SENSOR_UNITS = 1.0/4096.0;
-	public final double SENSOR_UNITS_PER_ROTATION = (3600.0/SENSOR_UNITS);
 	public final double ROTATION_TO_FEET_CONSTANT = 6.0/12.0 * Math.PI;
 	public final double UNITS_TO_FEET_CONSTANT = SENSOR_UNITS * ROTATION_TO_FEET_CONSTANT;
 	
@@ -91,15 +90,15 @@ public class Drivetrain extends PIDSubsystem {
     	switch (sensorType) {
     	case gyro:
     		SmartDashboard.putString("Current PID Input", "Gyro");
-    		setPID(0.1,0.0,0.15);
+    		setPID(0.0065,0.0,0.0);
     		break;
     	case encoderToAngle:
     		SmartDashboard.putString("Current PID Input", "Rear Left Encoder");
-    		setPID(0.3,0.02,0.005);
+    		setPID(0.32,0.002,0.01);
     		break;
     	case encoder:
     		SmartDashboard.putString("Current PID Input", "Rear Left Encoder");
-    		setPID(0.13, 0.0, 0.0);
+    		setPID(0.12, 0.000175, 0.0);
     		break;
     	case none:
     		SmartDashboard.putString("Current PID Input", "None");
@@ -118,7 +117,7 @@ public class Drivetrain extends PIDSubsystem {
 	    	case encoderToAngle:
 	    		return rearLeft.getSelectedSensorPosition(0) * UNITS_TO_FEET_CONSTANT;
 	    	case encoder:
-	    		return Math.abs(rearLeft.getSelectedSensorPosition(0) * UNITS_TO_FEET_CONSTANT);
+	    		return rearLeft.getSelectedSensorPosition(0) * UNITS_TO_FEET_CONSTANT;
 	    	case none:
 	    		return -1.0;
 	    	default:
@@ -185,14 +184,16 @@ public class Drivetrain extends PIDSubsystem {
 		rearLeft.setSelectedSensorPosition(0, 0, 0);
     }
     
+    public final double PID_CORRECTION = 10.0/16.0;
+    
     public double getRightEncoderRotation() {
-    	double rotations = rearRight.getSelectedSensorPosition(0) * SENSOR_UNITS;
+    	double rotations = rearRight.getSelectedSensorPosition(0) * UNITS_TO_FEET_CONSTANT;
     	SmartDashboard.putNumber("Right Encoder Rotation", rotations);
     	return rotations;
     }
     
     public double getLeftEncoderRotation() {
-    	double rotations = rearLeft.getSelectedSensorPosition(0) * SENSOR_UNITS;
+    	double rotations = rearLeft.getSelectedSensorPosition(0) * UNITS_TO_FEET_CONSTANT;
     	SmartDashboard.putNumber("Left Encoder Rotation", rotations);
     	return rotations;
     }
@@ -247,6 +248,20 @@ public class Drivetrain extends PIDSubsystem {
     
     public void shiftGearOff() {
     	gearShift.set(Value.kOff);
+    }
+    
+    public void setBrake() {
+    	frontLeft.setNeutralMode(com.ctre.phoenix.motorcontrol.NeutralMode.Brake);
+    	frontRight.setNeutralMode(com.ctre.phoenix.motorcontrol.NeutralMode.Brake);
+    	rearLeft.setNeutralMode(com.ctre.phoenix.motorcontrol.NeutralMode.Brake);
+    	rearRight.setNeutralMode(com.ctre.phoenix.motorcontrol.NeutralMode.Brake);
+    }
+    
+    public void setCoast() {
+    	frontLeft.setNeutralMode(com.ctre.phoenix.motorcontrol.NeutralMode.Coast);
+    	frontRight.setNeutralMode(com.ctre.phoenix.motorcontrol.NeutralMode.Coast);
+    	rearLeft.setNeutralMode(com.ctre.phoenix.motorcontrol.NeutralMode.Coast);
+    	rearRight.setNeutralMode(com.ctre.phoenix.motorcontrol.NeutralMode.Coast);
     }
     
 }

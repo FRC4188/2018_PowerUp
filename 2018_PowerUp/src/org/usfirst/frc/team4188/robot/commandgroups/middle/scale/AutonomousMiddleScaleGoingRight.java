@@ -20,6 +20,7 @@ public class AutonomousMiddleScaleGoingRight extends CommandGroup {
     public AutonomousMiddleScaleGoingRight() {
     	// switch is on right
     	//addSequential(new IntakeReleaseRun(-.5));
+    	/*
 		addSequential(new AutoDriveDistanceBased(20.0/12, 0.2));
 		addSequential(new TurnToAngleEncoderBased(90.0, 0.1));
 		addSequential(new AutoDriveDistanceBased(96.0/12 - Robot.ROBOT_WIDTH / 2 + Robot.ROBOT_LENGTH / 2, 0.2));
@@ -29,5 +30,6 @@ public class AutonomousMiddleScaleGoingRight extends CommandGroup {
 		addSequential(new TurnToAngleEncoderBased(-90.0, 0.1));
 		addSequential(new IntakeMotorsForward(false), 0.5);
 		addSequential(new IntakeMotorsStop());
+		*/
     }
 }

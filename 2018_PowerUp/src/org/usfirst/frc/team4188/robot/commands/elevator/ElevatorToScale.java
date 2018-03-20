@@ -17,27 +17,17 @@ public class ElevatorToScale extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.m_elevator.bothElevatorsRun(0.5, 0.5);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	/*
-    	if(outerLimitSwitch()) {
-    		Robot.m_elevator.bothElevatorsRun(0.5, 0.0);
-    	else if(innerLimitSwitch()) {
-    		Robot.m_elevator.bothElevatorsRun(0.0, 0.5);
-    	}
-    	else if(innerLimitSwitch && outerLimitSwitch){
-    		Robot.m_elevator.bothElevatorsStop()
-    	}
-    	 */
+    	Robot.m_elevator.bothElevatorsRun(0.75, -0.75);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
     	//return Robot.m_Ultrasonic.reading < 12.0;
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true
@@ -48,5 +38,6 @@ public class ElevatorToScale extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }

@@ -20,7 +20,8 @@ public class Intake extends Subsystem {
 		WPI_VictorSPX intakeRight = RobotMap.intakeRight;
 		WPI_VictorSPX intakeLeft = RobotMap.intakeLeft;
 		WPI_TalonSRX intakeReleaseLeft = RobotMap.intakeReleaseLeft;		
-		WPI_TalonSRX intakeReleaseRight = RobotMap.intakeReleaseRight;
+		//WPI_TalonSRX intakeReleaseRight = RobotMap.intakeReleaseRight;
+		WPI_VictorSPX intakeReleaseRight = RobotMap.intakeReleaseRight;
 		DoubleSolenoid intakeSolenoid = RobotMap.intakeSolenoid;
 		
     public void initDefaultCommand() {

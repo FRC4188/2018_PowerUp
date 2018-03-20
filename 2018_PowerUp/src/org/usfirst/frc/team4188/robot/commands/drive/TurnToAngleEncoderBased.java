@@ -16,17 +16,18 @@ public class TurnToAngleEncoderBased extends Command {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	
-    	this.tolerance = tolerance;
+    	this.tolerance = 12.5/12.0 * Math.toRadians(tolerance);
     	turnDistance = 12.5/12.0 * Math.toRadians(-angle);
     	
     	requires(Robot.m_drivetrain);
     }
 
-    // Called just before this Command runs the first time
+ // Called just before this Command runs the first time
     protected void initialize() {
     	RobotMap.gyro.reset();
     	RobotMap.frontLeft.setInverted(true);
     	RobotMap.rearLeft.setInverted(true);
+    	Robot.m_drivetrain.setBrake();
     	Robot.m_drivetrain.setPIDInput(PIDInput.encoderToAngle);
     	Robot.m_drivetrain.resetEncoders();
     	Robot.m_drivetrain.setAbsoluteTolerance(tolerance);
@@ -45,10 +46,11 @@ public class TurnToAngleEncoderBased extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.m_drivetrain.disable();
-    	Robot.m_drivetrain.free();
     	RobotMap.frontLeft.setInverted(false);
     	RobotMap.rearLeft.setInverted(false);
+    	Robot.m_drivetrain.setCoast();
+    	Robot.m_drivetrain.disable();
+    	Robot.m_drivetrain.free();
     }
 
     // Called when another command which requires one or more of the same

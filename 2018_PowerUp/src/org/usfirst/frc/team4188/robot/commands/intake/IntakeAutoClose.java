@@ -1,51 +1,47 @@
-package org.usfirst.frc.team4188.robot.commands.elevator;
+package org.usfirst.frc.team4188.robot.commands.intake;
 
 import org.usfirst.frc.team4188.robot.Robot;
+import org.usfirst.frc.team4188.robot.RobotMap;
+
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class ElevatorToHeight extends Command {
+public class IntakeAutoClose extends Command {
 
-	private double setpoint;
-	private double tolerance;
+	public static PowerDistributionPanel pdp = RobotMap.pdp;
 	
-	public ElevatorToHeight(double setpoint, double tolerance) {
+    public IntakeAutoClose() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-		requires(Robot.m_elevator);
-		this.setpoint = setpoint * Robot.m_elevator.INCHES_PER_UNIT;
-		this.tolerance = tolerance;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.m_elevator.setSetpoint(setpoint);
-    	Robot.m_elevator.setAbsoluteTolerance(tolerance);
-    	Robot.m_elevator.setPID(.3, 0, 0);
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.m_elevator.enable();
+    	Robot.m_intake.runIntakeMotors(-0.75*RobotMap.brownoutMultiplier);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.m_elevator.onTarget();
+        if(pdp.getCurrent(10) > 2) {
+        	return true;
+        }
+        return false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.m_elevator.disable();
-    	Robot.m_elevator.free();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	end();
     }
-    
 }

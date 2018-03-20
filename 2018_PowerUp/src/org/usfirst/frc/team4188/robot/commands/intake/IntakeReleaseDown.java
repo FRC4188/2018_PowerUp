@@ -20,7 +20,8 @@ public class IntakeReleaseDown extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.m_intake.runIntakeRelease(-0.5);
+    	Robot.m_intake.runIntakeRelease(0.25);
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()

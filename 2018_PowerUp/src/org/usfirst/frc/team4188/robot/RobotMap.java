@@ -75,9 +75,12 @@ public class RobotMap {
 	public static WPI_VictorSPX intakeRight;
 	public static WPI_VictorSPX intakeLeft;
 	public static WPI_TalonSRX intakeReleaseLeft;
-	public static WPI_TalonSRX intakeReleaseRight;
+	//public static WPI_TalonSRX intakeReleaseRight;
+	public static WPI_VictorSPX intakeReleaseRight;
 
 	public static DoubleSolenoid intakeSolenoid;
+	
+	public static WPI_TalonSRX climberMotor;
 	
 	public static Servo leftWingFront;
 	public static Servo leftWingBack;
@@ -95,14 +98,14 @@ public class RobotMap {
 		1: intake wheel left (Victor)
 		2: intake release left
 		3: outer elevator left
-		4: intake release right
+		4: intake release right (temp climber)
 		5: front left drive
 		6: rear left drive
 		7: rear right drive
 		8: front right drive
 		9: inner elevator
 		10: outer elevator right
-		11: Nothing (Victor)
+		11: Nothing (Victor) (temp intake release right)
 		12: intake wheel right (Victor)
 		*/
 		
@@ -155,10 +158,13 @@ public class RobotMap {
 		intakeLeft = new WPI_VictorSPX(1);
 		intakeRight = new WPI_VictorSPX(12);
 		intakeReleaseLeft = new WPI_TalonSRX(2);
-		intakeReleaseRight = new WPI_TalonSRX(4);
+		//intakeReleaseRight = new WPI_TalonSRX(4);
+		intakeReleaseRight = new WPI_VictorSPX(11);
 		intakeReleaseRight.setInverted(true);
 		
 		intakeSolenoid = new DoubleSolenoid(4,5);
+		
+		climberMotor = new WPI_TalonSRX(4);
 		
 		ultrasonic = new Ultrasonic(0,1);
 		

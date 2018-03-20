@@ -43,7 +43,7 @@ public class BothElevatorsRun extends Command {
     	}
     	else {
     		// going down
-    		outer = outerInput * (1 - Robot.OUTER_ELEVATOR_FLAT_POWER)+ Robot.OUTER_ELEVATOR_FLAT_POWER;
+    		outer = outerInput * (.5 - Robot.OUTER_ELEVATOR_FLAT_POWER)+ Robot.OUTER_ELEVATOR_FLAT_POWER;
     	}
     	Robot.m_elevator.bothElevatorsRun(inner, outer);
     }

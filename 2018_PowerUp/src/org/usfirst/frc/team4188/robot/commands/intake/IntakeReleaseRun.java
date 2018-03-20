@@ -13,11 +13,13 @@ public class IntakeReleaseRun extends Command {
 	DigitalInput intakeReleaseTopLimit = RobotMap.intakeReleaseTopLimit;
 	DigitalInput intakeReleaseBottomLimit = RobotMap.intakeReleaseBottomLimit;
 	private double speed;
+	private boolean finishNow;
 
-    public IntakeReleaseRun(double speed) {
+    public IntakeReleaseRun(double speed, boolean finishNow) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	this.speed = speed;
+    	this.finishNow = finishNow;
     }
 
     // Called just before this Command runs the first time
@@ -32,8 +34,9 @@ public class IntakeReleaseRun extends Command {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         //return true;
+    	//return (intakeReleaseTopLimit.get() || intakeReleaseBottomLimit.get());
     	
-    	return (intakeReleaseTopLimit.get() || intakeReleaseBottomLimit.get());
+    	return finishNow;
     }
 
     // Called once after isFinished returns true
@@ -44,5 +47,6 @@ public class IntakeReleaseRun extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }

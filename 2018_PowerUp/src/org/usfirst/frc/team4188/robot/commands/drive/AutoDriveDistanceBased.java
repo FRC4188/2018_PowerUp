@@ -10,17 +10,19 @@ import edu.wpi.first.wpilibj.command.Command;
 public class AutoDriveDistanceBased extends Command {
 	double distance;
 	double tolerance;
-	public final double AUTO_CORRECTION = 20.0/12.5;
+	//public final double PID_CORRECTION = 10.0/16.0;
+	//public final double AUTO_CORRECTION = 20.0/12.5;
     public AutoDriveDistanceBased(double distance, double tolerance) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	this.distance = distance*AUTO_CORRECTION;
+    	this.distance = distance;
     	this.tolerance = tolerance;
     	requires(Robot.m_drivetrain);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.m_drivetrain.setBrake();
     	Robot.m_drivetrain.setPIDInput(PIDInput.encoder);
     	Robot.m_drivetrain.resetEncoders();
     	Robot.m_drivetrain.setAbsoluteTolerance(tolerance);
@@ -39,6 +41,7 @@ public class AutoDriveDistanceBased extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.m_drivetrain.setCoast();
     	Robot.m_drivetrain.disable();
     	Robot.m_drivetrain.free();
     }

@@ -7,6 +7,9 @@
 
 package org.usfirst.frc.team4188.robot;
 
+import org.usfirst.frc.team4188.robot.commands.climber.ClimberMotorForward;
+import org.usfirst.frc.team4188.robot.commands.climber.ClimberMotorReverse;
+import org.usfirst.frc.team4188.robot.commands.climber.ClimberMotorStop;
 import org.usfirst.frc.team4188.robot.commands.climber.CylindersIn;
 import org.usfirst.frc.team4188.robot.commands.climber.CylindersOff;
 import org.usfirst.frc.team4188.robot.commands.climber.CylindersOut;
@@ -18,6 +21,7 @@ import org.usfirst.frc.team4188.robot.commands.drive.Turn;
 import org.usfirst.frc.team4188.robot.commands.drive.TurnToAngle;
 import org.usfirst.frc.team4188.robot.commands.drive.TurnToAngleEncoderBased;
 import org.usfirst.frc.team4188.robot.commands.elevator.ElevatorToHeight;
+import org.usfirst.frc.team4188.robot.commands.elevator.ElevatorToScale;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeIn;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeMotorsForward;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeMotorsReverse;
@@ -111,16 +115,21 @@ public class OI {
     pilot11 = new JoystickButton(pilotXboxController, 11);
     pilot12 = new JoystickButton(pilotXboxController, 12);
     
-    /*
-	pilot1.whenPressed(new AutoDriveDistanceBased(5.0,0.2));
-    SmartDashboard.putData("Distance Based PID", new AutoDriveDistanceBased(10.0,0.2));
-	pilot2.whenPressed(new TurnToAngleEncoderBased(90, 0.1));
-	SmartDashboard.putData("Turn to Angle w/ Encoder PID", new TurnToAngleEncoderBased(90, 0.1));
-	*/
-	pilot3.whileHeld(new CylindersIn());
-	pilot3.whenReleased(new CylindersOff());
-	pilot4.whileHeld(new CylindersOut());
-	pilot4.whenReleased(new CylindersOff());
+	//pilot1.whenPressed(new AutoDriveDistanceBased(5.0, 0.5));
+	//pilot2.whenPressed(new TurnToAngleEncoderBased(90.0, 2.0));
+    
+	//pilot3.whileHeld(new CylindersIn());
+	//pilot3.whenReleased(new CylindersOff());
+	//pilot4.whileHeld(new CylindersOut());
+	//pilot4.whenReleased(new CylindersOff());
+    
+    pilot3.whileHeld(new ClimberMotorForward());
+    pilot3.whenReleased(new ClimberMotorStop());
+    pilot4.whileHeld(new ClimberMotorReverse());
+    pilot4.whenReleased(new ClimberMotorStop());
+    
+    //pilot5.whenPressed(new TurnToAngleEncoderBased(-90.0, 2.0));
+    //pilot6.whenPressed(new TurnToAngleEncoderBased(90.0, 2.0));
 	
 	pilot7.whenPressed(new RaiseWings());
 	pilot8.whenPressed(new LowerWings());
@@ -147,25 +156,25 @@ public class OI {
 	coPilot1.whileHeld(new IntakeMotorsReverse());
 	coPilot1.whenReleased(new IntakeMotorsStop());
 	coPilot2.whileHeld(new IntakeMotorsForward(true));
+	//coPilot2.whenPressed(new IntakeReleaseRun(0, true));
 	coPilot2.whenReleased(new IntakeMotorsStop());
 	
-	coPilot3.whenPressed(new TurnToAngle(90.0, 3.0));
-	coPilot4.whenPressed(new AutoDriveDistanceBased(200/12 - Robot.ROBOT_LENGTH / 2, 1.0));	
+	//coPilot3.whenPressed(new TurnToAngleEncoderBased(90.0, 3.0));
+	//coPilot4.whenPressed(new TurnToAngle(90.0, 3.0));	
 	
 	coPilot5.whileHeld(new IntakeIn());
 	coPilot5.whenReleased(new IntakeSolenoidOff());
 	coPilot6.whileHeld(new IntakeOut());
 	coPilot6.whenReleased(new IntakeSolenoidOff());
-	/**
-	coPilot7.whenPressed(new IntakeReleaseRun(.75));
-	coPilot8.whenPressed(new IntakeReleaseRun(-.5));
-	**/
-	coPilot7.whileHeld(new IntakeReleaseDown());
+
+	coPilot7.whileHeld(new IntakeReleaseUp());
 	coPilot7.whenReleased(new IntakeReleaseOff());
-	coPilot8.whileHeld(new IntakeReleaseUp());
+	//coPilot7.whenPressed(new IntakeReleaseRun(-.3, false));
+	coPilot8.whileHeld(new IntakeReleaseDown());
 	coPilot8.whenReleased(new IntakeReleaseOff());
 	
-	//coPilot9.whenPressed(new ElevatorToHeight(2.0, .1));
+	//coPilot9.whenPressed(new ElevatorToHeight(36, .1));
+	//coPilot10.whenPressed(new ElevatorToScale());
 	
 	
 	}

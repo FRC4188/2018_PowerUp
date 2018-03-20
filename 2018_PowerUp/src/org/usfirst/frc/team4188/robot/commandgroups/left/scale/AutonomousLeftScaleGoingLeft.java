@@ -35,10 +35,7 @@ public class AutonomousLeftScaleGoingLeft extends CommandGroup {
 		addSequential(new AutoBothElevatorsRun(.75, -.75), 2.5);
 		addSequential(new IntakeReleaseRun(-0.75), 0.2);
 		//addParallel(new ElevatorToScale());
-		 * 
-		 */
 		addSequential(new Turn(0.75, 0.75), 0.5);
-		/*
 		//addSequential(new TurnToAngleEncoderBased(90.0, 3.0));
 		addSequential(new Delay(), 2.0);
 		addSequential(new IntakeMotorsForward(false), 2.0);

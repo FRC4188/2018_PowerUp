@@ -54,6 +54,9 @@ public class Robot extends TimedRobot {
 	public enum PowerState{NORMAL, POWERCONSERVING}
 	public static PowerState powerState = PowerState.NORMAL; 
 	
+	public enum InnerElevatorStatus{GOOD, BROKEN};
+	public static InnerElevatorStatus innerElevatorStatus = InnerElevatorStatus.GOOD;
+	
 	public static double ROBOT_LENGTH;
 	public static double ROBOT_WIDTH;
 	
@@ -155,6 +158,10 @@ public class Robot extends TimedRobot {
 	 */ 
 	@Override
 	public void autonomousInit() {
+		
+		// set all motors to brake
+		Robot.m_drivetrain.setBrake();
+		
 		// TODO REMOVE
 		gameMessage = "LLL";
 		//gameMessage = DriverStation.getInstance().getGameSpecificMessage();
@@ -285,7 +292,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousPeriodic() {
 		
-		
+		m_intake.runIntakeRelease(-.05);
 		Scheduler.getInstance().run();
 	}
 
@@ -299,6 +306,7 @@ public class Robot extends TimedRobot {
 		Robot.m_drivetrain.gyroReset();
 		Robot.m_drivetrain.setClosedloopRamp(0.1);
 		Robot.m_elevator.resetEncoders();
+		Robot.m_drivetrain.setCoast();
 		//Robot.m_drivetrain.enableCurrentLimit();
 		
 	}
@@ -314,8 +322,6 @@ public class Robot extends TimedRobot {
 		Scheduler.getInstance().run(); 
 		SmartDashboard.putData("Drive Train", Robot.m_drivetrain);
 		SmartDashboard.putData(RobotMap.gyro);
-		SmartDashboard.putNumber("Velocity", RobotMap.rearRight.getSelectedSensorVelocity(0)*Robot.m_drivetrain.SENSOR_UNITS_PER_ROTATION);
-		Robot.m_drivetrain.getRightEncoderRotation();
 		Robot.m_drivetrain.getLeftEncoderRotation();
 		SmartDashboard.putData(RobotMap.pdp);
 		SmartDashboard.putNumber("Ultrasonic Sensor", RobotMap.ultrasonic.getRangeInches());
@@ -323,8 +329,9 @@ public class Robot extends TimedRobot {
 		//Robot.m_drivetrain.enableCurrentLimit();
 		// testing data
 		
+		SmartDashboard.putNumber("Right Elevator Encoder", RobotMap.outerElevatorRight.getSelectedSensorPosition(0));
 		SmartDashboard.putNumber("Elevator Up Power", Robot.m_oi.coPilotXboxController.getY(Hand.kLeft));
-		SmartDashboard.putNumber("Inner Elevator Encoder", RobotMap.innerElevator.getSelectedSensorPosition(0) * INCHES_PER_UNIT);
+		SmartDashboard.putNumber("Inner Elevator Encoder", Math.abs(RobotMap.innerElevator.getSelectedSensorPosition(0) * INCHES_PER_UNIT));
 	
 		if(powerState == PowerState.NORMAL){
 	        if(RobotMap.pdp.getVoltage() < 7.0){
@@ -347,6 +354,10 @@ public class Robot extends TimedRobot {
 	public void testPeriodic() {
 		SmartDashboard.putData("Drive Train", Robot.m_drivetrain);
 		SmartDashboard.putData(Robot.m_drivetrain.getPIDController());
+		SmartDashboard.putBoolean("Outer Top", RobotMap.outerElevatorRight.getSensorCollection().isFwdLimitSwitchClosed());
+		SmartDashboard.putBoolean("Outer Bottom", RobotMap.outerElevatorRight.getSensorCollection().isRevLimitSwitchClosed());
+		SmartDashboard.putBoolean("Inner Top", RobotMap.innerElevator.getSensorCollection().isFwdLimitSwitchClosed());
+		SmartDashboard.putBoolean("Inner Bottom", RobotMap.innerElevator.getSensorCollection().isRevLimitSwitchClosed());
 	}
 	
 }
