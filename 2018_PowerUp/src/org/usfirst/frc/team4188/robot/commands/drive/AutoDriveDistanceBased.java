@@ -27,11 +27,12 @@ public class AutoDriveDistanceBased extends Command {
     	Robot.m_drivetrain.resetEncoders();
     	Robot.m_drivetrain.setAbsoluteTolerance(tolerance);
     	Robot.m_drivetrain.setSetpoint(distance);
+    	Robot.m_drivetrain.enable();
+    	System.out.println("starting drive now " + distance);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.m_drivetrain.enable();
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -44,6 +45,7 @@ public class AutoDriveDistanceBased extends Command {
     	Robot.m_drivetrain.setCoast();
     	Robot.m_drivetrain.disable();
     	Robot.m_drivetrain.free();
+    	System.out.println("ending drive now");
     }
 
     // Called when another command which requires one or more of the same

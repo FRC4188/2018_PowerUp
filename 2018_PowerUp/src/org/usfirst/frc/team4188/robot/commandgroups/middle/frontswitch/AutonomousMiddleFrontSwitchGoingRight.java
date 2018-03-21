@@ -27,8 +27,11 @@ public class AutonomousMiddleFrontSwitchGoingRight extends CommandGroup {
 		addSequential(new Delay(), 0.2);
 		addSequential(new AutoDriveDistanceBased(5.0 + Robot.ROBOT_WIDTH / 2, 0.5), 1.5);
 		addSequential(new Delay(), 0.2);
+		addSequential(new AutoDriveDistanceBased(5.0 + Robot.ROBOT_WIDTH / 2, 0.5), 1.5);
+		addSequential(new Delay(), 0.2);
 		addSequential(new TurnToAngle(-90.0, 5.0), 1.5);
-		addSequential(new Delay(), 4.0);
+		addSequential(new Delay(), 0.2);
+		addSequential(new AutoDriveDistanceBased(6.0 - Robot.ROBOT_LENGTH / 2, 0.5), 1.5);
 		addSequential(new AutoDriveDistanceBased(6.0 - Robot.ROBOT_LENGTH / 2, 0.5), 1.5);
 		//addSequential(new IntakeReleaseDown(), 0.1);
 		addSequential(new IntakeMotorsForward(false), 0.5);

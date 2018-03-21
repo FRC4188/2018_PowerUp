@@ -32,11 +32,11 @@ public class TurnToAngleEncoderBased extends Command {
     	Robot.m_drivetrain.resetEncoders();
     	Robot.m_drivetrain.setAbsoluteTolerance(tolerance);
     	Robot.m_drivetrain.setSetpoint(turnDistance);
+    	Robot.m_drivetrain.enable();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.m_drivetrain.enable();
     }
 
     // Make this return true when this Command no longer needs to run execute()
