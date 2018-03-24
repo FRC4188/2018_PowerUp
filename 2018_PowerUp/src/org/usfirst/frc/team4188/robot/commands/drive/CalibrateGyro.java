@@ -1,32 +1,27 @@
-package org.usfirst.frc.team4188.robot.commands.elevator;
+package org.usfirst.frc.team4188.robot.commands.drive;
 
-import org.usfirst.frc.team4188.robot.Robot;
 import org.usfirst.frc.team4188.robot.RobotMap;
 
-import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class OuterElevatorRun  extends Command {
-	
-	XboxController coPilot = Robot.m_oi.coPilotXboxController;
+public class CalibrateGyro extends Command {
 
-    public OuterElevatorRun() {
+    public CalibrateGyro() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	RobotMap.gyro.reset();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	//Robot.m_elevator.outerElevatorRun(coPilot.getY(Hand.kLeft)*RobotMap.brownoutMultiplier);
-    	Robot.m_elevator.outerElevatorRun(-0.5);
+    	RobotMap.gyro.calibrate();
     }
 
     // Make this return true when this Command no longer needs to run execute()

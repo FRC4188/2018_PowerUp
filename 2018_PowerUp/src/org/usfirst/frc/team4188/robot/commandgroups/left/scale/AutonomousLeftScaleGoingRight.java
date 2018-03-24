@@ -3,6 +3,8 @@ package org.usfirst.frc.team4188.robot.commandgroups.left.scale;
 import org.usfirst.frc.team4188.robot.Robot;
 import org.usfirst.frc.team4188.robot.RobotMap;
 import org.usfirst.frc.team4188.robot.commands.drive.AutoDriveDistanceBased;
+import org.usfirst.frc.team4188.robot.commands.drive.Delay;
+import org.usfirst.frc.team4188.robot.commands.drive.TurnToAngle;
 import org.usfirst.frc.team4188.robot.commands.drive.TurnToAngleEncoderBased;
 import org.usfirst.frc.team4188.robot.commands.elevator.ElevatorToScale;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeMotorsForward;
@@ -19,16 +21,19 @@ public class AutonomousLeftScaleGoingRight extends CommandGroup {
     public AutonomousLeftScaleGoingRight() {
     	// scale on right, go around switch and deposit
     	//addSequential(new IntakeReleaseRun(-.5));
-    	/*
-		addSequential(new AutoDriveDistanceBased(228.735/12 - Robot.ROBOT_LENGTH / 2, 0.2));
-		addSequential(new TurnToAngleEncoderBased(90.0, 0.1));
-		addSequential(new AutoDriveDistanceBased(264.62/12- Robot.ROBOT_WIDTH, 0.2));
-		addSequential(new TurnToAngleEncoderBased(-90.0, 0.1));
-		addSequential(new AutoDriveDistanceBased(290.915/12, 0.2));
-		addParallel(new ElevatorToScale());
-		addSequential(new TurnToAngleEncoderBased(-90.0, 0.1));
-		addSequential(new IntakeMotorsForward(false), 0.5);
+    	
+		addSequential(new AutoDriveDistanceBased(19.0 - Robot.ROBOT_LENGTH / 2, 0.5), 3.0);
+		addSequential(new TurnToAngle(90.0, 5.0), 1.5);
+		addSequential(new AutoDriveDistanceBased(22 - Robot.ROBOT_WIDTH, 0.5), 3.0);
+		addSequential(new TurnToAngle(-90.0, 5.0), 1.5);
+		addSequential(new AutoDriveDistanceBased(7.0, 0.5), 1.5);
+		addSequential(new IntakeReleaseRun(-0.75, false), 0.7);
+		addSequential(new ElevatorToScale(), 3.0);
+		addSequential(new TurnToAngle(-90.0, 5.0), 1.5);
+		addSequential(new Delay());
+		addSequential(new IntakeMotorsForward(false), 1.0);
 		addSequential(new IntakeMotorsStop());
-		*/
+		
+		
     }
 }

@@ -36,7 +36,7 @@ public class Elevator extends PIDSubsystem {
     
     public void outerElevatorRun(double power) {
     	outerElevatorLeft.set(-power);
-    	outerElevatorRight.set(power);
+    	//outerElevatorRight.set(power);
     }
     
     public void outerElevatorStop() {
@@ -59,13 +59,13 @@ public class Elevator extends PIDSubsystem {
     public void bothElevatorsRun(double innerPower, double outerPower) {
     	innerElevator.set(innerPower);
     	outerElevatorLeft.set(-outerPower);
-    	outerElevatorRight.set(outerPower);
+    	//outerElevatorRight.set(outerPower);
     }
     
     public void bothElevatorsStop() {
     	innerElevator.set(0);
     	outerElevatorLeft.set(0);
-    	outerElevatorRight.set(0);
+    	//outerElevatorRight.set(0);
     }
     
     public void setPID(double p, double i, double d) {
@@ -96,7 +96,7 @@ public class Elevator extends PIDSubsystem {
         	innerElevator.set(-output);
         } else if(Robot.innerElevatorStatus == Robot.InnerElevatorStatus.BROKEN) {
         	outerElevatorLeft.set(output);
-        	outerElevatorRight.set(-output);
+        	//outerElevatorRight.set(-output);
         } 
     }
     

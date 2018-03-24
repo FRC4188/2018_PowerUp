@@ -97,6 +97,7 @@ public class Robot extends TimedRobot {
 			OUTER_ELEVATOR_FLAT_POWER = -0.075;
 			break;
 		}
+		
 		RobotMap.init();
 		m_drivetrain = new Drivetrain();
 		m_drivetrain.setPIDInput(PIDInput.none);
@@ -113,6 +114,10 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Start Right End Scale", 6);
 		m_chooser.addDefault("Start Anywhere Move Forward", 7);
 		m_chooser.addObject("Do Nothing", 8);
+		m_chooser.addObject("Start Left Switch Priority", 9);
+		m_chooser.addObject("Start Right Switch Priority", 10);
+		m_chooser.addObject("Start Left Scale Priority",  11);	
+		m_chooser.addDefault("Start Right Scale Priority", 12);
 		
 		SmartDashboard.putData("Autonomous Selector", m_chooser);
 		
@@ -136,6 +141,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledInit() {
 		m_selectedCommand = (int) m_chooser.getSelected();
+		RobotMap.gyro.reset();
 	}
 
 	@Override
@@ -163,8 +169,8 @@ public class Robot extends TimedRobot {
 		Robot.m_drivetrain.setBrake();
 		
 		// TODO REMOVE
-		gameMessage = "RRR";
-		//gameMessage = DriverStation.getInstance().getGameSpecificMessage();
+		//gameMessage = "LLL";
+		gameMessage = DriverStation.getInstance().getGameSpecificMessage();
 		
 		m_selectedCommand = (int) m_chooser.getSelected();
 		
@@ -174,20 +180,20 @@ public class Robot extends TimedRobot {
 		char scaleSide = gameMessage.charAt(1);
 		
 		switch(m_selectedCommand) {
-			case 0:
+			case 0: //start left end switch
 				switch(switchSide) {
 				case 'L':
 					m_autonomousCommand = new AutonomousLeftSwitchGoingLeft();
 					break;
 				case 'R':
-					m_autonomousCommand = new AutonomousDoNothing();
+					m_autonomousCommand = new AutonomousMoveForward();
 					break;
 				default:
-					m_autonomousCommand = new AutonomousDoNothing();
+					m_autonomousCommand = new AutonomousMoveForward();
 					break;
 				}
 				break;
-			case 1:
+			case 1: //start left end scale
 				switch(scaleSide) {
 				case 'L':
 					m_autonomousCommand = new AutonomousLeftScaleGoingLeft();
@@ -200,7 +206,7 @@ public class Robot extends TimedRobot {
 					break;
 				}
 				break;
-			case 2:
+			case 2: //start middle end front switch
 				switch(switchSide) {
 				case 'L':
 					m_autonomousCommand = new AutonomousMiddleFrontSwitchGoingLeft();
@@ -213,7 +219,7 @@ public class Robot extends TimedRobot {
 					break;
 				}
 				break;
-			case 3:
+			case 3: //start middle end side switch
 				switch(switchSide) {
 				case 'L':
 					m_autonomousCommand = new AutonomousMiddleSideSwitchGoingLeft();
@@ -226,7 +232,7 @@ public class Robot extends TimedRobot {
 					break;
 				}
 				break;
-			case 4:
+			case 4: //start middle end scale
 				switch(scaleSide) {
 				case 'L':
 					m_autonomousCommand = new AutonomousMiddleScaleGoingLeft();
@@ -239,20 +245,20 @@ public class Robot extends TimedRobot {
 					break;
 				}
 				break;
-			case 5:
+			case 5: //start right end switch
 				switch(switchSide) {
 				case 'L':
-					m_autonomousCommand = new AutonomousDoNothing();
+					m_autonomousCommand = new AutonomousMoveForward();
 					break;
 				case 'R':
 					m_autonomousCommand = new AutonomousRightSwitchGoingRight();
 					break;
 				default:
-					m_autonomousCommand = new AutonomousDoNothing();
+					m_autonomousCommand = new AutonomousMoveForward();
 					break;
 				}
 				break;
-			case 6:
+			case 6: //start right end scale
 				switch(scaleSide) {
 				case 'L':
 					m_autonomousCommand = new AutonomousMoveForward();
@@ -265,11 +271,101 @@ public class Robot extends TimedRobot {
 					break;
 				}
 				break;
-			case 7:
+			case 7: //move forward
 				m_autonomousCommand = new AutonomousMoveForward();
 				break;
-			case 8:
+			case 8: //do nothing
 				m_autonomousCommand = new AutonomousDoNothing();
+				break;
+			case 9: //start left switch priority, scale if switch not available
+				switch(switchSide) {
+				case 'L':
+					m_autonomousCommand = new AutonomousLeftSwitchGoingLeft();
+					break;
+				case 'R':
+					switch(scaleSide) {
+					case 'L':
+						m_autonomousCommand = new AutonomousLeftScaleGoingLeft();
+						break;
+					case 'R':
+						m_autonomousCommand = new AutonomousMoveForward();
+						break;
+					default:
+						m_autonomousCommand = new AutonomousMoveForward();
+						break;						
+					}
+					break;
+				default:
+					m_autonomousCommand = new AutonomousMoveForward();
+					break;
+				}
+				break;
+			case 10: //start right switch priority, scale if switch not available
+				switch(switchSide) {
+				case 'L':
+					switch(scaleSide) {
+					case 'L':
+						m_autonomousCommand = new AutonomousMoveForward();
+						break;
+					case 'R':
+						m_autonomousCommand = new AutonomousRightScaleGoingRight();
+						break;
+					default:
+						m_autonomousCommand = new AutonomousMoveForward();
+						break;						
+					}
+					break;
+				case 'R':
+					m_autonomousCommand = new AutonomousRightSwitchGoingRight();
+					break;
+				default:
+					m_autonomousCommand = new AutonomousMoveForward();
+					break;
+				}
+				break;
+			case 11: //start left scale priority, switch if scale not available
+				switch(scaleSide) {
+				case 'L':
+					m_autonomousCommand = new AutonomousLeftScaleGoingLeft();
+					break;
+				case 'R':
+					switch(switchSide) {
+					case 'L':
+						m_autonomousCommand = new AutonomousLeftSwitchGoingLeft();
+						break;
+					case 'R':
+						m_autonomousCommand = new AutonomousMoveForward();
+						break;
+					default:
+						m_autonomousCommand = new AutonomousMoveForward();
+					}
+					break;
+				default:
+					m_autonomousCommand = new AutonomousMoveForward();
+					break;
+				}
+				break;
+			case 12: //start right scale priority, switch if scale not available
+				switch(scaleSide) {
+				case 'L':
+					switch(switchSide) {
+					case 'L':
+						m_autonomousCommand = new AutonomousMoveForward();
+						break;
+					case 'R':
+						m_autonomousCommand = new AutonomousRightSwitchGoingRight();
+						break;
+					default:
+						m_autonomousCommand = new AutonomousMoveForward();
+					}
+					break;
+				case 'R':
+					m_autonomousCommand = new AutonomousRightScaleGoingRight();
+					break;
+				default:
+					m_autonomousCommand = new AutonomousMoveForward();
+					break;
+				}
 				break;
 			default:
 				m_autonomousCommand = new AutonomousMoveForward();
@@ -292,7 +388,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousPeriodic() {
 		
-		m_intake.runIntakeRelease(-.05);
+		m_intake.runIntakeRelease(.05);
 		Scheduler.getInstance().run();
 	}
 
@@ -361,3 +457,13 @@ public class Robot extends TimedRobot {
 	}
 	
 }
+
+
+
+
+
+
+
+
+
+//haha 420

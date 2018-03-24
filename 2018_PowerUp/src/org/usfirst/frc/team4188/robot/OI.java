@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team4188.robot;
 
+import org.usfirst.frc.team4188.robot.commands.climber.Climb;
 import org.usfirst.frc.team4188.robot.commands.climber.ClimberMotorForward;
 import org.usfirst.frc.team4188.robot.commands.climber.ClimberMotorReverse;
 import org.usfirst.frc.team4188.robot.commands.climber.ClimberMotorStop;
@@ -14,6 +15,7 @@ import org.usfirst.frc.team4188.robot.commands.climber.CylindersIn;
 import org.usfirst.frc.team4188.robot.commands.climber.CylindersOff;
 import org.usfirst.frc.team4188.robot.commands.climber.CylindersOut;
 import org.usfirst.frc.team4188.robot.commands.drive.AutoDriveDistanceBased;
+import org.usfirst.frc.team4188.robot.commands.drive.CalibrateGyro;
 import org.usfirst.frc.team4188.robot.commands.drive.GearShiftIn;
 import org.usfirst.frc.team4188.robot.commands.drive.GearShiftOff;
 import org.usfirst.frc.team4188.robot.commands.drive.GearShiftOut;
@@ -115,18 +117,18 @@ public class OI {
     pilot11 = new JoystickButton(pilotXboxController, 11);
     pilot12 = new JoystickButton(pilotXboxController, 12);
     
+    pilot1.whenPressed(new CalibrateGyro());
+    
 	//pilot1.whenPressed(new AutoDriveDistanceBased(5.0, 0.5));
 	//pilot2.whenPressed(new TurnToAngleEncoderBased(90.0, 2.0));
-    
-	//pilot3.whileHeld(new CylindersIn());
-	//pilot3.whenReleased(new CylindersOff());
-	//pilot4.whileHeld(new CylindersOut());
-	//pilot4.whenReleased(new CylindersOff());
     
     pilot3.whileHeld(new ClimberMotorForward());
     pilot3.whenReleased(new ClimberMotorStop());
     pilot4.whileHeld(new ClimberMotorReverse());
     pilot4.whenReleased(new ClimberMotorStop());
+    
+    //pilot5.whenPressed(new Climb());
+    //pilot4.whenReleased(new ClimberMotorStop());
     
     //pilot5.whenPressed(new TurnToAngleEncoderBased(-90.0, 2.0));
     //pilot6.whenPressed(new TurnToAngleEncoderBased(90.0, 2.0));
@@ -159,7 +161,7 @@ public class OI {
 	//coPilot2.whenPressed(new IntakeReleaseRun(0, true));
 	coPilot2.whenReleased(new IntakeMotorsStop());
 	
-	coPilot3.whenPressed(new TurnToAngleEncoderBased(90.0, 3.0));
+	//coPilot3.whenPressed(new AutoDriveDistanceBased(3.0, .5));
 	//coPilot4.whenPressed(new TurnToAngle(90.0, 3.0));	
 	
 	coPilot5.whileHeld(new IntakeIn());

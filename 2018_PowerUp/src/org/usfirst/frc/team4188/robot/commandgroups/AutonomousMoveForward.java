@@ -14,12 +14,7 @@ public class AutonomousMoveForward extends CommandGroup {
 
 	public AutonomousMoveForward() {
 		addSequential(new GearShiftIn());
-		addSequential(new AutoDriveDistanceBased(200/12 - Robot.ROBOT_LENGTH / 2, 0.1));
+		addSequential(new AutoDriveDistanceBased(20.0 - Robot.ROBOT_LENGTH / 2, 0.1));
 		addSequential(new GearShiftOut());
 	}
-    public AutonomousMoveForward(String positions) {
-    	addSequential(new GearShiftIn());
-    	addSequential(new AutoDriveDistanceBased(200/12 - Robot.ROBOT_LENGTH / 2, 0.1));
-    	addSequential(new GearShiftOut());
-    }
 }

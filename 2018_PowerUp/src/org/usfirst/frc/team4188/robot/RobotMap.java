@@ -142,6 +142,8 @@ public class RobotMap {
 		outerElevatorRight.overrideLimitSwitchesEnable(true);
 		outerElevatorRight.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 10);
 		outerElevatorRight.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 10);
+    	outerElevatorRight.setInverted(true);
+    	outerElevatorRight.follow(outerElevatorLeft);
 		
 		innerElevator = new WPI_TalonSRX(9);
 		innerElevator.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
