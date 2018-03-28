@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutonomousMiddleFrontSwitchGoingRight extends CommandGroup {
 
     public AutonomousMiddleFrontSwitchGoingRight() {
+/*    
     	boolean doNothing = true;
     	// switch is on right
     	addSequential(new GearShiftIn());
@@ -38,7 +39,8 @@ public class AutonomousMiddleFrontSwitchGoingRight extends CommandGroup {
 		}
 		
 		// Drive right
-		addSequential(new AutoDriveDistanceBased(4.25 + Robot.ROBOT_WIDTH / 2, 0.5),2.0);
+		//addSequential(new AutoDriveDistanceBased(4.25 + Robot.ROBOT_WIDTH / 2, 0.5),2.0);
+		addSequential(new AutoDriveDistanceBased(5.0 - Robot.ROBOT_WIDTH / 2, 0.5),2.0);
 		addSequential(new Delay(), 0.2);
 		
 		// Turn left 
@@ -56,11 +58,11 @@ public class AutonomousMiddleFrontSwitchGoingRight extends CommandGroup {
 		addParallel(new IntakeReleaseDown(), 0.2);
 		addSequential(new IntakeMotorsForward(false), 1.0);
 		addSequential(new IntakeMotorsStop());
-/*
+*/
     	
-    	addSequential(new AutoDriveDistanceBased(11.5, 0.5), 3.0);
+    	addSequential(new AutoDriveDistanceBased(11.5, 0.5), 1.6);
     	addSequential(new IntakeMotorsForward(false), 1.0);
 		addSequential(new IntakeMotorsStop());
-*/
+
     }
 }

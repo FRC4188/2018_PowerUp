@@ -25,13 +25,11 @@ public class AutonomousLeftScaleGoingLeft extends CommandGroup {
 
     public AutonomousLeftScaleGoingLeft() {
     	// scale on left, go forward, turn, and deposit
-    	addSequential(new AutoDriveDistanceBased(27.0 - Robot.ROBOT_LENGTH / 2, 1.0), 4.0);
-		//addSequential(new AutoDriveDistanceBased(6.0 - Robot.ROBOT_LENGTH, 0.5), 2.0);
-    	addSequential(new IntakeReleaseRun(-0.75, false), 0.7);
-		addSequential(new ElevatorToScale(), 3.0);
-		addSequential(new TurnToAngle(90.0, 5.0), 1.5);
-		//addSequential(new AutoDriveDistanceBased(3.0, 0.5), 1.5);
-		addSequential(new Delay(), 1.0);
+    	addSequential(new AutoDriveDistanceBased(22.0 - Robot.ROBOT_LENGTH / 2, 1.0), 4.0);
+    	addSequential(new IntakeReleaseRun(-0.75, false), 0.4);
+    	addSequential(new ElevatorToScale(), 4.0);
+		addSequential(new TurnToAngle(60.0, 5.0), 1.5);
+		//addSequential(new Delay(), 0.2);
 		addSequential(new IntakeMotorsForward(false), 2.0);
 		addSequential(new IntakeMotorsStop());
     }

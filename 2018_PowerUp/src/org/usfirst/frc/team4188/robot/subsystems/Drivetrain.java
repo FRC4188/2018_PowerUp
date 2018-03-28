@@ -54,7 +54,9 @@ public class Drivetrain extends PIDSubsystem {
     	noType,
 		turnToAngle,
     	driveToDistance,
-    	driveToDistanceTwoEncoder
+    	driveToDistanceTwoEncoder,
+    	leftOnly,
+    	rightOnly
     }
 	
     private static PIDType driveType;
@@ -69,7 +71,13 @@ public class Drivetrain extends PIDSubsystem {
     			SmartDashboard.putString("Setting PIDType =", "driveToDistance");
     			break;
     		case driveToDistanceTwoEncoder:
-    			SmartDashboard.putString("Setting PIDType =", "driveToDistance");
+    			SmartDashboard.putString("Setting PIDType =", "driveToDistanceTwoEncoder");
+    			break;
+    		case leftOnly:
+    			SmartDashboard.putString("Setting PIDType =", "leftOnly");
+    			break;
+    		case rightOnly:
+    			SmartDashboard.putString("Setting PIDType =", "rightOnly");
     			break;
     		case noType:
     			break;
@@ -78,8 +86,11 @@ public class Drivetrain extends PIDSubsystem {
 	
 	public enum PIDInput{
 		gyro,
+		leftOnlyGyro,
+		rightOnlyGyro,
 		encoderToAngle,
 		encoder,
+		driveStraight,
 		none
 	}
 	
@@ -92,12 +103,23 @@ public class Drivetrain extends PIDSubsystem {
     		SmartDashboard.putString("Current PID Input", "Gyro");
     		setPID(0.0065,0.0,0.0);
     		break;
+    	case leftOnlyGyro:
+    		SmartDashboard.putString("Current PID Input", "Gyro");
+    		setPID(0.01,0,0);
+    		break;
+    	case rightOnlyGyro:
+    		SmartDashboard.putString("Current PID Input", "Gyro");
+    		setPID(0.013,0,0);
+    		break;
     	case encoderToAngle:
     		SmartDashboard.putString("Current PID Input", "Rear Left Encoder");
     		setPID(0.32,0.002,0.01);
     		break;
     	case encoder:
     		SmartDashboard.putString("Current PID Input", "Rear Left Encoder");
+    		setPID(0.13, 0.000175, 0.0);
+    		break;
+    	case driveStraight:
     		setPID(0.13, 0.000175, 0.0);
     		break;
     	case none:
@@ -113,11 +135,15 @@ public class Drivetrain extends PIDSubsystem {
 	        // yourPot.getAverageVoltage() / kYourMaxVoltage;
 	   switch (sensorType) {
 	    	case gyro:
+	    	case leftOnlyGyro:
+	    	case rightOnlyGyro:
 	    		return gyro.getAngle();
 	    	case encoderToAngle:
 	    		return rearLeft.getSelectedSensorPosition(0) * UNITS_TO_FEET_CONSTANT;
 	    	case encoder:
 	    		return rearLeft.getSelectedSensorPosition(0) * UNITS_TO_FEET_CONSTANT;
+	    	case driveStraight:
+	    		return Math.abs(getLeftEncoderRotation() - getRightEncoderRotation());
 	    	case none:
 	    		return -1.0;
 	    	default:
@@ -138,6 +164,18 @@ public class Drivetrain extends PIDSubsystem {
     	case gyro:
     		rearRight.set(-output);
     		rearLeft.set(-output);
+    		frontLeft.follow(rearLeft);
+    		frontRight.follow(rearRight);
+    		break;
+    	case leftOnlyGyro:
+    		rearRight.set(0);
+    		rearLeft.set(output);
+    		frontLeft.follow(rearLeft);
+    		frontRight.follow(rearRight);
+    		break;
+    	case rightOnlyGyro:
+    		rearRight.set(-output);
+    		rearLeft.set(0);
     		frontLeft.follow(rearLeft);
     		frontRight.follow(rearRight);
     		break;

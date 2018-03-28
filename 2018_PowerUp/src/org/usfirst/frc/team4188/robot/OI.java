@@ -19,6 +19,7 @@ import org.usfirst.frc.team4188.robot.commands.drive.CalibrateGyro;
 import org.usfirst.frc.team4188.robot.commands.drive.GearShiftIn;
 import org.usfirst.frc.team4188.robot.commands.drive.GearShiftOff;
 import org.usfirst.frc.team4188.robot.commands.drive.GearShiftOut;
+import org.usfirst.frc.team4188.robot.commands.drive.PivotToAngle;
 import org.usfirst.frc.team4188.robot.commands.drive.Turn;
 import org.usfirst.frc.team4188.robot.commands.drive.TurnToAngle;
 import org.usfirst.frc.team4188.robot.commands.drive.TurnToAngleEncoderBased;
@@ -162,7 +163,7 @@ public class OI {
 	coPilot2.whenReleased(new IntakeMotorsStop());
 	
 	//coPilot3.whenPressed(new AutoDriveDistanceBased(3.0, .5));
-	//coPilot4.whenPressed(new TurnToAngle(90.0, 3.0));	
+	coPilot4.whenPressed(new PivotToAngle(-60.0, 3.0));	
 	
 	coPilot5.whileHeld(new IntakeIn());
 	coPilot5.whenReleased(new IntakeSolenoidOff());

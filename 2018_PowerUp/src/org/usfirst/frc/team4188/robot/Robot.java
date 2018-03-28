@@ -169,8 +169,8 @@ public class Robot extends TimedRobot {
 		Robot.m_drivetrain.setBrake();
 		
 		// TODO REMOVE
-		//gameMessage = "LLL";
-		gameMessage = DriverStation.getInstance().getGameSpecificMessage();
+		gameMessage = "RLR";
+		//gameMessage = DriverStation.getInstance().getGameSpecificMessage();
 		
 		m_selectedCommand = (int) m_chooser.getSelected();
 		
@@ -199,7 +199,7 @@ public class Robot extends TimedRobot {
 					m_autonomousCommand = new AutonomousLeftScaleGoingLeft();
 					break;
 				case 'R':
-					m_autonomousCommand = new AutonomousMoveForward();
+					m_autonomousCommand = new AutonomousLeftScaleGoingRight();
 					break;
 				default:
 					m_autonomousCommand = new AutonomousMoveForward();
@@ -261,7 +261,7 @@ public class Robot extends TimedRobot {
 			case 6: //start right end scale
 				switch(scaleSide) {
 				case 'L':
-					m_autonomousCommand = new AutonomousMoveForward();
+					m_autonomousCommand = new AutonomousRightScaleGoingLeft();
 					break;
 				case 'R':
 					m_autonomousCommand = new AutonomousRightScaleGoingRight();

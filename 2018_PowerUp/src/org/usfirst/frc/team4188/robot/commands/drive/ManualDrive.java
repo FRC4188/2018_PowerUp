@@ -12,7 +12,8 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class ManualDrive extends Command {
 
-XboxController pilotXboxController = Robot.m_oi.pilotXboxController;
+	XboxController pilotXboxController = Robot.m_oi.pilotXboxController;
+	final double ERROR_CONSTANT = 0.001;
 	
     public ManualDrive() {
         // Use requires() here to declare subsystem dependencies
@@ -40,6 +41,7 @@ XboxController pilotXboxController = Robot.m_oi.pilotXboxController;
     		rotateConstant = 0.7-(0.2*(pilotXboxController.getTriggerAxis(Hand.kLeft)-0.5));
     	}
     	
+    	double errorCorrection = ERROR_CONSTANT * (Robot.m_drivetrain.getLeftEncoderRotation() - Robot.m_drivetrain.getRightEncoderRotation());
     	
     	Robot.m_drivetrain.arcadeDrive(pilotXboxController.getY(Hand.kLeft)*RobotMap.brownoutMultiplier, pilotXboxController.getX(Hand.kRight)*rotateConstant, 1.0);
     	/*
