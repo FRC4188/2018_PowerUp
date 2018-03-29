@@ -114,8 +114,8 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Start Right End Scale", 6);
 		m_chooser.addDefault("Start Anywhere Move Forward", 7);
 		m_chooser.addObject("Do Nothing", 8);
-		m_chooser.addObject("Start Left Switch Priority", 9);
-		m_chooser.addObject("Start Right Switch Priority", 10);
+		//m_chooser.addObject("Start Left Switch Priority", 9);
+		//m_chooser.addObject("Start Right Switch Priority", 10);
 		m_chooser.addObject("Start Left Scale Priority",  11);	
 		m_chooser.addDefault("Start Right Scale Priority", 12);
 		
