@@ -169,8 +169,8 @@ public class Robot extends TimedRobot {
 		Robot.m_drivetrain.setBrake();
 		
 		// TODO REMOVE
-		gameMessage = "RLR";
-		//gameMessage = DriverStation.getInstance().getGameSpecificMessage();
+		//gameMessage = "RLR";
+		gameMessage = DriverStation.getInstance().getGameSpecificMessage();
 		
 		m_selectedCommand = (int) m_chooser.getSelected();
 		
