@@ -163,7 +163,7 @@ public class OI {
 	coPilot2.whenReleased(new IntakeMotorsStop());
 	
 	//coPilot3.whenPressed(new AutoDriveDistanceBased(3.0, .5));
-	coPilot4.whenPressed(new PivotToAngle(-60.0, 3.0));	
+	//coPilot4.whenPressed(new IntakeReleaseRun(-0.75, false), 0.4);	
 	
 	coPilot5.whileHeld(new IntakeIn());
 	coPilot5.whenReleased(new IntakeSolenoidOff());

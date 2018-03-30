@@ -160,9 +160,10 @@ public class RobotMap {
 		intakeLeft = new WPI_VictorSPX(1);
 		intakeRight = new WPI_VictorSPX(12);
 		intakeReleaseLeft = new WPI_TalonSRX(2);
+		intakeReleaseLeft.setInverted(true);
 		//intakeReleaseRight = new WPI_TalonSRX(4);
 		intakeReleaseRight = new WPI_VictorSPX(11);
-		intakeReleaseRight.setInverted(true);
+		
 		
 		intakeSolenoid = new DoubleSolenoid(4,5);
 		

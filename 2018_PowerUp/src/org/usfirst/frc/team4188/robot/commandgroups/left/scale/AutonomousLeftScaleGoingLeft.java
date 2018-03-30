@@ -1,7 +1,6 @@
 package org.usfirst.frc.team4188.robot.commandgroups.left.scale;
 
 import org.usfirst.frc.team4188.robot.Robot;
-import org.usfirst.frc.team4188.robot.RobotMap;
 import org.usfirst.frc.team4188.robot.commands.drive.AutoDriveDistanceBased;
 import org.usfirst.frc.team4188.robot.commands.drive.Delay;
 import org.usfirst.frc.team4188.robot.commands.drive.Turn;
@@ -16,6 +15,7 @@ import org.usfirst.frc.team4188.robot.commands.intake.IntakeMotorsStop;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeReleaseDown;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeReleaseRun;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeReleaseUp;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -32,5 +32,6 @@ public class AutonomousLeftScaleGoingLeft extends CommandGroup {
 		//addSequential(new Delay(), 0.2);
 		addSequential(new IntakeMotorsForward(false), 2.0);
 		addSequential(new IntakeMotorsStop());
+		
     }
 }

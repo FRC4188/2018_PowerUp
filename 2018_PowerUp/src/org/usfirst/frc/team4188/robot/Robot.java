@@ -117,7 +117,7 @@ public class Robot extends TimedRobot {
 		//m_chooser.addObject("Start Left Switch Priority", 9);
 		//m_chooser.addObject("Start Right Switch Priority", 10);
 		m_chooser.addObject("Start Left Scale Priority",  11);	
-		m_chooser.addDefault("Start Right Scale Priority", 12);
+		m_chooser.addObject("Start Right Scale Priority", 12);
 		
 		SmartDashboard.putData("Autonomous Selector", m_chooser);
 		
@@ -169,7 +169,7 @@ public class Robot extends TimedRobot {
 		Robot.m_drivetrain.setBrake();
 		
 		// TODO REMOVE
-		//gameMessage = "RLR";
+		//gameMessage = "LLL";
 		gameMessage = DriverStation.getInstance().getGameSpecificMessage();
 		
 		m_selectedCommand = (int) m_chooser.getSelected();

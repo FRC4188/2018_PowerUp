@@ -37,6 +37,7 @@ public class AutonomousMiddleFrontSwitchGoingLeft extends CommandGroup {
 */
     	addSequential(new PivotToAngle(-58, 3.0), 1.0);
     	addSequential(new AutoDriveDistanceBased(12.0, 0.5), 1.6);
+    	addSequential(new Delay(), 0.3);
     	addSequential(new IntakeMotorsForward(false), 1.0);
 		addSequential(new IntakeMotorsStop());
     }
