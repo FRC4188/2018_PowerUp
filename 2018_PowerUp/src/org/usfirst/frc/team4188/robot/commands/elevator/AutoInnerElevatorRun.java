@@ -1,18 +1,23 @@
-package org.usfirst.frc.team4188.robot.commands.intake;
+package org.usfirst.frc.team4188.robot.commands.elevator;
 
 import org.usfirst.frc.team4188.robot.Robot;
 import org.usfirst.frc.team4188.robot.RobotMap;
 
+import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class IntakeMotorsReverse extends Command {
-
-    public IntakeMotorsReverse() {
+public class AutoInnerElevatorRun extends Command {
+	
+	private double innerPower;
+	
+    public AutoInnerElevatorRun(double innerPower) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	this.innerPower = innerPower;
     }
 
     // Called just before this Command runs the first time
@@ -21,7 +26,7 @@ public class IntakeMotorsReverse extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.m_intake.runIntakeMotors(0.75*RobotMap.brownoutMultiplier);
+    	Robot.m_elevator.innerElevatorRun(innerPower);
     }
 
     // Make this return true when this Command no longer needs to run execute()

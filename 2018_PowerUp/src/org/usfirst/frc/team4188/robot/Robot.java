@@ -16,6 +16,7 @@ import org.usfirst.frc.team4188.robot.commandgroups.left.sideswitch.AutonomousLe
 import org.usfirst.frc.team4188.robot.commandgroups.left.sideswitch.AutonomousLeftSwitchGoingRight;
 import org.usfirst.frc.team4188.robot.commandgroups.middle.frontswitch.AutonomousMiddleFrontSwitchGoingLeft;
 import org.usfirst.frc.team4188.robot.commandgroups.middle.frontswitch.AutonomousMiddleFrontSwitchGoingRight;
+import org.usfirst.frc.team4188.robot.commandgroups.middle.frontswitch.AutonomousMiddleFrontSwitchGoingRightDouble;
 import org.usfirst.frc.team4188.robot.commandgroups.middle.scale.AutonomousMiddleScaleGoingLeft;
 import org.usfirst.frc.team4188.robot.commandgroups.middle.scale.AutonomousMiddleScaleGoingRight;
 import org.usfirst.frc.team4188.robot.commandgroups.middle.sideswitch.AutonomousMiddleSideSwitchGoingLeft;
@@ -118,6 +119,7 @@ public class Robot extends TimedRobot {
 		//m_chooser.addObject("Start Right Switch Priority", 10);
 		m_chooser.addObject("Start Left Scale Priority",  11);	
 		m_chooser.addObject("Start Right Scale Priority", 12);
+		m_chooser.addObject("Start Middle End Front Switch Right Double", 13);
 		
 		SmartDashboard.putData("Autonomous Selector", m_chooser);
 		
@@ -370,6 +372,18 @@ public class Robot extends TimedRobot {
 			default:
 				m_autonomousCommand = new AutonomousMoveForward();
 				break;
+			case 13: //start middle end front switch
+				switch(switchSide) {
+				case 'L':
+					m_autonomousCommand = new AutonomousMiddleFrontSwitchGoingLeft();
+					break;
+				case 'R':
+					m_autonomousCommand = new AutonomousMiddleFrontSwitchGoingRightDouble();
+					break;
+				default:
+					m_autonomousCommand = new AutonomousMoveForward();
+					break;
+				}
 	}
 		
 		
