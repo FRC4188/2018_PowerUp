@@ -10,9 +10,12 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class IntakeMotorsReverse extends Command {
 
-    public IntakeMotorsReverse() {
+	private boolean finishNow;
+	
+    public IntakeMotorsReverse(boolean finishNow) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+		this.finishNow = finishNow;
     }
 
     // Called just before this Command runs the first time
@@ -26,7 +29,7 @@ public class IntakeMotorsReverse extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return finishNow;
     }
 
     // Called once after isFinished returns true

@@ -20,9 +20,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class AutonomousMiddleFrontSwitchGoingRightDouble extends CommandGroup {
+public class AutonomousMiddleFrontSwitchGoingLeftDouble extends CommandGroup {
 
-    public AutonomousMiddleFrontSwitchGoingRightDouble() {
+    public AutonomousMiddleFrontSwitchGoingLeftDouble() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -41,15 +41,16 @@ public class AutonomousMiddleFrontSwitchGoingRightDouble extends CommandGroup {
         // arm.
     	
     	
-    	addSequential(new AutoDriveDistanceBased(11.5, 0.5), 1.6);
+    	addSequential(new PivotToAngle(-50, 3.0), 1.0);
+    	addSequential(new AutoDriveDistanceBased(12.0, 0.5), 1.6);
     	addSequential(new AutoDriveDistanceBased(1.0, 0.5), .3);
     	addSequential(new IntakeReleaseRun(-0.75, false), 0.2);
-    	//addSequential(new Delay(), 0.3);
+    	addSequential(new Delay(), 0.2);
     	addSequential(new IntakeMotorsForward(false), 1.0);
-    	addSequential(new IntakeMotorsStop());
+		addSequential(new IntakeMotorsStop());
     	
     	addSequential(new AutoDriveDistanceBased(-2.0, 0.2), 1.0);
-		addSequential(new TurnToAngle(-90, 3.0), .6);
+		addSequential(new TurnToAngle(90, 3.0), .6);
 		
 		//TEST ELEVATOR TO HEIGHT DIRECTION VALUE
 		addSequential(new AutoInnerElevatorRun(.7), 1.6);
@@ -76,7 +77,5 @@ public class AutonomousMiddleFrontSwitchGoingRightDouble extends CommandGroup {
 		addSequential(new IntakeMotorsStop());
 		addSequential(new IntakeSolenoidOff());
 		
-    
-    
     }
 }
