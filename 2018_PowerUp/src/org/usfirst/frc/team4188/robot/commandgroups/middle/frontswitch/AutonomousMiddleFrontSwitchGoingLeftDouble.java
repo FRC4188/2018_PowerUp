@@ -5,6 +5,7 @@ import org.usfirst.frc.team4188.robot.commands.drive.Delay;
 import org.usfirst.frc.team4188.robot.commands.drive.PivotToAngle;
 import org.usfirst.frc.team4188.robot.commands.drive.TurnToAngle;
 import org.usfirst.frc.team4188.robot.commands.elevator.AutoInnerElevatorRun;
+import org.usfirst.frc.team4188.robot.commands.elevator.ElevatorToFloor;
 import org.usfirst.frc.team4188.robot.commands.elevator.ElevatorToHeight;
 import org.usfirst.frc.team4188.robot.commands.elevator.InnerElevatorRun;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeIn;
@@ -44,34 +45,35 @@ public class AutonomousMiddleFrontSwitchGoingLeftDouble extends CommandGroup {
     	addSequential(new PivotToAngle(-50, 3.0), 1.0);
     	addSequential(new AutoDriveDistanceBased(12.0, 0.5), 1.6);
     	addSequential(new AutoDriveDistanceBased(1.0, 0.5), .3);
-    	addSequential(new IntakeReleaseRun(-0.75, false), 0.2);
+    	addSequential(new IntakeReleaseRun(0.75, false), 0.2);
     	addSequential(new Delay(), 0.2);
     	addSequential(new IntakeMotorsForward(false), 1.0);
 		addSequential(new IntakeMotorsStop());
     	
+
     	addSequential(new AutoDriveDistanceBased(-2.0, 0.2), 1.0);
-		addSequential(new TurnToAngle(90, 3.0), .6);
+		addSequential(new TurnToAngle(90, 3.0), 1.0);
 		
 		//TEST ELEVATOR TO HEIGHT DIRECTION VALUE
-		addSequential(new AutoInnerElevatorRun(.7), 1.6);
-		addSequential(new AutoDriveDistanceBased(2.5, 0.5), 0.6);
-		
-		addSequential(new IntakeReleaseRun(-0.9, false), 0.25);
+		addSequential(new IntakeReleaseRun(0.2, false), 0.1);
+		addSequential(new ElevatorToFloor(), 0.5);
 		addSequential(new IntakeOut(), .2);
-		addSequential(new IntakeMotorsReverse(false), .8);
-		addSequential(new AutoDriveDistanceBased(1.0, 0.5), .5);
-		addSequential(new IntakeMotorsReverse(false), .8);
+		addSequential(new AutoDriveDistanceBased(3.0, 0.5), 0.6);
+		
+		addSequential(new IntakeMotorsReverse(false), 0.5);
+		addSequential(new AutoDriveDistanceBased(1.0, 0.5), 1.0);
+		addSequential(new IntakeMotorsReverse(false), 1.0);
 		addSequential(new IntakeSolenoidOff());
 		
 		addSequential(new IntakeIn(), .2);
 		addSequential(new IntakeMotorsReverse(false), .4);
 		addSequential(new IntakeMotorsStop());
 		
-		addSequential(new AutoDriveDistanceBased(-2.5, 0.5), 1);
+		addSequential(new AutoDriveDistanceBased(-2.5, 0.5), 1.0);
 		//TEST ELEVATOR TO HEIGHT DIRECTION VALUE
-		addSequential(new AutoInnerElevatorRun(-.8), 1);
+		addSequential(new AutoInnerElevatorRun(-.8), 0.7);
 		
-		addSequential(new TurnToAngle(90, 3.0), .6);
+		addSequential(new TurnToAngle(90, 3.0), 1.0);
 		addSequential(new AutoDriveDistanceBased(2.0, 0.2));
 		addSequential(new IntakeMotorsForward(false), 1.0);
 		addSequential(new IntakeMotorsStop());

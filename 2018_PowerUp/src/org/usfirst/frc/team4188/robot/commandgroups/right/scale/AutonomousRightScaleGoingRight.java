@@ -24,7 +24,7 @@ public class AutonomousRightScaleGoingRight extends CommandGroup {
     public AutonomousRightScaleGoingRight() {
 		// scale on right, go forward, turn, and deposit
     	addSequential(new AutoDriveDistanceBased(22.0 - Robot.ROBOT_LENGTH / 2, 1.0), 4.0);
-    	addSequential(new IntakeReleaseRun(-0.75, false), 0.4);
+    	addSequential(new IntakeReleaseRun(0.75, false), 0.4);
     	addSequential(new ElevatorToScale(), 4.0);
 		addSequential(new TurnToAngle(-65.0, 5.0), 1.5);
 		//addSequential(new Delay(), 0.2);

@@ -13,8 +13,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class ExchangeToSwitch extends CommandGroup {
 
-	char enemySwitchSide = Robot.enemySwitchSide;
-	
     public ExchangeToSwitch() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
@@ -32,20 +30,21 @@ public class ExchangeToSwitch extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	
+    	/*
     	addSequential(new AutoDriveDistanceBased(-9.5, 0.2), 2.0);
-    	if(enemySwitchSide == 'L') {
+    	if(Robot.getGameMessage(2) == 'L') {
     		addSequential(new TurnToAngle(-120, 5.0), 1.0);
-    	} else if (enemySwitchSide == 'R') {
+    	} else if (Robot.getGameMessage(2) == 'R') {
     		addSequential(new TurnToAngle(120, 5.0), 1.0);
     	}
 		addSequential(new IntakeMotorsForward(false), 1.0);
 		addSequential(new IntakeMotorsStop());
-    	if(enemySwitchSide == 'L') {
+    	if(Robot.getGameMessage(2) == 'L') {
     		addSequential(new TurnToAngle(120, 5.0), 1.0);
-    	} else if (enemySwitchSide == 'R') {
+    	} else if (Robot.getGameMessage(2) == 'R') {
     		addSequential(new TurnToAngle(-120, 5.0), 1.0);
     	}
 		addSequential(new AutoDriveDistanceBased(9.5, 0.2), 2.0);
+		*/
     }
 }

@@ -73,7 +73,7 @@ public class Robot extends TimedRobot {
 	Command m_autonomousCommand;
 	int m_selectedCommand;
 	SendableChooser<Integer> m_chooser = new SendableChooser<>();
-	public static String gameMessage = DriverStation.getInstance().getGameSpecificMessage();
+	public static String gameMessage = "NNN";
 	
 	public static char switchSide = gameMessage.charAt(0);
 	public static char scaleSide = gameMessage.charAt(1);
