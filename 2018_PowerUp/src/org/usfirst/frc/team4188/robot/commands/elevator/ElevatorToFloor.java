@@ -1,22 +1,19 @@
 package org.usfirst.frc.team4188.robot.commands.elevator;
 
 import org.usfirst.frc.team4188.robot.Robot;
+import org.usfirst.frc.team4188.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class AutoBothElevatorsRun extends Command {
+public class ElevatorToFloor extends Command {
 
-	private double innerPower;
-	private double outerPower;
-	
-    public AutoBothElevatorsRun(double innerPower, double outerPower) {
+    public ElevatorToFloor() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	this.innerPower = innerPower;
-    	this.outerPower = outerPower;
+    	requires(Robot.m_elevator);
     }
 
     // Called just before this Command runs the first time
@@ -25,17 +22,20 @@ public class AutoBothElevatorsRun extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.m_elevator.bothElevatorsRun(innerPower, outerPower);
+    	Robot.m_elevator.bothElevatorsRun(-1.0, 1.0);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+    	//return Robot.m_Ultrasonic.reading < 12.0;
+        //return false;
+    	return (RobotMap.innerElevator.getSensorCollection().isRevLimitSwitchClosed() &&
+    			RobotMap.outerElevatorRight.getSensorCollection().isRevLimitSwitchClosed());
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.m_elevator.bothElevatorsRun(0, 0);
+    	Robot.m_elevator.bothElevatorsStop();
     }
 
     // Called when another command which requires one or more of the same

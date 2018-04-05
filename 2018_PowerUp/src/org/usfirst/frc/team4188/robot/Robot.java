@@ -13,7 +13,6 @@ import org.usfirst.frc.team4188.robot.commandgroups.AutonomousMoveForward;
 import org.usfirst.frc.team4188.robot.commandgroups.left.scale.AutonomousLeftScaleGoingLeft;
 import org.usfirst.frc.team4188.robot.commandgroups.left.scale.AutonomousLeftScaleGoingRight;
 import org.usfirst.frc.team4188.robot.commandgroups.left.sideswitch.AutonomousLeftSwitchGoingLeft;
-import org.usfirst.frc.team4188.robot.commandgroups.left.sideswitch.AutonomousLeftSwitchGoingRight;
 import org.usfirst.frc.team4188.robot.commandgroups.middle.frontswitch.AutonomousMiddleFrontSwitchGoingLeft;
 import org.usfirst.frc.team4188.robot.commandgroups.middle.frontswitch.AutonomousMiddleFrontSwitchGoingRight;
 import org.usfirst.frc.team4188.robot.commandgroups.middle.frontswitch.AutonomousMiddleFrontSwitchGoingRightDouble;
@@ -23,7 +22,6 @@ import org.usfirst.frc.team4188.robot.commandgroups.middle.sideswitch.Autonomous
 import org.usfirst.frc.team4188.robot.commandgroups.middle.sideswitch.AutonomousMiddleSideSwitchGoingRight;
 import org.usfirst.frc.team4188.robot.commandgroups.right.scale.AutonomousRightScaleGoingLeft;
 import org.usfirst.frc.team4188.robot.commandgroups.right.scale.AutonomousRightScaleGoingRight;
-import org.usfirst.frc.team4188.robot.commandgroups.right.sideswitch.AutonomousRightSwitchGoingLeft;
 import org.usfirst.frc.team4188.robot.commandgroups.right.sideswitch.AutonomousRightSwitchGoingRight;
 import org.usfirst.frc.team4188.robot.subsystems.Climber;
 import org.usfirst.frc.team4188.robot.subsystems.Drivetrain;
@@ -76,6 +74,10 @@ public class Robot extends TimedRobot {
 	int m_selectedCommand;
 	SendableChooser<Integer> m_chooser = new SendableChooser<>();
 	String gameMessage = "NNN";
+	
+	public char switchSide = gameMessage.charAt(0);
+	public char scaleSide = gameMessage.charAt(1);
+	public char enemySwitchSide = gameMessage.charAt(2);
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -132,6 +134,7 @@ public class Robot extends TimedRobot {
 		RobotMap.ultrasonic.setAutomaticMode(true);
 		
 		CameraServer.getInstance().startAutomaticCapture();
+		
 		m_selectedCommand = (int) m_chooser.getSelected();
 	}
 
@@ -180,6 +183,7 @@ public class Robot extends TimedRobot {
 		
 		char switchSide = gameMessage.charAt(0);
 		char scaleSide = gameMessage.charAt(1);
+		char enemySwitchSide = gameMessage.charAt(2);
 		
 		switch(m_selectedCommand) {
 			case 0: //start left end switch
@@ -407,8 +411,8 @@ public class Robot extends TimedRobot {
 	}
 
 	@Override
-	public void teleopInit() {
-		// This makes sure that the autonomous stops running when
+	public void teleopInit() { // hahahahahahahhahahaha 420
+		// This makes sure that the autonomous stops running when 
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
@@ -424,6 +428,7 @@ public class Robot extends TimedRobot {
 	/**
 	 * This function is called periodically during operator control.
 	 */
+	
 	private final double SENSOR_UNITS = 1.0/4096.0;
 	private final double INCHES_PER_ROTATION = 1.375*Math.PI;
 	private final double INCHES_PER_UNIT = SENSOR_UNITS * INCHES_PER_ROTATION;
@@ -472,12 +477,3 @@ public class Robot extends TimedRobot {
 	
 }
 
-
-
-
-
-
-
-
-
-//haha 420

@@ -6,6 +6,7 @@ import org.usfirst.frc.team4188.robot.commands.drive.AutoDriveDistanceBased;
 import org.usfirst.frc.team4188.robot.commands.drive.Delay;
 import org.usfirst.frc.team4188.robot.commands.drive.TurnToAngle;
 import org.usfirst.frc.team4188.robot.commands.drive.TurnToAngleEncoderBased;
+import org.usfirst.frc.team4188.robot.commands.elevator.ElevatorToFloor;
 import org.usfirst.frc.team4188.robot.commands.elevator.ElevatorToScale;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeMotorsForward;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeMotorsReverse;
@@ -34,6 +35,8 @@ public class AutonomousLeftScaleGoingRight extends CommandGroup {
 		//addSequential(new Delay(), 0.0);
 		addSequential(new IntakeMotorsForward(false), 1.0);
 		addSequential(new IntakeMotorsStop());
+		addSequential(new AutoDriveDistanceBased(-2.0, 0.2), 1.0);
+		addSequential(new ElevatorToFloor());
 		
     }
 }

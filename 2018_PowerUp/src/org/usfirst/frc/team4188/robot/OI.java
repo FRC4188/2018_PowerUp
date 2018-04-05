@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team4188.robot;
 
+import org.usfirst.frc.team4188.robot.commandgroups.ExchangeToSwitch;
 import org.usfirst.frc.team4188.robot.commands.climber.Climb;
 import org.usfirst.frc.team4188.robot.commands.climber.ClimberMotorForward;
 import org.usfirst.frc.team4188.robot.commands.climber.ClimberMotorReverse;
@@ -23,6 +24,7 @@ import org.usfirst.frc.team4188.robot.commands.drive.PivotToAngle;
 import org.usfirst.frc.team4188.robot.commands.drive.Turn;
 import org.usfirst.frc.team4188.robot.commands.drive.TurnToAngle;
 import org.usfirst.frc.team4188.robot.commands.drive.TurnToAngleEncoderBased;
+import org.usfirst.frc.team4188.robot.commands.elevator.AutoBothElevatorsRun;
 import org.usfirst.frc.team4188.robot.commands.elevator.ElevatorToHeight;
 import org.usfirst.frc.team4188.robot.commands.elevator.ElevatorToScale;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeIn;
@@ -118,30 +120,26 @@ public class OI {
     pilot11 = new JoystickButton(pilotXboxController, 11);
     pilot12 = new JoystickButton(pilotXboxController, 12);
     
-    pilot1.whenPressed(new CalibrateGyro());
-    
 	//pilot1.whenPressed(new AutoDriveDistanceBased(5.0, 0.5));
-	//pilot2.whenPressed(new TurnToAngleEncoderBased(90.0, 2.0));
+	//pilot2.whenPressed(new AutoDriveDistanceBased(10.0, 0.5));
+    
+    pilot1.whenPressed(new ExchangeToSwitch());
     
     pilot3.whileHeld(new ClimberMotorForward());
     pilot3.whenReleased(new ClimberMotorStop());
     pilot4.whileHeld(new ClimberMotorReverse());
     pilot4.whenReleased(new ClimberMotorStop());
     
-    //pilot5.whenPressed(new Climb());
-    //pilot4.whenReleased(new ClimberMotorStop());
-    
-    //pilot5.whenPressed(new TurnToAngleEncoderBased(-90.0, 2.0));
-    //pilot6.whenPressed(new TurnToAngleEncoderBased(90.0, 2.0));
-	
-	pilot7.whenPressed(new RaiseWings());
-	pilot8.whenPressed(new LowerWings());
+    //pilot5.whenPressed(new AutoDriveDistanceBased(3.0, 0.5));
+    //pilot6.whenPressed(new AutoDriveDistanceBased(24.0, 0.5));
+
+	pilot8.whenPressed(new CalibrateGyro());
 	 
 	pilot9.whileHeld(new GearShiftIn());
     pilot9.whenReleased(new GearShiftOff());
     pilot10.whileHeld(new GearShiftOut());
     pilot10.whenReleased(new GearShiftOff());
-	
+    
 	coPilotXboxController = new XboxController(1);
 	coPilot1 = new JoystickButton(coPilotXboxController, 1);
 	coPilot2 = new JoystickButton(coPilotXboxController, 2);
@@ -162,8 +160,8 @@ public class OI {
 	//coPilot2.whenPressed(new IntakeReleaseRun(0, true));
 	coPilot2.whenReleased(new IntakeMotorsStop());
 	
-	//coPilot3.whenPressed(new AutoDriveDistanceBased(3.0, .5));
-	coPilot4.whenPressed(new PivotToAngle(-60.0, 3.0));	
+	coPilot3.whileHeld(new AutoBothElevatorsRun(1.0, -1.0));
+	coPilot4.whileHeld(new AutoBothElevatorsRun(-1.0, 1.0));
 	
 	coPilot5.whileHeld(new IntakeIn());
 	coPilot5.whenReleased(new IntakeSolenoidOff());
