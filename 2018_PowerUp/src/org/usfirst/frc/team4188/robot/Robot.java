@@ -73,11 +73,11 @@ public class Robot extends TimedRobot {
 	Command m_autonomousCommand;
 	int m_selectedCommand;
 	SendableChooser<Integer> m_chooser = new SendableChooser<>();
-	String gameMessage = "NNN";
+	public static String gameMessage = DriverStation.getInstance().getGameSpecificMessage();
 	
-	public char switchSide = gameMessage.charAt(0);
-	public char scaleSide = gameMessage.charAt(1);
-	public char enemySwitchSide = gameMessage.charAt(2);
+	public static char switchSide = gameMessage.charAt(0);
+	public static char scaleSide = gameMessage.charAt(1);
+	public static char enemySwitchSide = gameMessage.charAt(2);
 
 	/**
 	 * This function is run when the robot is first started up and should be
