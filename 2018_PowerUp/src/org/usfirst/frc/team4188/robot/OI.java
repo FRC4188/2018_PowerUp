@@ -160,8 +160,8 @@ public class OI {
 	//coPilot2.whenPressed(new IntakeReleaseRun(0, true));
 	coPilot2.whenReleased(new IntakeMotorsStop());
 	
-	coPilot3.whileHeld(new AutoBothElevatorsRun(1.0, -1.0));
-	coPilot4.whileHeld(new AutoBothElevatorsRun(-1.0, 1.0));
+	coPilot3.whileHeld(new AutoBothElevatorsRun(-0.60, 0.60));
+	coPilot4.whileHeld(new AutoBothElevatorsRun(0.90, -0.90));
 	
 	coPilot5.whileHeld(new IntakeIn());
 	coPilot5.whenReleased(new IntakeSolenoidOff());

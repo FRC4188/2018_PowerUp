@@ -14,6 +14,7 @@ import org.usfirst.frc.team4188.robot.commandgroups.left.scale.AutonomousLeftSca
 import org.usfirst.frc.team4188.robot.commandgroups.left.scale.AutonomousLeftScaleGoingRight;
 import org.usfirst.frc.team4188.robot.commandgroups.left.sideswitch.AutonomousLeftSwitchGoingLeft;
 import org.usfirst.frc.team4188.robot.commandgroups.middle.frontswitch.AutonomousMiddleFrontSwitchGoingLeft;
+import org.usfirst.frc.team4188.robot.commandgroups.middle.frontswitch.AutonomousMiddleFrontSwitchGoingLeftDouble;
 import org.usfirst.frc.team4188.robot.commandgroups.middle.frontswitch.AutonomousMiddleFrontSwitchGoingRight;
 import org.usfirst.frc.team4188.robot.commandgroups.middle.frontswitch.AutonomousMiddleFrontSwitchGoingRightDouble;
 import org.usfirst.frc.team4188.robot.commandgroups.middle.scale.AutonomousMiddleScaleGoingLeft;
@@ -78,7 +79,7 @@ public class Robot extends TimedRobot {
 	public static char switchSide = gameMessage.charAt(0);
 	public static char scaleSide = gameMessage.charAt(1);
 	public static char enemySwitchSide = gameMessage.charAt(2);
-
+	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -376,10 +377,10 @@ public class Robot extends TimedRobot {
 			default:
 				m_autonomousCommand = new AutonomousMoveForward();
 				break;
-			case 13: //start middle end front switch
+			case 13: //start middle end front switch double
 				switch(switchSide) {
 				case 'L':
-					m_autonomousCommand = new AutonomousMiddleFrontSwitchGoingLeft();
+					m_autonomousCommand = new AutonomousMiddleFrontSwitchGoingLeftDouble();
 					break;
 				case 'R':
 					m_autonomousCommand = new AutonomousMiddleFrontSwitchGoingRightDouble();
@@ -406,18 +407,18 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousPeriodic() {
 		
-		m_intake.runIntakeRelease(.05);
+		m_intake.runIntakeRelease(-.05);
 		Scheduler.getInstance().run();
 	}
 
 	@Override
-	public void teleopInit() { // hahahahahahahhahahaha 420
+	public void teleopInit() { 
 		// This makes sure that the autonomous stops running when 
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
 		Robot.m_drivetrain.resetEncoders();
-		Robot.m_drivetrain.gyroReset();
+		Robot.m_drivetrain.gyroReset(); // hahahahahahahhahahaha 420
 		Robot.m_drivetrain.setClosedloopRamp(0.1);
 		Robot.m_elevator.resetEncoders();
 		Robot.m_drivetrain.setCoast();
@@ -444,9 +445,10 @@ public class Robot extends TimedRobot {
 		//Robot.m_drivetrain.enableCurrentLimit();
 		// testing data
 		
-		SmartDashboard.putNumber("Right Elevator Encoder", RobotMap.outerElevatorRight.getSelectedSensorPosition(0));
+		//SmartDashboard.putNumber("Right Elevator Encoder", RobotMap.outerElevatorRight.getSelectedSensorPosition(0));
 		SmartDashboard.putNumber("Elevator Up Power", Robot.m_oi.coPilotXboxController.getY(Hand.kLeft));
 		SmartDashboard.putNumber("Inner Elevator Encoder", Math.abs(RobotMap.innerElevator.getSelectedSensorPosition(0) * INCHES_PER_UNIT));
+		SmartDashboard.putNumber("Outer Encoder", Math.abs(RobotMap.outerElevatorRight.getSelectedSensorPosition(0) * INCHES_PER_UNIT));
 	
 		if(powerState == PowerState.NORMAL){
 	        if(RobotMap.pdp.getVoltage() < 7.0){
