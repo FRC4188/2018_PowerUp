@@ -25,55 +25,44 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutonomousMiddleFrontSwitchGoingRightDouble extends CommandGroup {
 
     public AutonomousMiddleFrontSwitchGoingRightDouble() {
-        // Add Commands here:
-        // e.g. addSequential(new Command1());
-        //      addSequential(new Command2());
-        // these will run in order.
-
-        // To run multiple commands at the same time,
-        // use addParallel()
-        // e.g. addParallel(new Command1());
-        //      addSequential(new Command2());
-        // Command1 and Command2 will run in parallel.
-
-        // A command group will require all of the subsystems that each member
-        // would require.
-        // e.g. if Command1 requires chassis, and Command2 requires arm,
-        // a CommandGroup containing them would require both the chassis and the
-        // arm.
     	
-    	
+    	//Starts middle goes to switch right, deposits cube
     	addSequential(new AutoDriveDistanceBased(11.5, 0.5), 1.6);
     	addSequential(new AutoDriveDistanceBased(1.0, 0.5), .3);
     	addSequential(new IntakeReleaseRun(0.75, false), 0.2);
-    	//addSequential(new Delay(), 0.3);
     	addSequential(new IntakeMotorsForward(false), 1.0);
     	addSequential(new IntakeMotorsStop());
     	
+    	//Drives forward to square up, drives reverse, turns 90
 		addSequential(new AutoDriveDistanceBased(2.0, 0.5), 1.0);
 		addSequential(new Delay(), 0.2);
     	addSequential(new AutoDriveDistanceBased(-2.0, 0.2), 1.0);
 		addSequential(new TurnToAngle(-90, 3.0), 1.0);
 		
-		//TEST ELEVATOR TO HEIGHT DIRECTION VALUE
+		//Lowers intake, lowers elevator, intake out, drive forward
 		addSequential(new IntakeReleaseRun(0.5, false), 0.6);
 		addSequential(new ElevatorToFloor(), 0.5);
 		addSequential(new IntakeOut(), .2);
-		addSequential(new AutoDriveDistanceBased(4.0, 0.5), 0.6);
+		addSequential(new AutoDriveDistanceBased(3.0, 0.5), 0.6);
 
+		//Takes in cube,drives forward, continues to take in cube
 		addSequential(new IntakeMotorsReverse(false), 0.5);
 		addSequential(new AutoDriveDistanceBased(1.0, 0.5), 1.0);
 		addSequential(new IntakeMotorsReverse(false), 1.0);
 		addSequential(new IntakeSolenoidOff());
 		
+		//Intake in, continues to take cube in
 		addSequential(new IntakeIn(), .2);
 		addSequential(new IntakeMotorsReverse(false), .4);
 		addSequential(new IntakeMotorsStop());
 		
-		addSequential(new AutoDriveDistanceBased(-4.2, 0.5), 1.0);
-		//TEST ELEVATOR TO HEIGHT DIRECTION VALUE
-		addSequential(new ElevatorToScale(), 0.8);
+		//Drives back while spinning in, raises elevator
+		addParallel(new IntakeMotorsReverse(false), 1.0);
+		addSequential(new AutoDriveDistanceBased(-3.2, 0.5), 1.0);
+		addParallel(new IntakeMotorsReverse(false), 1.0);
+		addSequential(new ElevatorToScale(), 1.0);
 		
+		//Turns 90, drives forward, deposits cube
 		addSequential(new TurnToAngle(90, 3.0), 1.0);
 		addSequential(new AutoDriveDistanceBased(2.0, 0.2), 1.2);
 		addSequential(new IntakeMotorsForward(false), 1.0);
