@@ -1,10 +1,6 @@
 package org.usfirst.frc.team4188.robot.commands.elevator;
 
 import org.usfirst.frc.team4188.robot.Robot;
-import org.usfirst.frc.team4188.robot.RobotMap;
-
-import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -36,10 +32,12 @@ public class AutoInnerElevatorRun extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.m_elevator.innerElevatorStop();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }

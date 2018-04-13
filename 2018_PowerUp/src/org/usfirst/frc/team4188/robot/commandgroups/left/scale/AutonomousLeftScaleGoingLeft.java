@@ -25,8 +25,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
 public class AutonomousLeftScaleGoingLeft extends CommandGroup {
-
+	
     public AutonomousLeftScaleGoingLeft() {
+    	
     	// scale on left, go forward, turn, and deposit
     	addSequential(new AutoDriveDistanceBased(22.0 - Robot.ROBOT_LENGTH / 2, 1.0), 4.0);
     	addParallel(new IntakeReleaseRun(0.75, false), 0.4);

@@ -68,8 +68,6 @@ public class AutonomousMiddleFrontSwitchGoingRightDouble extends CommandGroup {
 		addSequential(new IntakeMotorsForward(false), 1.0);
 		addSequential(new IntakeMotorsStop());
 		addSequential(new IntakeSolenoidOff());
-		
-    
     
     }
 }

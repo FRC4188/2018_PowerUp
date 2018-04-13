@@ -24,6 +24,7 @@ import org.usfirst.frc.team4188.robot.commands.drive.PivotToAngle;
 import org.usfirst.frc.team4188.robot.commands.drive.Turn;
 import org.usfirst.frc.team4188.robot.commands.drive.TurnToAngle;
 import org.usfirst.frc.team4188.robot.commands.drive.TurnToAngleEncoderBased;
+import org.usfirst.frc.team4188.robot.commands.drive.TurnToCube;
 import org.usfirst.frc.team4188.robot.commands.elevator.AutoBothElevatorsRun;
 import org.usfirst.frc.team4188.robot.commands.elevator.ElevatorToHeight;
 import org.usfirst.frc.team4188.robot.commands.elevator.ElevatorToScale;
@@ -124,6 +125,7 @@ public class OI {
 	//pilot2.whenPressed(new AutoDriveDistanceBased(10.0, 0.5));
     
     pilot1.whenPressed(new ExchangeToSwitch());
+    pilot2.whenPressed(new TurnToCube());
     
     pilot3.whileHeld(new ClimberMotorForward());
     pilot3.whenReleased(new ClimberMotorStop());
