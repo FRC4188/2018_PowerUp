@@ -11,8 +11,13 @@ import org.usfirst.frc.team4188.robot.RobotMap.RobotType;
 import org.usfirst.frc.team4188.robot.commandgroups.AutonomousDoNothing;
 import org.usfirst.frc.team4188.robot.commandgroups.AutonomousMoveForward;
 import org.usfirst.frc.team4188.robot.commandgroups.left.scale.AutonomousLeftScaleGoingLeft;
+import org.usfirst.frc.team4188.robot.commandgroups.left.scale.AutonomousLeftScaleGoingLeftDouble;
+import org.usfirst.frc.team4188.robot.commandgroups.left.scale.AutonomousLeftScaleGoingLeftDoubleWithSwitch;
 import org.usfirst.frc.team4188.robot.commandgroups.left.scale.AutonomousLeftScaleGoingRight;
+import org.usfirst.frc.team4188.robot.commandgroups.left.scale.AutonomousLeftScaleGoingRightDouble;
+import org.usfirst.frc.team4188.robot.commandgroups.left.scale.AutonomousLeftScaleGoingRightDoubleWithSwitch;
 import org.usfirst.frc.team4188.robot.commandgroups.left.sideswitch.AutonomousLeftSwitchGoingLeft;
+import org.usfirst.frc.team4188.robot.commandgroups.left.sideswitch.AutonomousLeftSwitchGoingLeftDouble;
 import org.usfirst.frc.team4188.robot.commandgroups.middle.frontswitch.AutonomousMiddleFrontSwitchGoingLeft;
 import org.usfirst.frc.team4188.robot.commandgroups.middle.frontswitch.AutonomousMiddleFrontSwitchGoingLeftDouble;
 import org.usfirst.frc.team4188.robot.commandgroups.middle.frontswitch.AutonomousMiddleFrontSwitchGoingRight;
@@ -22,8 +27,13 @@ import org.usfirst.frc.team4188.robot.commandgroups.middle.scale.AutonomousMiddl
 import org.usfirst.frc.team4188.robot.commandgroups.middle.sideswitch.AutonomousMiddleSideSwitchGoingLeft;
 import org.usfirst.frc.team4188.robot.commandgroups.middle.sideswitch.AutonomousMiddleSideSwitchGoingRight;
 import org.usfirst.frc.team4188.robot.commandgroups.right.scale.AutonomousRightScaleGoingLeft;
+import org.usfirst.frc.team4188.robot.commandgroups.right.scale.AutonomousRightScaleGoingLeftDouble;
+import org.usfirst.frc.team4188.robot.commandgroups.right.scale.AutonomousRightScaleGoingLeftDoubleWithSwitch;
 import org.usfirst.frc.team4188.robot.commandgroups.right.scale.AutonomousRightScaleGoingRight;
+import org.usfirst.frc.team4188.robot.commandgroups.right.scale.AutonomousRightScaleGoingRightDouble;
+import org.usfirst.frc.team4188.robot.commandgroups.right.scale.AutonomousRightScaleGoingRightDoubleWithSwitch;
 import org.usfirst.frc.team4188.robot.commandgroups.right.sideswitch.AutonomousRightSwitchGoingRight;
+import org.usfirst.frc.team4188.robot.commandgroups.right.sideswitch.AutonomousRightSwitchGoingRightDouble;
 import org.usfirst.frc.team4188.robot.subsystems.Climber;
 import org.usfirst.frc.team4188.robot.subsystems.Drivetrain;
 import org.usfirst.frc.team4188.robot.subsystems.Drivetrain.PIDInput;
@@ -112,8 +122,8 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Start Left End Switch", 0);
 		m_chooser.addObject("Start Left End Scale", 1);
 		m_chooser.addObject("Start Middle End Front Switch", 2);
-		m_chooser.addObject("Start Middle End Side Switch", 3);
-		m_chooser.addObject("Start Middle End Scale", 4);
+		//m_chooser.addObject("Start Middle End Side Switch", 3);
+		//m_chooser.addObject("Start Middle End Scale", 4);
 		m_chooser.addObject("Start Right End Switch", 5);
 		m_chooser.addObject("Start Right End Scale", 6);
 		m_chooser.addDefault("Start Anywhere Move Forward", 7);
@@ -122,19 +132,23 @@ public class Robot extends TimedRobot {
 		//m_chooser.addObject("Start Right Switch Priority", 10);
 		m_chooser.addObject("Start Left Scale Priority",  11);	
 		m_chooser.addObject("Start Right Scale Priority", 12);
-		m_chooser.addObject("Start Middle End Front Switch Right Double", 13);
+		m_chooser.addObject("Start Middle End Front Switch Double", 13);
+		m_chooser.addObject("Start Left End Scale Double", 14);
+		m_chooser.addObject("Start Right End Scale Double", 15);
+		m_chooser.addObject("Start Left Double Switch Priority", 16);
+		m_chooser.addObject("Start Right Double Switch Priority", 17);
 		
 		SmartDashboard.putData("Autonomous Selector", m_chooser);
 		
+		CameraServer.getInstance().startAutomaticCapture();
+		
 		m_elevator = new Elevator();
-		m_jevoisCamera = new JevoisCamera();
+		//m_jevoisCamera = new JevoisCamera();
 		m_climber = new Climber();
 		m_intake = new Intake();
 		m_wings = new Wings();
 		m_oi = new OI();
 		RobotMap.ultrasonic.setAutomaticMode(true);
-		
-		CameraServer.getInstance().startAutomaticCapture();
 		
 		m_selectedCommand = (int) m_chooser.getSelected();
 	}
@@ -295,7 +309,7 @@ public class Robot extends TimedRobot {
 						m_autonomousCommand = new AutonomousLeftScaleGoingLeft();
 						break;
 					case 'R':
-						m_autonomousCommand = new AutonomousMoveForward();
+						m_autonomousCommand = new AutonomousLeftScaleGoingRight();
 						break;
 					default:
 						m_autonomousCommand = new AutonomousMoveForward();
@@ -312,7 +326,7 @@ public class Robot extends TimedRobot {
 				case 'L':
 					switch(scaleSide) {
 					case 'L':
-						m_autonomousCommand = new AutonomousMoveForward();
+						m_autonomousCommand = new AutonomousRightScaleGoingLeft();
 						break;
 					case 'R':
 						m_autonomousCommand = new AutonomousRightScaleGoingRight();
@@ -389,9 +403,80 @@ public class Robot extends TimedRobot {
 					m_autonomousCommand = new AutonomousMoveForward();
 					break;
 				}
-	}
-		
-		
+				break;
+			case 14: // start left end scale double
+				switch(scaleSide) {
+				case 'L':
+					m_autonomousCommand = new AutonomousLeftScaleGoingLeftDouble();
+					break;
+				case 'R':
+					m_autonomousCommand = new AutonomousLeftScaleGoingRightDouble();
+					break;
+				default:
+					m_autonomousCommand = new AutonomousMoveForward();
+					break;
+				}
+				break;
+			case 15: // start right end scale double
+				switch(scaleSide) {
+				case 'L':
+					m_autonomousCommand = new AutonomousRightScaleGoingLeftDouble();
+					break;
+				case 'R':
+					m_autonomousCommand = new AutonomousRightScaleGoingRightDouble();
+					break;
+				default:
+					m_autonomousCommand = new AutonomousMoveForward();
+					break;
+				}
+				break;
+			case 16: //start left double switch priority, double scale if switch not available
+				switch(switchSide) {
+				case 'L':
+					m_autonomousCommand = new AutonomousLeftSwitchGoingLeftDouble();
+					break;
+				case 'R':
+					switch(scaleSide) {
+					case 'L':
+						m_autonomousCommand = new AutonomousLeftScaleGoingLeftDouble();
+						break;
+					case 'R':
+						m_autonomousCommand = new AutonomousLeftScaleGoingRightDouble();
+						break;
+					default:
+						m_autonomousCommand = new AutonomousMoveForward();
+						break;						
+					}
+					break;
+				default:
+					m_autonomousCommand = new AutonomousMoveForward();
+					break;
+				}
+				break;
+			case 17: //start right double switch priority, double scale if switch not available
+				switch(switchSide) {
+				case 'L':
+					switch(scaleSide) {
+					case 'L':
+						m_autonomousCommand = new AutonomousRightScaleGoingLeftDouble();
+						break;
+					case 'R':
+						m_autonomousCommand = new AutonomousRightScaleGoingRightDouble();
+						break;
+					default:
+						m_autonomousCommand = new AutonomousMoveForward();
+						break;						
+					}
+					break;
+				case 'R':
+					m_autonomousCommand = new AutonomousRightSwitchGoingRightDouble();
+					break;
+				default:
+					m_autonomousCommand = new AutonomousMoveForward();
+					break;
+				}
+				break;
+		}
 		
 		// schedule the autonomous command (example)
 		Robot.m_drivetrain.gyroReset();

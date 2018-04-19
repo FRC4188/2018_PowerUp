@@ -34,10 +34,10 @@ public class AutonomousRightScaleGoingLeft extends CommandGroup {
 		addSequential(new AutoDriveDistanceBased(2.5, 0.3), 1.0);
 		//addSequential(new TurnToAngle(-90.0, 5.0), 1.5);
 		//addSequential(new Delay(), 0.0);
-		addSequential(new IntakeMotorsRun(-0.5), 1.0);
+		addSequential(new IntakeMotorsForward(false), 1.0);
 		addSequential(new IntakeMotorsStop());
 		addSequential(new AutoDriveDistanceBased(-3.0, 0.2), 1.0);
-		addSequential(new ElevatorToFloor());
+		addSequential(new ElevatorToFloor(0.60));
 		
     }
 }

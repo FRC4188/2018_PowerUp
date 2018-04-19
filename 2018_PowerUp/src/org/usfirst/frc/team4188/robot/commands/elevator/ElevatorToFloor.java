@@ -9,10 +9,13 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class ElevatorToFloor extends Command {
+	
+	double power;
 
-    public ElevatorToFloor() {
+    public ElevatorToFloor(double power) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	this.power = power;
     	requires(Robot.m_elevator);
     }
 
@@ -22,7 +25,7 @@ public class ElevatorToFloor extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.m_elevator.bothElevatorsRun(-0.75, 0.75);
+    	Robot.m_elevator.bothElevatorsRun(-power, power);
     }
 
     // Make this return true when this Command no longer needs to run execute()

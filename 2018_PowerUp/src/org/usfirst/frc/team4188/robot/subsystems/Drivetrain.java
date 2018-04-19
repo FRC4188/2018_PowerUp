@@ -88,6 +88,8 @@ public class Drivetrain extends PIDSubsystem {
 		gyro,
 		leftOnlyGyro,
 		rightOnlyGyro,
+		leftOnlyGyroReverse,
+		rightOnlyGyroReverse,
 		encoderToAngle,
 		encoder,
 		driveStraight,
@@ -108,6 +110,14 @@ public class Drivetrain extends PIDSubsystem {
     		setPID(0.01,0,0);
     		break;
     	case rightOnlyGyro:
+    		SmartDashboard.putString("Current PID Input", "Gyro");
+    		setPID(0.013,0,0);
+    		break;
+    	case leftOnlyGyroReverse:
+    		SmartDashboard.putString("Current PID Input", "Gyro");
+    		setPID(0.01,0,0);
+    		break;
+    	case rightOnlyGyroReverse:
     		SmartDashboard.putString("Current PID Input", "Gyro");
     		setPID(0.013,0,0);
     		break;
@@ -136,7 +146,9 @@ public class Drivetrain extends PIDSubsystem {
 	        // yourPot.getAverageVoltage() / kYourMaxVoltage;
 	   switch (sensorType) {
 	    	case gyro:
+	    		return gyro.getAngle();
 	    	case leftOnlyGyro:
+	    		return gyro.getAngle();
 	    	case rightOnlyGyro:
 	    		return gyro.getAngle();
 	    	case encoderToAngle:
@@ -176,6 +188,18 @@ public class Drivetrain extends PIDSubsystem {
     		break;
     	case rightOnlyGyro:
     		rearRight.set(-output);
+    		rearLeft.set(0);
+    		frontLeft.follow(rearLeft);
+    		frontRight.follow(rearRight);
+    		break;
+    	case leftOnlyGyroReverse:
+    		rearRight.set(0);
+    		rearLeft.set(-output);
+    		frontLeft.follow(rearLeft);
+    		frontRight.follow(rearRight);
+    		break;
+    	case rightOnlyGyroReverse:
+    		rearRight.set(output);
     		rearLeft.set(0);
     		frontLeft.follow(rearLeft);
     		frontRight.follow(rearRight);

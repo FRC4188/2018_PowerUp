@@ -1,11 +1,12 @@
 package org.usfirst.frc.team4188.robot.commandgroups;
 
-import org.usfirst.frc.team4188.robot.Robot;
 import org.usfirst.frc.team4188.robot.commands.drive.AutoDriveDistanceBased;
+import org.usfirst.frc.team4188.robot.commands.drive.ExchangeToSwitchTurn;
+import org.usfirst.frc.team4188.robot.commands.drive.SwitchToExchangeTurn;
 import org.usfirst.frc.team4188.robot.commands.drive.TurnToAngle;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeMotorsForward;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeMotorsStop;
-import edu.wpi.first.wpilibj.DriverStation;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -30,32 +31,17 @@ public class ExchangeToSwitch extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	/*
-    	String gameMessage = "NNN";
     	
-    	if(DriverStation.getInstance().getGameSpecificMessage() != null || DriverStation.getInstance().getGameSpecificMessage().length() == 3) {
-    		gameMessage = DriverStation.getInstance().getGameSpecificMessage();
-    	} else {
-    		gameMessage = "NNN";
-    	}
-    	
-    	System.out.println(gameMessage);
     	addSequential(new AutoDriveDistanceBased(-9.5, 0.2), 2.0);
-    	if(gameMessage.charAt(2) == 'L') {
-    		addSequential(new TurnToAngle(-120, 5.0), 1.0);
-    		addSequential(new IntakeMotorsForward(false), 1.0);
-    		addSequential(new IntakeMotorsStop());
-    		addSequential(new TurnToAngle(120, 5.0), 1.0);
-    		addSequential(new AutoDriveDistanceBased(9.5, 0.2), 2.0);
-    	} else if (gameMessage.charAt(2) == 'R') {
-    		addSequential(new TurnToAngle(120, 5.0), 1.0);
-    		addSequential(new IntakeMotorsForward(false), 1.0);
-    		addSequential(new IntakeMotorsStop());
-    		addSequential(new TurnToAngle(-120, 5.0), 1.0);
-    		addSequential(new AutoDriveDistanceBased(9.5, 0.2), 2.0);
-    	} else {
-    		
-    	}
-    	*/
+    	addSequential(new ExchangeToSwitchTurn(), 1.0);
+    	addSequential(new IntakeMotorsForward(false), 1.0);
+    	addSequential(new IntakeMotorsStop());
+    	addSequential(new TurnToAngle(120, 5.0), 1.0);
+    	addSequential(new AutoDriveDistanceBased(9.5, 0.2), 2.0);
+    	addSequential(new SwitchToExchangeTurn(), 1.0);
+    	addSequential(new IntakeMotorsForward(false), 1.0);
+   		addSequential(new IntakeMotorsStop());
+    	addSequential(new TurnToAngle(-120, 5.0), 1.0);
+    	addSequential(new AutoDriveDistanceBased(9.5, 0.2), 2.0);
     }
 }

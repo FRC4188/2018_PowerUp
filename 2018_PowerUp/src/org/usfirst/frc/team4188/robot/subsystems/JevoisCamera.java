@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class JevoisCamera extends Subsystem {
 	
 	// boolean for camera view
-	private static final boolean CAMERA_VIEW = false;
+	private static final boolean CAMERA_VIEW = true;
 	
 	// constants for camera setup
 	private static final int BUAD_RATE = 115200;
@@ -37,9 +37,9 @@ public class JevoisCamera extends Subsystem {
 	// default hsv values
 	public final int H_MIN = 35;
 	public final int H_MAX = 48;
-	public final int S_MIN = 90;
+	public final int S_MIN = 0;//90;
 	public final int S_MAX = 255;
-	public final int V_MIN = 70;
+	public final int V_MIN = 0;//70;
 	public final int V_MAX = 255;
 	
 	// constants for retrying

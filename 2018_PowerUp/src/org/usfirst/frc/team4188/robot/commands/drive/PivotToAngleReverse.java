@@ -8,12 +8,12 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class PivotToAngle extends Command {
+public class PivotToAngleReverse extends Command {
 	double angle, tolerance;
 	private static int instanceCounterNext = 0;
 	private int instanceCounter = 0;
 
-    public PivotToAngle(double angle, double tolerance) {
+    public PivotToAngleReverse(double angle, double tolerance) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	this.angle = angle;
@@ -27,16 +27,16 @@ public class PivotToAngle extends Command {
     protected void initialize() {
     	Robot.m_drivetrain.setBrake();
     	if(angle > 0) {
-    		Robot.m_drivetrain.setPIDInput(PIDInput.leftOnlyGyro);
+    		Robot.m_drivetrain.setPIDInput(PIDInput.rightOnlyGyroReverse);
     	} else {
-    		Robot.m_drivetrain.setPIDInput(PIDInput.rightOnlyGyro);
+    		Robot.m_drivetrain.setPIDInput(PIDInput.leftOnlyGyroReverse);
     	}
     	Robot.m_drivetrain.resetEncoders();
     	Robot.m_drivetrain.gyroReset();
     	Robot.m_drivetrain.setAbsoluteTolerance(tolerance);
     	Robot.m_drivetrain.setSetpoint(angle);
     	Robot.m_drivetrain.enable();
-    	System.out.println("starting pivot " + instanceCounter + " now " + angle);
+    	System.out.println("starting reverse pivot " + instanceCounter + " now " + angle);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -53,13 +53,13 @@ public class PivotToAngle extends Command {
     	Robot.m_drivetrain.setCoast();
     	Robot.m_drivetrain.disable();
     	Robot.m_drivetrain.free();
-    	System.out.println("ending pivot " + instanceCounter + " now");
+    	System.out.println("ending reverse pivot " + instanceCounter + " now");
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	System.out.println("interrupted pivot " + instanceCounter);
+    	System.out.println("interrupted reverse pivot " + instanceCounter);
     	end();
     }
 }

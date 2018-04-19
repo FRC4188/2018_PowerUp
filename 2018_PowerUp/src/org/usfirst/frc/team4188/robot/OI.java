@@ -26,6 +26,8 @@ import org.usfirst.frc.team4188.robot.commands.drive.TurnToAngle;
 import org.usfirst.frc.team4188.robot.commands.drive.TurnToAngleEncoderBased;
 import org.usfirst.frc.team4188.robot.commands.drive.TurnToCube;
 import org.usfirst.frc.team4188.robot.commands.elevator.AutoBothElevatorsRun;
+import org.usfirst.frc.team4188.robot.commands.elevator.BothElevatorsRun;
+import org.usfirst.frc.team4188.robot.commands.elevator.ElevatorToFloor;
 import org.usfirst.frc.team4188.robot.commands.elevator.ElevatorToHeight;
 import org.usfirst.frc.team4188.robot.commands.elevator.ElevatorToScale;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeIn;
@@ -125,16 +127,20 @@ public class OI {
 	//pilot2.whenPressed(new AutoDriveDistanceBased(10.0, 0.5));
     
     pilot1.whenPressed(new ExchangeToSwitch());
-    pilot2.whenPressed(new TurnToCube());
+    //pilot2.whenPressed(new TurnToCube());
     
     pilot3.whileHeld(new ClimberMotorForward());
     pilot3.whenReleased(new ClimberMotorStop());
     pilot4.whileHeld(new ClimberMotorReverse());
     pilot4.whenReleased(new ClimberMotorStop());
     
-    //pilot5.whenPressed(new AutoDriveDistanceBased(3.0, 0.5));
-    //pilot6.whenPressed(new AutoDriveDistanceBased(24.0, 0.5));
-
+    /*
+    pilot5.whenPressed(new ElevatorToScale());
+    pilot5.whenReleased(new AutoBothElevatorsRun(0, 0));
+    pilot6.whenPressed(new ElevatorToFloor(0.5));
+    pilot6.whenReleased(new AutoBothElevatorsRun(0, 0));
+	*/
+    
 	pilot8.whenPressed(new CalibrateGyro());
 	 
 	pilot9.whileHeld(new GearShiftIn());

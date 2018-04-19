@@ -3,6 +3,7 @@ package org.usfirst.frc.team4188.robot.commands.intake;
 import org.usfirst.frc.team4188.robot.Robot;
 import org.usfirst.frc.team4188.robot.RobotMap;
 
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -24,7 +25,7 @@ public class IntakeMotorsReverse extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.m_intake.runIntakeMotors(0.75*RobotMap.brownoutMultiplier);
+    		Robot.m_intake.runIntakeMotors(0.75*RobotMap.brownoutMultiplier);
     }
 
     // Make this return true when this Command no longer needs to run execute()

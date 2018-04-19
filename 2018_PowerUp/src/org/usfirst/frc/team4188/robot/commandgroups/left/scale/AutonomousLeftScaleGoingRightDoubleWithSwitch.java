@@ -18,9 +18,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class AutonomousLeftScaleGoingRight extends CommandGroup {
+public class AutonomousLeftScaleGoingRightDoubleWithSwitch extends CommandGroup {
 
-    public AutonomousLeftScaleGoingRight() {
+    public AutonomousLeftScaleGoingRightDoubleWithSwitch() {
     	// scale on right, go around switch and deposit
     	
 		addSequential(new AutoDriveDistanceBased(20.0 - Robot.ROBOT_LENGTH / 2, 0.5), 3.0);
@@ -34,7 +34,7 @@ public class AutonomousLeftScaleGoingRight extends CommandGroup {
 		addSequential(new AutoDriveDistanceBased(2.5, 0.3), 1.0);
 		//addSequential(new TurnToAngle(-90.0, 5.0), 1.5);
 		//addSequential(new Delay(), 0.0);
-		addSequential(new IntakeMotorsForward(false), 1.5);
+		addSequential(new IntakeMotorsRun(-0.5), 1.0);
 		addSequential(new IntakeMotorsStop());
 		addSequential(new AutoDriveDistanceBased(-3.0, 0.2), 1.0);
 		addSequential(new ElevatorToFloor(0.6));
