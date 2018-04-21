@@ -23,8 +23,8 @@ public class AutonomousRightScaleGoingLeft extends CommandGroup {
     public AutonomousRightScaleGoingLeft() {
     	// scale on left, go around switch and deposit
     	
-		addSequential(new AutoDriveDistanceBased(20.0 - Robot.ROBOT_LENGTH / 2, 0.5), 3.0);
-		addSequential(new TurnToAngle(-90.0, 5.0), 1.5);
+    	addSequential(new AutoDriveDistanceBased(20.5 - Robot.ROBOT_LENGTH / 2, 0.5), 3.5);
+		addSequential(new TurnToAngle(-88.0, 4.0), 1.5);
 		addSequential(new AutoDriveDistanceBased(0.0, 0.0), 0.1);
 		addSequential(new AutoDriveDistanceBased(18.0 - Robot.ROBOT_WIDTH, 0.5), 3.0);
 		addParallel(new TurnToAngle(96.0, 5.0), 1.5);

@@ -182,7 +182,7 @@ public class Drivetrain extends PIDSubsystem {
     		break;
     	case leftOnlyGyro:
     		rearRight.set(0);
-    		rearLeft.set(output);
+    		rearLeft.set(-output);
     		frontLeft.follow(rearLeft);
     		frontRight.follow(rearRight);
     		break;
@@ -194,7 +194,7 @@ public class Drivetrain extends PIDSubsystem {
     		break;
     	case leftOnlyGyroReverse:
     		rearRight.set(0);
-    		rearLeft.set(-output);
+    		rearLeft.set(output);
     		frontLeft.follow(rearLeft);
     		frontRight.follow(rearRight);
     		break;

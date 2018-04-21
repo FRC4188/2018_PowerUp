@@ -31,14 +31,15 @@ public class AutonomousMiddleFrontSwitchGoingRightDouble extends CommandGroup {
     	addSequential(new AutoDriveDistanceBased(11.5, 0.5), 1.6);
     	addSequential(new AutoDriveDistanceBased(1.0, 0.1), .4);
     	addSequential(new IntakeReleaseRun(0.75, false), 0.2);
-    	addParallel(new AutoDriveDistanceBased(1.0, 0.5), 0.3);
+    	addParallel(new PivotToAngle(50.0, 3.0), 0.3);
     	addSequential(new IntakeMotorsForward(false), 1.0);
     	addSequential(new IntakeMotorsStop());
     	
     	//Drives forward to square up, drives reverse, turns 60? degrees
+    	addSequential(new AutoDriveDistanceBased(2.0, 0.5), 0.75);
     	addSequential(new AutoDriveDistanceBased(-6.65, 0.2), 1.8);
     	addParallel(new AutoInnerElevatorRun(2.4), 0.7);
-    	addParallel(new IntakeReleaseRun(0.5, false), 0.75);
+    	addParallel(new IntakeReleaseRun(0.5, false), 0.85);
 		addParallel(new IntakeOut(), .2);
 		addSequential(new TurnToAngle(-60, 3.0), 1.0);
 		
@@ -60,9 +61,9 @@ public class AutonomousMiddleFrontSwitchGoingRightDouble extends CommandGroup {
 		
 		//Turns 60? degrees, drives forward, deposits cube
 		addParallel(new TurnToAngle(70, 3.0), 1.0);
-		addSequential(new AutoInnerElevatorRun(-1.33), 1.1);
+		addSequential(new AutoInnerElevatorRun(-1.8), 1.1);
 		addSequential(new AutoDriveDistanceBased(7.0, 0.2), 1.0);
-		addSequential(new IntakeMotorsForward(false), 1.0);
+		addSequential(new IntakeMotorsForward(false), 1.5);
 		addSequential(new IntakeMotorsStop());
 		addSequential(new IntakeSolenoidOff());
 		
@@ -71,5 +72,7 @@ public class AutonomousMiddleFrontSwitchGoingRightDouble extends CommandGroup {
 		addParallel(new TurnToAngle(-80, 3.0), 1.0);
 		addParallel(new IntakeOut(), 0.2);
 		addSequential(new AutoInnerElevatorRun(2.4), 1.0);
+		
+		
     }
 }

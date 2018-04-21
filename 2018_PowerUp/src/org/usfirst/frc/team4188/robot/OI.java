@@ -123,9 +123,6 @@ public class OI {
     pilot11 = new JoystickButton(pilotXboxController, 11);
     pilot12 = new JoystickButton(pilotXboxController, 12);
     
-	//pilot1.whenPressed(new AutoDriveDistanceBased(5.0, 0.5));
-	//pilot2.whenPressed(new AutoDriveDistanceBased(10.0, 0.5));
-    
     pilot1.whenPressed(new ExchangeToSwitch());
     //pilot2.whenPressed(new TurnToCube());
     
@@ -134,12 +131,8 @@ public class OI {
     pilot4.whileHeld(new ClimberMotorReverse());
     pilot4.whenReleased(new ClimberMotorStop());
     
-    /*
-    pilot5.whenPressed(new ElevatorToScale());
-    pilot5.whenReleased(new AutoBothElevatorsRun(0, 0));
-    pilot6.whenPressed(new ElevatorToFloor(0.5));
-    pilot6.whenReleased(new AutoBothElevatorsRun(0, 0));
-	*/
+   // pilot5.whenPressed(new PivotToAngle(40, 5.0));
+   // pilot6.whenPressed(new PivotToAngle(-45, 5.0));
     
 	pilot8.whenPressed(new CalibrateGyro());
 	 
