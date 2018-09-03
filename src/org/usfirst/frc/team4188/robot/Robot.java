@@ -509,6 +509,12 @@ public class Robot extends TimedRobot {
 		Robot.m_drivetrain.setCoast();
 		//Robot.m_drivetrain.enableCurrentLimit();
 		
+		//this stuff is for closed loop joystick control
+		Robot.m_drivetrain.setPIDInput(PIDInput.joystick);
+		Robot.m_drivetrain.setSetpoint(m_oi.pilotXboxController.getY(Hand.kLeft));
+		Robot.m_drivetrain.setAbsoluteTolerance(50);
+		Robot.m_drivetrain.enable();
+		
 	}
 
 	/**

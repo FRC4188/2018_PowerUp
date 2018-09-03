@@ -7,6 +7,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -49,40 +50,7 @@ public class Drivetrain extends PIDSubsystem {
 	public final double SENSOR_UNITS = 1.0/4096.0;
 	public final double ROTATION_TO_FEET_CONSTANT = 6.0/12.0 * Math.PI;
 	public final double UNITS_TO_FEET_CONSTANT = SENSOR_UNITS * ROTATION_TO_FEET_CONSTANT;
-	
-	public enum PIDType {
-    	noType,
-		turnToAngle,
-    	driveToDistance,
-    	driveToDistanceTwoEncoder,
-    	leftOnly,
-    	rightOnly
-    }
-	
-    private static PIDType driveType;
-    
-    public static void setPIDType(PIDType type) {    	
-    	driveType = type;
-    	switch (driveType) {
-    		case turnToAngle:
-    			SmartDashboard.putString("Setting PIDType =", "turnToAngle");
-    			break;
-    		case driveToDistance:
-    			SmartDashboard.putString("Setting PIDType =", "driveToDistance");
-    			break;
-    		case driveToDistanceTwoEncoder:
-    			SmartDashboard.putString("Setting PIDType =", "driveToDistanceTwoEncoder");
-    			break;
-    		case leftOnly:
-    			SmartDashboard.putString("Setting PIDType =", "leftOnly");
-    			break;
-    		case rightOnly:
-    			SmartDashboard.putString("Setting PIDType =", "rightOnly");
-    			break;
-    		case noType:
-    			break;
-    	}
-    }
+	public final double MAX_VELOCITY = 2450;
 	
 	public enum PIDInput{
 		gyro,
@@ -93,6 +61,7 @@ public class Drivetrain extends PIDSubsystem {
 		encoderToAngle,
 		encoder,
 		driveStraight,
+		joystick,
 		none
 	}
 	
@@ -133,6 +102,9 @@ public class Drivetrain extends PIDSubsystem {
     	case driveStraight:
     		setPID(0.13, 0.000175, 0.0);
     		break;
+    	case joystick:
+    		setPID(0.1, 0, 0);
+    		break;
     	case none:
     		SmartDashboard.putString("Current PID Input", "None");
     		setPID(0.0,0.0,0.0);
@@ -157,6 +129,8 @@ public class Drivetrain extends PIDSubsystem {
 	    		return rearLeft.getSelectedSensorPosition(0) * UNITS_TO_FEET_CONSTANT;
 	    	case driveStraight:
 	    		return Math.abs(getLeftEncoderRotation() - getRightEncoderRotation());
+	    	case joystick:
+	    		return -(rearLeft.getSelectedSensorVelocity(0) / MAX_VELOCITY);
 	    	case none:
 	    		return -1.0;
 	    	default:
@@ -215,6 +189,14 @@ public class Drivetrain extends PIDSubsystem {
         	frontLeft.follow(rearLeft);
         	frontRight.follow(rearRight);
         	break;
+    	case driveStraight:
+    		break;
+    	case joystick:
+    		rearRight.set(output);
+        	rearLeft.set(-output);
+        	frontLeft.follow(rearLeft);
+        	frontRight.follow(rearRight);
+    		break;
     	case none: 
         	break;
     	}
