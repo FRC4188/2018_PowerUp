@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team4188.robot;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+
 import org.usfirst.frc.team4188.robot.RobotMap.RobotType;
 import org.usfirst.frc.team4188.robot.commandgroups.AutonomousDoNothing;
 import org.usfirst.frc.team4188.robot.commandgroups.AutonomousMoveForward;
@@ -69,6 +71,9 @@ public class Robot extends TimedRobot {
 	
 	public static double ROBOT_LENGTH;
 	public static double ROBOT_WIDTH;
+
+	public static final double MAX_VELOCITY = 2400;
+	public static final double UNITS_PER_ROTATION = 4096;
 	
 	public static double INNER_ELEVATOR_FLAT_POWER;
 	public static double OUTER_ELEVATOR_FLAT_POWER;
@@ -508,12 +513,11 @@ public class Robot extends TimedRobot {
 		Robot.m_elevator.resetEncoders();
 		Robot.m_drivetrain.setCoast();
 		//Robot.m_drivetrain.enableCurrentLimit();
-		
-		//this stuff is for closed loop joystick control
-		Robot.m_drivetrain.setPIDInput(PIDInput.joystick);
-		Robot.m_drivetrain.setSetpoint(m_oi.pilotXboxController.getY(Hand.kLeft));
-		Robot.m_drivetrain.setAbsoluteTolerance(50);
-		Robot.m_drivetrain.enable();
+
+		double input = m_oi.pilotXboxController.getY(Hand.kLeft) * MAX_VELOCITY;
+		RobotMap.rearRight.set(ControlMode.Velocity, input);
+		RobotMap.rearLeft.set(ControlMode.Velocity, input);
+
 		
 	}
 
