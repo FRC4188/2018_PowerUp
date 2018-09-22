@@ -161,7 +161,7 @@ public class Robot extends TimedRobot {
 	/**
 	 * This function is called once each time the robot enters Disabled mode.
 	 * You can use it to reset any subsystem information you want to clear when
-	 * the robot is disabled.
+	 * the robot is disabled. 
 	 */
 	@Override
 	public void disabledInit() {
@@ -501,6 +501,10 @@ public class Robot extends TimedRobot {
 		Scheduler.getInstance().run();
 	}
 
+	public double kF = MAX_VELOCITY / 1023;
+	public double kP = 0;
+	public double kI = 0;
+	public double kD = 0;
 	@Override
 	public void teleopInit() { 
 		// This makes sure that the autonomous stops running when 
@@ -514,9 +518,15 @@ public class Robot extends TimedRobot {
 		Robot.m_drivetrain.setCoast();
 		//Robot.m_drivetrain.enableCurrentLimit();
 
-		double input = m_oi.pilotXboxController.getY(Hand.kLeft) * MAX_VELOCITY;
-		RobotMap.rearRight.set(ControlMode.Velocity, input);
-		RobotMap.rearLeft.set(ControlMode.Velocity, input);
+		RobotMap.rearRight.config_kF(0, kF, 30);
+		RobotMap.rearRight.config_kP(0, kP, 30);
+		RobotMap.rearRight.config_kI(0, kI, 30);
+		RobotMap.rearRight.config_kD(0, kD, 30);
+
+		RobotMap.rearLeft.config_kF(0, kF, 30);
+		RobotMap.rearLeft.config_kP(0, kP, 30);
+		RobotMap.rearLeft.config_kI(0, kI, 30);
+		RobotMap.rearLeft.config_kD(0, kD, 30);
 
 		
 	}
@@ -537,6 +547,8 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData(RobotMap.pdp);
 		SmartDashboard.putNumber("Ultrasonic Sensor", RobotMap.ultrasonic.getRangeInches());
 		Robot.m_drivetrain.setOpenloopRampRate(0.2);
+		SmartDashboard.putNumber("Right Speed", -RobotMap.rearRight.getSelectedSensorVelocity(0));
+		SmartDashboard.putNumber("Left Speed", RobotMap.rearLeft.getSelectedSensorVelocity(0));
 		//Robot.m_drivetrain.enableCurrentLimit();
 		// testing data
 		
@@ -557,6 +569,38 @@ public class Robot extends TimedRobot {
 	        	powerState = PowerState.NORMAL;
 	        }
 	   }
+/*
+		double xSpeed = m_oi.pilotXboxController.getY(Hand.kLeft) * MAX_VELOCITY;
+		double zTurn = m_oi.pilotXboxController.getX(Hand.kRight) * MAX_VELOCITY;
+		double turnRatio;
+		double leftInput = xSpeed - zTurn;
+		double rightInput = xSpeed + zTurn;
+		if(leftInput > 2420 || rightInput > 2420) {
+			if(rightInput > leftInput) {
+				turnRatio = leftInput / rightInput;
+				rightInput = 2400;
+				leftInput = 2400 * turnRatio;
+			} else if (leftInput > rightInput) {
+				turnRatio = rightInput / leftInput;
+				leftInput = 2400;
+				rightInput = 2400 * turnRatio;
+			}
+		} else if(leftInput < -2420 || rightInput < -2420) {
+			if(rightInput < leftInput) {
+				turnRatio = leftInput / rightInput;
+				rightInput = -2400;
+				leftInput = -2400 * turnRatio;
+			} else if (leftInput < rightInput) {
+				turnRatio = rightInput / leftInput;
+				leftInput = -2400;
+				rightInput = -2400 * turnRatio;
+			}
+		}
+		RobotMap.rearRight.set(ControlMode.Velocity, rightInput);
+		RobotMap.rearLeft.set(ControlMode.Velocity, leftInput);
+		System.out.println("right: " + rightInput + " left: " + leftInput); 
+		*/
+		m_elevator.newElevatorRun();
 	}
 
 	/**

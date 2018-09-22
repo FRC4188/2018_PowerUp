@@ -118,6 +118,7 @@ public class RobotMap {
 		rearLeft.setSensorPhase(true);
 		rearRight.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		rearRight.setSensorPhase(true);
+		//rearRight.setInverted(true);
 		
 		leftSet = new SpeedControllerGroup(frontLeft, rearLeft);
 		rightSet = new SpeedControllerGroup(frontRight, rearRight);
