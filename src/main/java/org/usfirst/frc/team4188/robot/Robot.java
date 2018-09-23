@@ -10,6 +10,7 @@ package org.usfirst.frc.team4188.robot;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import org.usfirst.frc.team4188.robot.RobotMap.RobotType;
+import org.usfirst.frc.team4188.robot.commands.intake.IntakeAutoClose;
 import org.usfirst.frc.team4188.robot.commandgroups.AutonomousDoNothing;
 import org.usfirst.frc.team4188.robot.commandgroups.AutonomousMoveForward;
 import org.usfirst.frc.team4188.robot.commandgroups.left.scale.AutonomousLeftScaleGoingLeft;
@@ -541,6 +542,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run(); 
+
 		SmartDashboard.putData("Drive Train", Robot.m_drivetrain);
 		SmartDashboard.putData(RobotMap.gyro);
 		Robot.m_drivetrain.getLeftEncoderRotation();
@@ -556,7 +558,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("Elevator Up Power", Robot.m_oi.coPilotXboxController.getY(Hand.kLeft));
 		SmartDashboard.putNumber("Inner Elevator Encoder", Math.abs(RobotMap.innerElevator.getSelectedSensorPosition(0) * INCHES_PER_UNIT));
 		SmartDashboard.putNumber("Outer Encoder", Math.abs(RobotMap.outerElevatorRight.getSelectedSensorPosition(0) * INCHES_PER_UNIT));
-	
+
 		if(powerState == PowerState.NORMAL){
 	        if(RobotMap.pdp.getVoltage() < 7.0){
 	        	Robot.m_drivetrain.conservePower(true);
@@ -599,8 +601,9 @@ public class Robot extends TimedRobot {
 		RobotMap.rearRight.set(ControlMode.Velocity, rightInput);
 		RobotMap.rearLeft.set(ControlMode.Velocity, leftInput);
 		System.out.println("right: " + rightInput + " left: " + leftInput); 
-		*/
-		m_elevator.newElevatorRun();
+*/
+		
+		//m_elevator.newElevatorRun();
 	}
 
 	/**

@@ -1,10 +1,9 @@
 package org.usfirst.frc.team4188.robot.subsystems;
 
 import org.usfirst.frc.team4188.robot.RobotMap;
-
+import java.util.Timer;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -55,6 +54,6 @@ public class Intake extends Subsystem {
     	intakeReleaseLeft.set(speed);
     	intakeReleaseRight.set(speed);
     }
-    
+
 }
 

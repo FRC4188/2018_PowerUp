@@ -33,7 +33,7 @@ public class Elevator extends PIDSubsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    	//setDefaultCommand(new BothElevatorsRun());
+    	setDefaultCommand(new BothElevatorsRun());
     }
     
     public void outerElevatorRun(double power) {
@@ -108,7 +108,6 @@ public class Elevator extends PIDSubsystem {
     	outerElevatorLeft.setSelectedSensorPosition(0, 0, 0);
     }
 
-    //inner and left should be the same
     public void newElevatorRun() {
         innerElevator.set(Robot.m_oi.coPilotXboxController.getY(Hand.kLeft));
         outerElevatorLeft.set(Robot.m_oi.coPilotXboxController.getY(Hand.kLeft));
