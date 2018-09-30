@@ -603,7 +603,6 @@ public class Robot extends TimedRobot {
 		System.out.println("right: " + rightInput + " left: " + leftInput); 
 */
 		
-		//m_elevator.newElevatorRun();
 	}
 
 	/**

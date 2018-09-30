@@ -7,45 +7,25 @@
 
 package org.usfirst.frc.team4188.robot;
 
-import org.usfirst.frc.team4188.robot.commandgroups.ExchangeToSwitch;
-import org.usfirst.frc.team4188.robot.commands.climber.Climb;
-import org.usfirst.frc.team4188.robot.commands.climber.ClimberMotorForward;
-import org.usfirst.frc.team4188.robot.commands.climber.ClimberMotorReverse;
-import org.usfirst.frc.team4188.robot.commands.climber.ClimberMotorStop;
-import org.usfirst.frc.team4188.robot.commands.climber.CylindersIn;
-import org.usfirst.frc.team4188.robot.commands.climber.CylindersOff;
-import org.usfirst.frc.team4188.robot.commands.climber.CylindersOut;
-import org.usfirst.frc.team4188.robot.commands.drive.AutoDriveDistanceBased;
 import org.usfirst.frc.team4188.robot.commands.drive.CalibrateGyro;
 import org.usfirst.frc.team4188.robot.commands.drive.GearShiftIn;
 import org.usfirst.frc.team4188.robot.commands.drive.GearShiftOff;
 import org.usfirst.frc.team4188.robot.commands.drive.GearShiftOut;
-import org.usfirst.frc.team4188.robot.commands.drive.PivotToAngle;
-import org.usfirst.frc.team4188.robot.commands.drive.Turn;
-import org.usfirst.frc.team4188.robot.commands.drive.TurnToAngle;
-import org.usfirst.frc.team4188.robot.commands.drive.TurnToAngleEncoderBased;
-import org.usfirst.frc.team4188.robot.commands.drive.TurnToCube;
 import org.usfirst.frc.team4188.robot.commands.elevator.AutoBothElevatorsRun;
-import org.usfirst.frc.team4188.robot.commands.elevator.BothElevatorsRun;
-import org.usfirst.frc.team4188.robot.commands.elevator.ElevatorToFloor;
-import org.usfirst.frc.team4188.robot.commands.elevator.ElevatorToHeight;
-import org.usfirst.frc.team4188.robot.commands.elevator.ElevatorToScale;
+import org.usfirst.frc.team4188.robot.commands.elevator.ElevatorClimbDown;
+import org.usfirst.frc.team4188.robot.commands.elevator.ElevatorClimbStop;
+import org.usfirst.frc.team4188.robot.commands.elevator.ElevatorClimbUp;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeAutoClose;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeIn;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeMotorsForward;
-import org.usfirst.frc.team4188.robot.commands.intake.IntakeMotorsReverse;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeMotorsStop;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeOut;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeReleaseDown;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeReleaseOff;
-import org.usfirst.frc.team4188.robot.commands.intake.IntakeReleaseRun;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeReleaseUp;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeSolenoidOff;
-import org.usfirst.frc.team4188.robot.commands.wings.LowerWings;
-import org.usfirst.frc.team4188.robot.commands.wings.RaiseWings;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -101,10 +81,10 @@ public class OI {
     //pilot1.whenPressed(new ExchangeToSwitch());
     //pilot2.whenPressed(new TurnToCube());
     
-    pilot3.whileHeld(new ClimberMotorForward());
-    pilot3.whenReleased(new ClimberMotorStop());
-    pilot4.whileHeld(new ClimberMotorReverse());
-    pilot4.whenReleased(new ClimberMotorStop());
+    pilot3.whileHeld(new ElevatorClimbDown());
+    pilot3.whenReleased(new ElevatorClimbStop());
+    pilot4.whileHeld(new ElevatorClimbUp());
+    pilot4.whenReleased(new ElevatorClimbStop());
     
    // pilot5.whenPressed(new PivotToAngle(40, 5.0));
    // pilot6.whenPressed(new PivotToAngle(-45, 5.0));
