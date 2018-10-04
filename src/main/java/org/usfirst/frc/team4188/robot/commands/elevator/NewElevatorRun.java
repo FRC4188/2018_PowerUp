@@ -2,14 +2,9 @@ package org.usfirst.frc.team4188.robot.commands.elevator;
 
 import org.usfirst.frc.team4188.robot.Robot;
 import org.usfirst.frc.team4188.robot.RobotMap;
-
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.command.Command;
 
-
-/**
- * An example command.  You can replace me with your own command.
- */
 public class NewElevatorRun extends Command {
 
   double gain;

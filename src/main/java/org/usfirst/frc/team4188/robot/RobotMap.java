@@ -90,7 +90,7 @@ public class RobotMap {
 	public static DigitalInput intakeReleaseTopLimit;
 	public static DigitalInput intakeReleaseBottomLimit;
 	
-	public static double brownoutMultiplier;
+	public static double brownoutMultiplier, climbVoltageCutoff;
 	
 	public static void init() {
 		
@@ -181,6 +181,8 @@ public class RobotMap {
 		intakeReleaseBottomLimit = new DigitalInput(3);
 		
 		brownoutMultiplier = 1.0;
+		climbVoltageCutoff = 9.0;
+
 		
 	}
 

@@ -4,12 +4,10 @@ import org.usfirst.frc.team4188.robot.Robot;
 import org.usfirst.frc.team4188.robot.RobotMap;
 import edu.wpi.first.wpilibj.command.Command;
 
-/**
- * An example command.  You can replace me with your own command.
- */
 public class ElevatorClimbUp extends Command {
 
   double power;
+  double cvc = RobotMap.climbVoltageCutoff;
 
   public ElevatorClimbUp() {
     // Use requires() here to declare subsystem dependencies
@@ -19,15 +17,15 @@ public class ElevatorClimbUp extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    power = 0.75;
+    power = 0.72;
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if(RobotMap.pdp.getVoltage() < 9.0 && power > 0) {
+    if(RobotMap.pdp.getVoltage() < cvc && power > 0) {
         power -= 0.1;
-    } else if(RobotMap.pdp.getVoltage() > 9.0 && power < 1.0) {
+    } else if(RobotMap.pdp.getVoltage() > cvc && power < 1.0) {
         power += 0.1;
     }
     Robot.m_elevator.elevatorClimb(power);
