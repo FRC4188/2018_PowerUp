@@ -549,6 +549,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData(RobotMap.pdp);
 		SmartDashboard.putNumber("Ultrasonic Sensor", RobotMap.ultrasonic.getRangeInches());
 		Robot.m_drivetrain.setOpenloopRampRate(0.2);
+		SmartDashboard.putBoolean("Magnetic limit switch", RobotMap.magneticSwitch.get());
 		SmartDashboard.putNumber("Right Speed", -RobotMap.rearRight.getSelectedSensorVelocity(0));
 		SmartDashboard.putNumber("Left Speed", RobotMap.rearLeft.getSelectedSensorVelocity(0));
 		//Robot.m_drivetrain.enableCurrentLimit();

@@ -18,6 +18,7 @@ import org.usfirst.frc.team4188.robot.commands.elevator.ElevatorClimbUp;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeAutoClose;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeIn;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeMotorsForward;
+import org.usfirst.frc.team4188.robot.commands.intake.IntakeMotorsReverse;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeMotorsStop;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeOut;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeReleaseDown;
@@ -110,14 +111,12 @@ public class OI {
 	coPilot11 = new JoystickButton(coPilotXboxController, 11);
 	coPilot12 = new JoystickButton(coPilotXboxController, 12);
 	
-	//coPilot1.whileHeld(new IntakeMotorsReverse(true));
-	//coPilot1.whenReleased(new IntakeMotorsStop());
-	coPilot1.whenPressed(new IntakeAutoClose());
+	coPilot1.whileHeld(new IntakeMotorsReverse(true));
+	coPilot1.whenReleased(new IntakeMotorsStop());
 	coPilot2.whileHeld(new IntakeMotorsForward(true));
 	coPilot2.whenReleased(new IntakeMotorsStop());
 	
-	coPilot3.whileHeld(new AutoBothElevatorsRun(-0.60, 0.60));
-	coPilot4.whileHeld(new AutoBothElevatorsRun(0.90, -0.90));
+	coPilot4.whenPressed(new IntakeAutoClose());
 	
 	coPilot5.whileHeld(new IntakeIn());
 	coPilot5.whenReleased(new IntakeSolenoidOff());

@@ -30,7 +30,7 @@ public class NewElevatorRun extends Command {
     } else {
         gain = 0.7;
     }
-      Robot.m_elevator.newElevatorRun(-Robot.m_oi.coPilotXboxController.getY(Hand.kLeft) * RobotMap.brownoutMultiplier * gain);
+      Robot.m_elevator.newElevatorRun(0.06-Robot.m_oi.coPilotXboxController.getY(Hand.kLeft) * RobotMap.brownoutMultiplier * gain);
   }
 
   // Make this return true when this Command no longer needs to run execute()

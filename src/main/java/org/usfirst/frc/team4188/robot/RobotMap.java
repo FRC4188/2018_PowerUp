@@ -89,6 +89,7 @@ public class RobotMap {
 	
 	public static DigitalInput intakeReleaseTopLimit;
 	public static DigitalInput intakeReleaseBottomLimit;
+	public static DigitalInput magneticSwitch;
 	
 	public static double brownoutMultiplier, climbVoltageCutoff;
 	
@@ -105,7 +106,7 @@ public class RobotMap {
 		8: front right drive
 		9: inner elevator
 		10: outer elevator right
-		11: Nothing (Victor) (temp intake release right)
+		11: intake release right (Victor)
 		12: intake wheel right (Victor)
 		*/
 		
@@ -143,7 +144,7 @@ public class RobotMap {
 		outerElevatorRight.overrideLimitSwitchesEnable(true);
 		outerElevatorRight.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 10);
 		outerElevatorRight.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 10);
-    	outerElevatorRight.setInverted(true);
+    	outerElevatorRight.setInverted(false);
     	outerElevatorRight.follow(outerElevatorLeft);
 		
 		innerElevator = new WPI_TalonSRX(9);
@@ -153,10 +154,10 @@ public class RobotMap {
 		innerElevator.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 10);
 		innerElevator.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 10);
 		
-		gearShift = new DoubleSolenoid(0,1);
+		gearShift = new DoubleSolenoid(20,0,1);
 		pdp = new PowerDistributionPanel();
 		
-		climberSolenoid1 = new DoubleSolenoid(2,3);
+		climberSolenoid1 = new DoubleSolenoid(20,2,3);
 		
 		intakeLeft = new WPI_VictorSPX(1);
 		intakeRight = new WPI_VictorSPX(12);
@@ -164,9 +165,10 @@ public class RobotMap {
 		intakeReleaseLeft.setInverted(true);
 		//intakeReleaseRight = new WPI_TalonSRX(4);
 		intakeReleaseRight = new WPI_VictorSPX(11);
+		intakeReleaseRight.setInverted(true);
 		
 		
-		intakeSolenoid = new DoubleSolenoid(4,5);
+		intakeSolenoid = new DoubleSolenoid(20,4,5);
 		
 		climberMotor = new WPI_TalonSRX(4);
 		
@@ -177,11 +179,10 @@ public class RobotMap {
 		rightWingFront = new Servo(8); 
 		rightWingBack = new Servo(9);
 		
-		intakeReleaseTopLimit = new DigitalInput(2);
-		intakeReleaseBottomLimit = new DigitalInput(3);
+		magneticSwitch = new DigitalInput(2);
 		
 		brownoutMultiplier = 1.0;
-		climbVoltageCutoff = 9.0;
+		climbVoltageCutoff = 9.5;
 
 		
 	}
