@@ -8,6 +8,7 @@ import org.usfirst.frc.team4188.robot.commands.drive.GearShiftIn;
 import org.usfirst.frc.team4188.robot.commands.drive.PivotToAngle;
 import org.usfirst.frc.team4188.robot.commands.drive.TurnToAngle;
 import org.usfirst.frc.team4188.robot.commands.drive.TurnToAngleEncoderBased;
+import org.usfirst.frc.team4188.robot.commands.elevator.AutoNewElevatorRun;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeIn;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeMotorsForward;
 import org.usfirst.frc.team4188.robot.commands.intake.IntakeMotorsStop;
@@ -23,10 +24,13 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutonomousMiddleFrontSwitchGoingRight extends CommandGroup {
 
     public AutonomousMiddleFrontSwitchGoingRight() {
-/*    
+    
     	boolean doNothing = true;
     	// switch is on right
-    	addSequential(new GearShiftIn());
+		addSequential(new GearShiftIn());
+		
+		// raise elevator
+		addParallel(new AutoNewElevatorRun(0.4), 1.0);
     	
     	// Drive Forward
     	addSequential(new AutoDriveDistanceBased(6.0 - Robot.ROBOT_LENGTH / 2, 0.5),2.0);
@@ -62,7 +66,7 @@ public class AutonomousMiddleFrontSwitchGoingRight extends CommandGroup {
 		addParallel(new IntakeReleaseDown(), 0.2);
 		addSequential(new IntakeMotorsForward(false), 1.0);
 		addSequential(new IntakeMotorsStop());
-*/
+/*
     	
     	addSequential(new AutoDriveDistanceBased(11.5, 0.5), 1.6);
     	addSequential(new AutoDriveDistanceBased(1.0, 0.5), .3);
@@ -70,6 +74,6 @@ public class AutonomousMiddleFrontSwitchGoingRight extends CommandGroup {
     	//addSequential(new Delay(), 0.3);
     	addSequential(new IntakeMotorsForward(false), 3.0);
 		addSequential(new IntakeMotorsStop());
-		
+*/
     }
 }

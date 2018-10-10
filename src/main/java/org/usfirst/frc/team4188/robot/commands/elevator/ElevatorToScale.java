@@ -22,20 +22,19 @@ public class ElevatorToScale extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.m_elevator.bothElevatorsRun(0.75, -0.75);
+        Robot.m_elevator.newElevatorRun(0.5);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
     	//return Robot.m_Ultrasonic.reading < 12.0;
         //return false;
-    	return (RobotMap.innerElevator.getSensorCollection().isFwdLimitSwitchClosed() &&
-    			RobotMap.outerElevatorRight.getSensorCollection().isFwdLimitSwitchClosed());
+    	return !RobotMap.magneticSwitch.get();
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.m_elevator.bothElevatorsStop();
+    	Robot.m_elevator.newElevatorRun(0);
     }
 
     // Called when another command which requires one or more of the same

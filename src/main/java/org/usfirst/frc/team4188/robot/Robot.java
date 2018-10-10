@@ -124,7 +124,7 @@ public class Robot extends TimedRobot {
 		RobotMap.gyro.calibrate();
 		
 		
-		m_chooser.setName("Autonomous Selector");
+		m_chooser.setName("REAL ONE");
 		m_chooser.addObject("Start Left End Switch", 0);
 		m_chooser.addObject("Start Left End Scale", 1);
 		m_chooser.addObject("Start Middle End Front Switch", 2);
@@ -144,7 +144,7 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Start Left Double Switch Priority", 16);
 		m_chooser.addObject("Start Right Double Switch Priority", 17);
 		
-		SmartDashboard.putData("Autonomous Selector", m_chooser);
+		SmartDashboard.putData("theREAL ONE", m_chooser);
 		
 		CameraServer.getInstance().startAutomaticCapture();
 		
@@ -195,10 +195,10 @@ public class Robot extends TimedRobot {
 		Robot.m_drivetrain.setBrake();
 		
 		// TODO REMOVE
-		//gameMessage = "LLL";
-		gameMessage = DriverStation.getInstance().getGameSpecificMessage();
+		gameMessage = "RRR";
+		//gameMessage = DriverStation.getInstance().getGameSpecificMessage();
 		
-		m_selectedCommand = (int) m_chooser.getSelected();
+		m_selectedCommand = 13;
 		
 		System.out.println(m_selectedCommand);
 		
@@ -498,6 +498,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousPeriodic() {
 		
+		m_elevator.newElevatorRun(0.06);
 		m_intake.runIntakeRelease(-.05);
 		Scheduler.getInstance().run();
 	}

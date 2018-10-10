@@ -135,15 +135,15 @@ public class RobotMap {
 		outerElevatorLeft.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		outerElevatorLeft.setSensorPhase(true);
 		outerElevatorLeft.overrideLimitSwitchesEnable(true);
-		outerElevatorLeft.configForwardLimitSwitchSource(RemoteLimitSwitchSource.RemoteTalonSRX, LimitSwitchNormal.NormallyOpen, 10, 10);
-		outerElevatorLeft.configReverseLimitSwitchSource(RemoteLimitSwitchSource.RemoteTalonSRX, LimitSwitchNormal.NormallyOpen, 10, 10);
+		outerElevatorLeft.configForwardLimitSwitchSource(RemoteLimitSwitchSource.RemoteTalonSRX, LimitSwitchNormal.NormallyOpen, 9, 10);
+		outerElevatorLeft.configReverseLimitSwitchSource(RemoteLimitSwitchSource.RemoteTalonSRX, LimitSwitchNormal.NormallyOpen, 9, 10);
 		
 		outerElevatorRight = new WPI_TalonSRX(10);
 		outerElevatorRight.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		outerElevatorRight.setSensorPhase(true);
 		outerElevatorRight.overrideLimitSwitchesEnable(true);
-		outerElevatorRight.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 10);
-		outerElevatorRight.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 10);
+		outerElevatorRight.configForwardLimitSwitchSource(RemoteLimitSwitchSource.RemoteTalonSRX, LimitSwitchNormal.NormallyOpen, 9, 10);
+		outerElevatorRight.configReverseLimitSwitchSource(RemoteLimitSwitchSource.RemoteTalonSRX, LimitSwitchNormal.NormallyOpen, 9, 10);
     	outerElevatorRight.setInverted(false);
     	outerElevatorRight.follow(outerElevatorLeft);
 		
