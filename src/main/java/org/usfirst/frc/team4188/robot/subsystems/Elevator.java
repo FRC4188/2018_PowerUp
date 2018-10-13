@@ -111,8 +111,8 @@ public class Elevator extends PIDSubsystem {
     }
 
     public void newElevatorRun(double power) {
-        innerElevator.set(power);
-        outerElevatorLeft.set(power);
+        innerElevator.set(power); 
+        outerElevatorRight.set(power);
     }
 
     public void elevatorClimb(double power) {

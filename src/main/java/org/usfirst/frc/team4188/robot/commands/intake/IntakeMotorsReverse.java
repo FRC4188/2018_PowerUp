@@ -25,7 +25,7 @@ public class IntakeMotorsReverse extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    		Robot.m_intake.runIntakeMotors(0.75*RobotMap.brownoutMultiplier);
+    		Robot.m_intake.runIntakeMotors(0.35*RobotMap.brownoutMultiplier);
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -121,7 +121,7 @@ public class Robot extends TimedRobot {
 		RobotMap.init();
 		m_drivetrain = new Drivetrain();
 		m_drivetrain.setPIDInput(PIDInput.none);
-		RobotMap.gyro.calibrate();
+		//RobotMap.gyro.calibrate();
 		
 		
 		m_chooser.setName("REAL ONE");
@@ -144,7 +144,7 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Start Left Double Switch Priority", 16);
 		m_chooser.addObject("Start Right Double Switch Priority", 17);
 		
-		SmartDashboard.putData("theREAL ONE", m_chooser);
+		SmartDashboard.putData("FAKE", m_chooser);
 		
 		CameraServer.getInstance().startAutomaticCapture();
 		
@@ -173,8 +173,10 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		SmartDashboard.putData(RobotMap.gyro);
 		gameMessage = DriverStation.getInstance().getGameSpecificMessage();
 		m_selectedCommand = (int) m_chooser.getSelected();
+		System.out.println((int) m_chooser.getSelected());
 	}
 
 	/**
@@ -194,11 +196,9 @@ public class Robot extends TimedRobot {
 		// set all motors to brake
 		Robot.m_drivetrain.setBrake();
 		
-		// TODO REMOVE
-		gameMessage = "RRR";
-		//gameMessage = DriverStation.getInstance().getGameSpecificMessage();
+		gameMessage = DriverStation.getInstance().getGameSpecificMessage();
 		
-		m_selectedCommand = 13;
+		m_selectedCommand = (int) m_chooser.getSelected();
 		
 		System.out.println(m_selectedCommand);
 		
@@ -513,6 +513,7 @@ public class Robot extends TimedRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
+		
 		Robot.m_drivetrain.resetEncoders();
 		Robot.m_drivetrain.gyroReset(); // hahahahahahahhahahaha 420
 		Robot.m_drivetrain.setClosedloopRamp(0.1);
@@ -520,6 +521,7 @@ public class Robot extends TimedRobot {
 		Robot.m_drivetrain.setCoast();
 		//Robot.m_drivetrain.enableCurrentLimit();
 
+		/*
 		RobotMap.rearRight.config_kF(0, kF, 30);
 		RobotMap.rearRight.config_kP(0, kP, 30);
 		RobotMap.rearRight.config_kI(0, kI, 30);
@@ -529,7 +531,7 @@ public class Robot extends TimedRobot {
 		RobotMap.rearLeft.config_kP(0, kP, 30);
 		RobotMap.rearLeft.config_kI(0, kI, 30);
 		RobotMap.rearLeft.config_kD(0, kD, 30);
-
+		*/
 		
 	}
 
@@ -562,7 +564,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("Outer Encoder", Math.abs(RobotMap.outerElevatorRight.getSelectedSensorPosition(0) * INCHES_PER_UNIT));
 
 		if(powerState == PowerState.NORMAL){
-	        if(RobotMap.pdp.getVoltage() < 7.0){
+	        if(RobotMap.pdp.getVoltage() < 6.3) {
 	        	Robot.m_drivetrain.conservePower(true);
 	        	powerState = PowerState.POWERCONSERVING;
 	        }

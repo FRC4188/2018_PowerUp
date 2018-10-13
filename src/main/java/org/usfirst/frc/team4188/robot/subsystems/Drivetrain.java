@@ -68,46 +68,47 @@ public class Drivetrain extends PIDSubsystem {
 	private static PIDInput sensorType;
 	
 	public void setPIDInput(PIDInput type) {
+		double kF = 1 / MAX_VELOCITY;
     	sensorType = type;
     	switch (sensorType) {
     	case gyro:
     		SmartDashboard.putString("Current PID Input", "Gyro");
-    		setPID(0.0065,0.0,0.0);
+    		setPIDF(0.0065,0.0,0.0,kF);
     		break;
     	case leftOnlyGyro:
     		SmartDashboard.putString("Current PID Input", "Gyro");
-    		setPID(0.01,0,0);
+    		setPIDF(0.01,0,0,kF);
     		break;
     	case rightOnlyGyro:
     		SmartDashboard.putString("Current PID Input", "Gyro");
-    		setPID(0.013,0,0);
+    		setPIDF(0.013,0,0,kF);
     		break;
     	case leftOnlyGyroReverse:
     		SmartDashboard.putString("Current PID Input", "Gyro");
-    		setPID(0.01,0,0);
+    		setPIDF(0.01,0,0,kF);
     		break;
     	case rightOnlyGyroReverse:
     		SmartDashboard.putString("Current PID Input", "Gyro");
-    		setPID(0.013,0,0);
+    		setPIDF(0.013,0,0,kF);
     		break;
     	case encoderToAngle:
     		SmartDashboard.putString("Current PID Input", "Rear Left Encoder");
-    		setPID(0.32,0.002,0.01);
+    		setPIDF(0.32,0.002,0.01,kF);
     		break;
     	case encoder:
     		SmartDashboard.putString("Current PID Input", "Rear Left Encoder");
-    		setPID(0.13, 0.000175, 0.0);
+    		setPIDF(0.13, 0.000175, 0.0, kF);
     		//setPID(0.002, 0.0005, 0.5);
     		break;
     	case driveStraight:
-    		setPID(0.13, 0.000175, 0.0);
+    		setPIDF(0.13, 0.000175, 0.0, kF);
     		break;
     	case joystick:
-    		setPID(0.1, 0, 0);
+    		setPIDF(0.1, 0, 0, kF);
     		break;
     	case none:
     		SmartDashboard.putString("Current PID Input", "None");
-    		setPID(0.0,0.0,0.0);
+    		setPIDF(0.0,0.0,0.0, kF);
     		break;
     	}
     }
@@ -138,10 +139,11 @@ public class Drivetrain extends PIDSubsystem {
 	   	}
     }
 	
-    public void setPID(double p, double i, double d) {
+    public void setPIDF(double p, double i, double d, double f) {
     	getPIDController().setP(p);
     	getPIDController().setI(i);
-    	getPIDController().setD(d);
+		getPIDController().setD(d);
+		getPIDController().setF(f);
     }
 
     protected void usePIDOutput(double output) {

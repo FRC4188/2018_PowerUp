@@ -11,6 +11,7 @@ import org.usfirst.frc.team4188.robot.commands.drive.CalibrateGyro;
 import org.usfirst.frc.team4188.robot.commands.drive.GearShiftIn;
 import org.usfirst.frc.team4188.robot.commands.drive.GearShiftOff;
 import org.usfirst.frc.team4188.robot.commands.drive.GearShiftOut;
+import org.usfirst.frc.team4188.robot.commands.drive.PivotToAngle;
 import org.usfirst.frc.team4188.robot.commands.elevator.AutoBothElevatorsRun;
 import org.usfirst.frc.team4188.robot.commands.elevator.ElevatorClimbDown;
 import org.usfirst.frc.team4188.robot.commands.elevator.ElevatorClimbStop;
@@ -80,7 +81,7 @@ public class OI {
     pilot12 = new JoystickButton(pilotXboxController, 12);
     
     //pilot1.whenPressed(new ExchangeToSwitch());
-    //pilot2.whenPressed(new TurnToCube());
+    //pilot2.whenPressed(new PivotToAngle(-70, 5.0));
     
     pilot3.whileHeld(new ElevatorClimbDown());
     pilot3.whenReleased(new ElevatorClimbStop());

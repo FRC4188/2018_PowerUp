@@ -30,7 +30,7 @@ public class AutonomousMiddleFrontSwitchGoingRight extends CommandGroup {
 		addSequential(new GearShiftIn());
 		
 		// raise elevator
-		addParallel(new AutoNewElevatorRun(0.4), 1.0);
+		addParallel(new AutoNewElevatorRun(1.0), 0.6);
     	
     	// Drive Forward
     	addSequential(new AutoDriveDistanceBased(6.0 - Robot.ROBOT_LENGTH / 2, 0.5),2.0);
