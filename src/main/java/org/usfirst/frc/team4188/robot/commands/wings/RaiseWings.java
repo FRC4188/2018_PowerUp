@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4188.robot.commands.wings;
 
 import org.usfirst.frc.team4188.robot.Robot;
+import org.usfirst.frc.team4188.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -16,11 +17,12 @@ public class RaiseWings extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        System.out.println("Setting servo to 0");
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.m_wings.raiseWings(90,180);
+    	RobotMap.servo.setAngle(0);
     }
 
     // Make this return true when this Command no longer needs to run execute()

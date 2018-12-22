@@ -7,25 +7,11 @@
 
 package org.usfirst.frc.team4188.robot;
 
-import org.usfirst.frc.team4188.robot.commands.drive.CalibrateGyro;
-import org.usfirst.frc.team4188.robot.commands.drive.GearShiftIn;
-import org.usfirst.frc.team4188.robot.commands.drive.GearShiftOff;
-import org.usfirst.frc.team4188.robot.commands.drive.GearShiftOut;
-import org.usfirst.frc.team4188.robot.commands.drive.PivotToAngle;
-import org.usfirst.frc.team4188.robot.commands.elevator.AutoBothElevatorsRun;
-import org.usfirst.frc.team4188.robot.commands.elevator.ElevatorClimbDown;
-import org.usfirst.frc.team4188.robot.commands.elevator.ElevatorClimbStop;
-import org.usfirst.frc.team4188.robot.commands.elevator.ElevatorClimbUp;
-import org.usfirst.frc.team4188.robot.commands.intake.IntakeAutoClose;
-import org.usfirst.frc.team4188.robot.commands.intake.IntakeIn;
-import org.usfirst.frc.team4188.robot.commands.intake.IntakeMotorsForward;
-import org.usfirst.frc.team4188.robot.commands.intake.IntakeMotorsReverse;
-import org.usfirst.frc.team4188.robot.commands.intake.IntakeMotorsStop;
-import org.usfirst.frc.team4188.robot.commands.intake.IntakeOut;
-import org.usfirst.frc.team4188.robot.commands.intake.IntakeReleaseDown;
-import org.usfirst.frc.team4188.robot.commands.intake.IntakeReleaseOff;
-import org.usfirst.frc.team4188.robot.commands.intake.IntakeReleaseUp;
-import org.usfirst.frc.team4188.robot.commands.intake.IntakeSolenoidOff;
+import org.usfirst.frc.team4188.robot.commands.drive.*;
+import org.usfirst.frc.team4188.robot.commands.elevator.*;
+import org.usfirst.frc.team4188.robot.commands.intake.*;
+import org.usfirst.frc.team4188.robot.commands.wings.*;
+
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
@@ -88,8 +74,8 @@ public class OI {
     pilot4.whileHeld(new ElevatorClimbUp());
     pilot4.whenReleased(new ElevatorClimbStop());
     
-   // pilot5.whenPressed(new PivotToAngle(40, 5.0));
-   // pilot6.whenPressed(new PivotToAngle(-45, 5.0));
+    pilot5.whenPressed(new LowerWings());
+    pilot6.whenPressed(new RaiseWings());
     
 	pilot8.whenPressed(new CalibrateGyro());
 	 

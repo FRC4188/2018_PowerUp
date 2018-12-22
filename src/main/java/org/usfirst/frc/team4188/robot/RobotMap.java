@@ -82,10 +82,7 @@ public class RobotMap {
 	
 	public static WPI_TalonSRX climberMotor;
 	
-	public static Servo leftWingFront;
-	public static Servo leftWingBack;
-	public static Servo rightWingFront;
-	public static Servo rightWingBack;
+	public static Servo servo;
 	
 	public static DigitalInput intakeReleaseTopLimit;
 	public static DigitalInput intakeReleaseBottomLimit;
@@ -173,11 +170,8 @@ public class RobotMap {
 		climberMotor = new WPI_TalonSRX(4);
 		
 		ultrasonic = new Ultrasonic(0,1);
-		
-		leftWingFront = new Servo(6);
-		leftWingBack = new Servo(7);
-		rightWingFront = new Servo(8); 
-		rightWingBack = new Servo(9);
+
+		servo = new Servo(2);
 		
 		magneticSwitch = new DigitalInput(2);
 		

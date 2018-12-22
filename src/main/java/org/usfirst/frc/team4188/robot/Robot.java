@@ -43,7 +43,6 @@ import org.usfirst.frc.team4188.robot.subsystems.Drivetrain.PIDInput;
 import org.usfirst.frc.team4188.robot.subsystems.Elevator;
 import org.usfirst.frc.team4188.robot.subsystems.Intake;
 import org.usfirst.frc.team4188.robot.subsystems.JevoisCamera;
-import org.usfirst.frc.team4188.robot.subsystems.Wings;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -85,7 +84,6 @@ public class Robot extends TimedRobot {
 	public static Elevator m_elevator;
 	public static Climber m_climber;
 	public static Intake m_intake;
-	public static Wings m_wings;
 	
 	Command m_autonomousCommand;
 	int m_selectedCommand;
@@ -152,7 +150,6 @@ public class Robot extends TimedRobot {
 		//m_jevoisCamera = new JevoisCamera();
 		m_climber = new Climber();
 		m_intake = new Intake();
-		m_wings = new Wings();
 		m_oi = new OI();
 		RobotMap.ultrasonic.setAutomaticMode(true);
 		
